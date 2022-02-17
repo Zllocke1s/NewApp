@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+      <Text style={{fontSize: 48}}>New SEMO App</Text>
       <StatusBar style="auto" />
     </View>
   );
@@ -13,7 +13,9 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    fontSize: 48,
+    fontWeight: 'bold',
+    backgroundColor: '#C8102E',
     alignItems: 'center',
     justifyContent: 'center',
   },
