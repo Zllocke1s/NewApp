@@ -1,0 +1,2 @@
+cd SEMOAPP/
+expo start
