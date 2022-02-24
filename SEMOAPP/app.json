@@ -1,14 +1,8 @@
 {
   "expo": {
-    "name": "Bottle Shock",
-    "slug": "bottleshock",
-    "privacy": "public",
-    "platforms": [
-      "ios",
-      "android",
-      "web"
-    ],
-    "version": "2.6.2",
+    "name": "SEMOAPP",
+    "slug": "SEMOAPP",
+    "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -23,36 +17,16 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.outpost.bottleshock",
-      "buildNumber": "2.6.2"
-    },
-    "description": "Bottle Shock",
-    "packagerOpts": {
-      "config": "metro.config.js",
-      "sourceExts": [
-        "expo.ts",
-        "expo.tsx",
-        "expo.js",
-        "expo.jsx",
-        "ts",
-        "tsx",
-        "js",
-        "jsx",
-        "json",
-        "wasm",
-        "svg"
-      ]
+      "supportsTablet": true
     },
     "android": {
-      "versionCode": 62,
-      "package": "com.outpost.bottleshock",
-      "permissions":[],
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#FFFFFF"
       }
-      
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
     }
   }
 }

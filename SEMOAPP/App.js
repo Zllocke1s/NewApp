@@ -1,12 +1,22 @@
-import React from 'react';
-import { Provider } from 'react-native-paper';
-import App from './src';
-import { theme } from './src/core/theme';
+import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, Text, View } from 'react-native';
 
-const Main = () => (
-  <Provider theme={theme}>
-    <App />
-  </Provider>
-);
+export default function App() {
+  return (
+    <View style={styles.container}>
+      <Text style={{fontSize: 48}}>New SEMO App</Text>
+      <StatusBar style="auto" />
+    </View>
+  );
+}
 
-export default Main;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    fontSize: 48,
+    fontWeight: 'bold',
+    backgroundColor: '#C8102E',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
