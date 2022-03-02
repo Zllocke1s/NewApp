@@ -13,12 +13,20 @@ export const styles = StyleSheet.create({
 
     },
     headerContainer: {
-        flex: .2,
+        flex: .35,
         flexDirection: "row",
         display: "flex",
         width: '100%',
         backgroundColor: "#C8102E",
-        padding: 10   
+        padding: 10,
+        justifyContent: "center"
+    },
+    headerSubContainer: {
+        flexDirection: "row",
+        width: 500,
+        height: 100,
+        padding: 10,
+        paddingTop: 35
     },
     tileContainer: {
         padding: 10,

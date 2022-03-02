@@ -1,13 +1,16 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import { styles } from './styles/LandingStyle';
-import { Tile } from './components/Tile';
+import { Tile, HeaderTile } from './components/Tile';
 
 export default function App() {
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
-      <Text>Header Text</Text>
+        <View style={styles.headerSubContainer}>
+          <HeaderTile name={"Calendar"} icon="icon" fullscreen={false} />
+          <HeaderTile name={"Maps"} icon="icon" fullscreen={false} />
+        </View>
       </View>
       <View style={styles.tileContainer}>
       <View style={styles.tileSubContainer}>
