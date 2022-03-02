@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
 });
 
 return (
-  <View style={styles.barContainer}><View style={styles.number}><Text style={styles.number}>{place}</Text></View><View style={styles.notNumber}><View style={styles.barText}><Text style={styles.barGroup}>{group}</Text><Text style={styles.barLabel}>{value} %</Text></View>
+  <View style={styles.barContainer}><View style={styles.number}><Text style={styles.number}>{place}</Text></View><View style={styles.notNumber}><View style={styles.barText}><Text style={styles.barGroup}>{group}</Text><Text style={styles.barLabel}>{value.toFixed()} %</Text></View>
   <View style={styles.barBackground}><View style={styles.bar}><Text></Text></View></View></View>
 
 </View>

@@ -14,131 +14,43 @@ import GraphBar from '../components/GraphBar';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useFocusEffect } from '@react-navigation/native';
 import { useIsFocused } from '@react-navigation/native';
+import { Value } from 'react-native-reanimated';
 
 
 
 const Scoreboard = ({ navigation, user, load }) => {
 
-  
-  const [data, setData] = useState([]);
+  console.log("User: " + JSON.stringify(user));  
 
+  const [graphs, setGraphs] = useState();
+  
   const isFocused = useIsFocused();
 
   const [maxVal, setMaxVal] = useState(0);
 
- useEffect(() => {
-   if(isFocused)
-   {
-    console.log("Focused!!!");
-    fetch('http://outpostorganizer.com/SITE/api.php/records/SmallGroups?camp=' + user.Home + '&order=Points,desc', {
-  method: 'GET'
-})
-.then((response) => response.json())
-.then((responseJson) => {
-//  console.log(responseJson);
-  //setData(responseJson.records);
-  setData(
-    [
-      {
-        Name: "Sweetness",
-        Points: 75
-      },
-      {
-        Name: "Acidity",
-        Points: 47
-      },
-      {
-        Name: "Body",
-        Points: 20
-      },
-      {
-        Name: "Tannins",
-        Points: 5
-      },
-      {
-        Name: "Alcohol",
-        Points: 35
-      }
-      
-    ]
-  );
-  
-
- // console.log(responseJson.records);
- // console.log("Umm data is above, and user is below");
-  var max = 0;
-  var array = [];
-  for(var i=0; i<responseJson.records.length; i++)
+  var values = [ {
+    Name: "Sweetness",
+    Points: eval(user.sweetness)
+  },
   {
-    console.log("loop iteration " + i + ": " + responseJson.records[i].Points);
-    array.push( responseJson.records[i].Points);
-  }
-  console.log("ARRAY: " + array);
-  const maxv = Math.max(...array);
-console.log("Max: " + maxv);
-  
-  //setMaxVal(maxv);
-  setMaxVal(100);
-  global.maxVal = maxv;
-  console.log(maxv);
-  console.log("Score Grabbed");
-} )
-   }
-  },[isFocused]);
-
-
-//
-useEffect(() => {
-  console.log("useeffect called");
-  fetch('http://outpostorganizer.com/SITE/api.php/records/SmallGroups?camp=' + user.Home + '&order=Points,desc', {
-  method: 'GET'
-})
-.then((response) => response.json())
-.then((responseJson) => {
-//  console.log(responseJson);
-  //setData(responseJson.records);
-  setData(
-    [
-      {
-        Name: "Sweetness",
-        Points: 75
-      },
-      {
-        Name: "Acidity",
-        Points: 47
-      },
-      {
-        Name: "Body",
-        Points: 20
-      },
-      {
-        Name: "Tannins",
-        Points: 5
-      },
-      {
-        Name: "Alcohol",
-        Points: 35
-      }
-      
-    ]
-  )
- // console.log(responseJson.records);
- // console.log("Umm data is above, and user is below");
-  var array = [];
-  for(var i=0; i<responseJson.records.length; i++)
+    Name: "Acidity",
+    Points: eval(user.acidity)
+  },
   {
-    console.log("loop iteration " + i + ": " + responseJson.records[i].Points);
-    array.push( responseJson.records[i].Points);
+    Name: "Body",
+    Points: eval(user.body)
+  },
+  {
+    Name: "Tannins",
+    Points: eval(user.tannins)
+  },
+  {
+    Name: "Alcohol",
+    Points: eval(user.alcohol)
   }
-  console.log("ARRAY: " + array);
-  const max = Math.max(...array);
-  console.log("Other max?: " + max);
-  //setMaxVal(max);
-  setMaxVal(100);
-  console.log(max);
-  console.log("Score Grabbed");
-} )
-}, [load]);
+  
+]
+
 
 if(load)
 {
@@ -159,12 +71,12 @@ if(load)
     <Header>Your Taste Profile</Header>
     <View style={styles.scoreboardBox}>
     <ScrollView style={{width: "100%"}}>
-      {
-    console.log("Data: " + JSON.stringify(data))}
-    {data.map(function(item, index) {
+      
+    {values.map(function(item, index) {
 
-    return (<GraphBar place={index+1} color={theme.colors.medBlue} maxValue={maxVal} value={item.Points} group={item.Name}/>);
-  })}
+return (<GraphBar place={index+1} color={theme.colors.medBlue} maxValue={100} value={item.Points} group={item.Name}/>);
+
+})}
     </ScrollView>
 
 

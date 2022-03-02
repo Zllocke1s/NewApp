@@ -87,6 +87,7 @@ const LoginScreen = ({ navigation }) => {
             const userAdv = findIdByEmail(responseJson2.records, email.value);
 
             save("user", JSON.stringify(userAdv))
+            console.log(userAdv);
             navigation.navigate('Wrapper', {user: userAdv} );
           
 

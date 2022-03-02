@@ -11,7 +11,7 @@ import { theme } from '../core/theme';
 import { styles } from '../styles/ListStyle';
 import { Text, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import ComplexListItem from '../components/ComplexListItem';
+import InventoryWine from '../components/InventoryWine';
 import Task from '../components/Task';
 import Announcement from '../components/Announcement';
 import Details from './Details';
@@ -106,74 +106,111 @@ const List = ({ navigation, user, load }) => {
   }
   
   useEffect(() => {
-    fetch('http://outpostorganizer.com/SITE/api.php/records/Spots?camp=' + user.Home, {
-    method: 'GET'
-  })
-  .then((response) => response.json())
-  .then((responseJson) => {
-  //  console.log(responseJson);
-  console.log("called");
-    setData(responseJson.records);
-    var total = 0;
-    var totalTemp = 0;
-    for (let spot of responseJson.records) {
-      total = total + spot.tasks.split("& ").length;
-      totalTemp = totalTemp + spot.tempTasks.split("& ").length;
-    }
-    console.log("Total: " + total);
-    console.log("Total Temp: " + totalTemp);
-    setPercent(((total-totalTemp)/total) * 100)
-    setFormattedComplexTasks(responseJson.records.map(function(item, index) {
-      if(item.status==sList)
-      {
-      return (<ComplexListItem logs={item.logs} claim={claimSite} denied={item.denied} siteNum={item.SID} adv={advanced2} progress={(((item.tasks.split("& ").length - item.tempTasks.split("& ").length)*100)/item.tasks.split("& ").length).toString() + "%"} title={item.site_Name} people={item.usersWorking.split("&").length-1} siteOwner={item.siteOwner==null ? null : item.siteOwner.slice(0, -2)} tasks={item.tempTasks.split("& ")}/>);}
-      }))
-    //console.log(data);
-  }
-    //console.log(data);
-   )
+      var uncheckedWines = []
+    
+      return fetch('https://outpostorganizer.com/SITE/api.php/records/Wines?camp=bottleshock', {
+      method: 'GET'
+    })
+    .then((response) => response.json())
+    .then((responseJson) => {
+      return fetch('https://outpostorganizer.com/SITE/api.php/records/Reviews?camp=bottleshock',
+      {method: 'GET'}).then((response) => response.json())
+      .then((responseJson2) => {
+        var myReviews = responseJson2.records.filter((item) => item.UID == user.UID);
+        uncheckedWines = responseJson.records;
+        myReviews.map((review) => {
+          uncheckedWines = uncheckedWines.filter((item) => item.WID==review.WID)
+        })
+        var pairs = []
+        uncheckedWines.map((wine) => {
+          pairs.push({wine: wine, review: myReviews.find((review) => review.WID==wine.WID)})
+        })
+        console.log("pairs: " + JSON.stringify(pairs))
+        setData(pairs);
+        return uncheckedWines;
+      })
+    //  console.log(responseJson);
+    console.log("called");
+      setData(responseJson.records);
+      return responseJson.records;
+      //console.log(data);
+    } )
+    
   }, [load]);
 
   useEffect(() => {
-    setFormattedComplexTasks(data.map(function(item, index) {
-      if(item.status==sList)
-      {
-      return (<ComplexListItem logs={item.logs} claim={claimSite} denied={item.denied} siteNum={item.SID} adv={advanced2} progress={(((item.tasks.split("& ").length - item.tempTasks.split("& ").length)*100)/item.tasks.split("& ").length).toString() + "%"} title={item.site_Name} people={item.usersWorking.split("&").length-1} siteOwner={item.siteOwner==null ? null : item.siteOwner.slice(0, -2)} tasks={item.tempTasks.split("& ")}/>);}
-      }))
+    console.log("data in useEffect: " + JSON.stringify(data))
+    //setFormattedAdvTasks()
       
   }, [data])
 
-  //Nova helped me figure it out :)
-  function onReturn() {
-    
-    fetch('http://outpostorganizer.com/SITE/api.php/records/Spots?camp=' + user.Home, {
+
+  const fetchData = () => {
+    var uncheckedWines = []
+  
+    return fetch('https://outpostorganizer.com/SITE/api.php/records/Wines?camp=bottleshock', {
     method: 'GET'
   })
   .then((response) => response.json())
   .then((responseJson) => {
+    return fetch('https://outpostorganizer.com/SITE/api.php/records/Reviews?camp=bottleshock',
+    {method: 'GET'}).then((response) => response.json())
+    .then((responseJson2) => {
+      var myReviews = responseJson2.records.filter((item) => item.UID == user.UID);
+      uncheckedWines = responseJson.records;
+      myReviews.map((review) => {
+        uncheckedWines = uncheckedWines.filter((item) => item.WID==review.WID)
+      })
+      var pairs = []
+      uncheckedWines.map((wine) => {
+        var x = myReviews.find((review) => review.WID==wine.WID);
+        console.log("x: " + JSON.stringify(x));
+        pairs.push({wine: wine, review: x})
+      })
+      console.log("pairs: " + JSON.stringify(pairs))
+      setData(pairs);
+      return uncheckedWines;
+    })
   //  console.log(responseJson);
   console.log("called");
     setData(responseJson.records);
-    var total = 0;
-    var totalTemp = 0;
-    for (let spot of responseJson.records) {
-      total = total + spot.tasks.split("& ").length;
-      totalTemp = totalTemp + spot.tempTasks.split("& ").length;
-    }
-    console.log("Total: " + total);
-    console.log("Total Temp: " + totalTemp);
-    setPercent(((total-totalTemp)/total) * 100)
-    if((((total-totalTemp)/total) * 100 )== 100)
-    {
-      confettiTime()
-    }
-    setFormattedComplexTasks(responseJson.records.map(function(item, index) {
-      if(item.status==sList)
-      {
-      return (<ComplexListItem claim={claimSite} denied={item.denied} siteNum={item.SID} adv={advanced2} progress={(((item.tasks.split("& ").length - item.tempTasks.split("& ").length)*100)/item.tasks.split("& ").length).toString() + "%"} title={item.site_Name} people={item.usersWorking.split("&").length-1} siteOwner={item.siteOwner==null ? null : item.siteOwner.slice(0, -2)} tasks={item.tempTasks.split("& ")}/>);}
-      }))
+    return responseJson.records;
     //console.log(data);
   } )
+  }
+
+  //Nova helped me figure it out :)
+  function onReturn() {
+      var uncheckedWines = []
+    
+      return fetch('https://outpostorganizer.com/SITE/api.php/records/Wines?camp=bottleshock', {
+      method: 'GET'
+    })
+    .then((response) => response.json())
+    .then((responseJson) => {
+      return fetch('https://outpostorganizer.com/SITE/api.php/records/Reviews?camp=bottleshock',
+      {method: 'GET'}).then((response) => response.json())
+      .then((responseJson2) => {
+        var myReviews = responseJson2.records.filter((item) => item.UID == user.UID);
+        uncheckedWines = responseJson.records;
+        myReviews.map((review) => {
+          uncheckedWines = uncheckedWines.filter((item) => item.WID==review.WID)
+        })
+        var pairs = []
+        uncheckedWines.map((wine) => {
+          pairs.push({wine: wine, review: myReviews.find((review) => review.WID==wine.WID)})
+        })
+        console.log("pairs: " + JSON.stringify(pairs))
+        setData(pairs);
+        return uncheckedWines;
+      })
+    //  console.log(responseJson);
+    console.log("called");
+      setData(responseJson.records);
+      return responseJson.records;
+      //console.log(data);
+    } )
+    
   
   }
 
@@ -294,6 +331,7 @@ const List = ({ navigation, user, load }) => {
       </Text>
       <ScrollView contentContainerStyle={styles.advScrollView}>
         {formattedAdvTasks}
+        
       </ScrollView>
     </View>
 
@@ -309,8 +347,22 @@ const List = ({ navigation, user, load }) => {
     <ScrollView keyboardShouldPersistTaps='always' style={{width: '100%', paddingLeft: 20,paddingRight: 20,}} contentContainerStyle={{width: '100%'}}>
     <View style={styles.scrollViewContainer}>
       {/*Todo: Find way to show selected checkable list */}
-      {formattedComplexTasks}
-   {/* <ComplexListItem adv={advanced} progress="42%" title="Dining Hall" people="3" tasks={task1()}/>    */}
+      {data.map(pair => {
+        var item = pair.wine;
+        var review = pair.review;
+      return <InventoryWine siteNum={item.WID}  title={item.Name} 
+      aroma={item.AromaDesc}
+      sugarRating={item.Sweetness} 
+      acidRating={item.Acidity}
+      bodyRating={item.Body}
+      tanninRating={item.Tannins}
+      alcoholRating={item.Alcohol}
+      score={review.Score}
+      notes={review.Notes}
+      />
+    
+    })}
+   {/* <InventoryWine adv={advanced} progress="42%" title="Dining Hall" people="3" tasks={task1()}/>    */}
     </View>
     </ScrollView></View>{Ccomplete ? 
     <View pointerEvents="none" style={{position: "absolute", zIndex: 1000, bottom: 0, top: 0, left: 0, width: "100%" }}><ConfettiCannon

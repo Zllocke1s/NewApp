@@ -84,11 +84,25 @@ const loadDetails = () => {
 };
 
 const fetchData = () => {
+  var uncheckedWines = []
+
   return fetch('https://outpostorganizer.com/SITE/api.php/records/Wines?camp=bottleshock', {
   method: 'GET'
 })
 .then((response) => response.json())
 .then((responseJson) => {
+  return fetch('https://outpostorganizer.com/SITE/api.php/records/Reviews?camp=bottleshock',
+  {method: 'GET'}).then((response) => response.json())
+  .then((responseJson2) => {
+    var myReviews = responseJson2.records.filter((item) => item.UID == user.UID);
+    uncheckedWines = responseJson.records;
+    myReviews.map((review) => {
+      uncheckedWines = uncheckedWines.filter((item) => item.WID!=review.WID)
+    })
+    console.log("Unchecked Wines: " + JSON.stringify(uncheckedWines))
+    setData(uncheckedWines);
+    return uncheckedWines;
+  })
 //  console.log(responseJson);
 console.log("called");
   setData(responseJson.records);

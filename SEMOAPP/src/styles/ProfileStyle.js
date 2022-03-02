@@ -110,6 +110,15 @@ export const styles = StyleSheet.create({
       marginBottom: 20,
       color: theme.colors.darkBlue
     },
+    question: {
+      justifyContent: 'center',
+      alignItems: 'center',
+      fontFamily: 'SulphurPoint-Regular',
+      fontSize: 16,
+      textDecorationLine: 'none',
+      marginBottom: 20,
+      color: theme.colors.black
+    },
     ListPassword: {
       width: '100%',
       alignItems: 'flex-end',
@@ -206,11 +215,18 @@ export const styles = StyleSheet.create({
         color: theme.colors.lightRed,
         fontFamily: 'SulphurPoint-Regular',
         
-    },
-    buttonHolder: {
+      },
+      buttonHolder: {
+        display: "flex",
+        flexDirection: "row",
+        width: "70%",
+      //  backgroundColor: "#00FF00",
+        justifyContent: "center"
+      },
+    buttonHolder2: {
       display: "flex",
-      flexDirection: "row",
-      width: "70%",
+      flexDirection: "column",
+      width: "100%",
     //  backgroundColor: "#00FF00",
       justifyContent: "center"
     },
@@ -233,12 +249,26 @@ export const styles = StyleSheet.create({
     color: theme.colors.black,
     marginTop: 60,
     fontFamily: 'SulphurPoint-Regular',   
-    width: '60%',
+    width: '100%',
     borderColor: theme.colors.black,
     fontSize: 18,
     borderWidth: 2
     
     
+},quiz: {
+  height: 'auto',
+  borderRadius: 30,
+  backgroundColor: theme.colors.lightBlue,
+  color: theme.colors.black,
+  fontFamily: 'SulphurPoint-Regular',   
+  width: 'auto',
+  borderColor: theme.colors.black,
+  fontSize: 12,
+  alignSelf:'baseline',
+  flexWrap: "wrap",
+  borderWidth: 2
+  
+  
 },
   showCompleteButton: {
     height: 'auto',

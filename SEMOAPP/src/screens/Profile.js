@@ -23,8 +23,96 @@ import * as SecureStore from 'expo-secure-store';
 
 const Profile = ({ navigation, user }) => {
 
+  const questions = [
+    {id: 0, question: "If you drink coffee, which statement would best describe how you prefer it:",
+    answers: ["Add sugar (or sweetener) and cream", 
+              "Add cream only", 
+              "Add lemon only", 
+              "Take it straight", 
+              "Don't drink coffee"],
+    tp: [ [10,5,5,5,5], 
+          [7,5,0,0,-1], 
+          [5,10,5,5,5], 
+          [0,7,5,7,1], 
+          [5,5,5,5,5]]
+  },
+  {id: 1, question: "If you drink coffee or tea, do you like it:",
+    answers: ["Fairly Strong", 
+              "Average Strength", 
+              "Mostly on the lighter/weaker side", 
+              "Any strength, but cut with sugar"],
+    tp: [ [0,0,10,10,1], 
+          [5,5,5,7,5], 
+          [5,5,0,0,-1], 
+          [10,5,5,5,5]]
+  },
+  {id: 2, question: "When out at a fancy restaurant, what beverage would you ask the waiter for on a special occasion?",
+    answers: ["Water or non-alcoholic beverage only", 
+              "A good beer", 
+              "A good (still) wine", 
+              "A sparkling wine, Champagne", 
+              "A mixed or straight spirit drink",
+              "A cocktail with slight sweetness"],
+    tp: [ [5,5,0,0,-10], 
+          [0,5,10,10,1], 
+          [5,0,7,7,1],
+          [2,10,4,0,0],
+          [2,5,5,5,10], 
+          [7,7,5,5,1]]
+  },
+  {id: 3, question: "If you occasionally drink cocktails or distilled spirits, which would you be more likely to choose:",
+    answers: ["Martini", 
+              "Bourbon or Scotch", 
+              "Margarita", 
+              "Sparkling Wine",
+              "Rarely or never drink cocktails"],
+    tp: [ [0,5,5,7,1], 
+          [0,5,7,7,10], 
+          [7,7,5,7,1], 
+          [7,10,0,5,5], 
+          [5,5,5,5,-10]]
+  },
+  {id: 4, question: "How do you like your lemonade:",
+    answers: ["Strong, lemony, and sweet", 
+              "Lemony tart and not too sweet", 
+              "Light lemon and light sweetness", 
+              "Crystal Light low calorie lemonade",
+              "Do not care for lemonade"],
+    tp: [ [10,7,10,7,1], 
+          [0,10,7,7,5], 
+          [7,7,0,5,5], 
+          [7,10,0,0,5], 
+          [0,0,5,5,5]]
+  },  
+  ];
 
+  function addToScores(score)
+  {
+      global.quizS+= score[0];
+      global.quizA+= score[1];
+      global.quizT+= score[2];
+      global.quizB+= score[3];
+      global.quizAl+= score[4];
+      console.log("Current Sweetness: " + global.quizS);
+      console.log("Current Acidity: " + global.quizA);
+      console.log("Current Body: " + global.quizB);
+      console.log("Current Tannins: " + global.quizT);
+      console.log("Current Alcohol: " + global.quizAl);
+  }
 
+  const formattedQuestions = questions.map((q) => {
+    return (<View><Text style={styles.question}>{q.question}</Text>
+    {q.answers.map((a, i) => {
+      return <Button style={styles.quiz} mode="outlined" onPress={ () => {
+        addToScores(q.tp[i]);
+      }}
+        ><Text style={styles.quiz}>{a}</Text></Button>
+    })
+  }
+    </View>
+    );
+  }
+  );
 
   const [screenName, setScreenName] = React.useState(user.screenName);
 
@@ -92,6 +180,19 @@ const Profile = ({ navigation, user }) => {
   {
     setADV(!showAdv);
     setHeading(title);
+    console.log("Body: " + (body))
+    setBody(body);
+  }
+
+  function advancedQuiz(title, body)
+  {
+    setADV(!showAdv);
+    setHeading(title);
+    global.quizS = 0;
+    global.quizA = 0;
+    global.quizB = 0;
+    global.quizT = 0;
+    global.quizAl = 0;
     console.log("Body: " + (body))
     setBody(body);
   }
@@ -439,6 +540,31 @@ function setToSendNotificationTo(recipient)
        console.log("ERROR");
     });
 
+  }
+
+  function updatePreferences(s, a, b, t, al) {
+
+    fetch('http://outpostorganizer.com/SITE/api.php/records/Users/' + user.UID + '?camp=bottleshock', {
+      method: 'PUT',
+      body: JSON.stringify({
+        sweetness: s,
+        acidity: a,
+        body: b,
+        tannins: t,
+        alcohol: al,
+    })
+    })
+   .then((response) => response.json())
+   .then((responseJson) => {
+      console.log("ProfileUpdate Response: " + JSON.stringify(responseJson));     
+      return <Text>responseJson</Text>;
+    })
+    
+    .catch((error) => {
+       console.error(error);
+       console.log("ERROR");
+    });
+
     user.screenName = sName;
     user.recoveryEmail = email;
     user.profilePicURL = pic;
@@ -583,26 +709,55 @@ function setToSendNotificationTo(recipient)
       <Text style={styles.submit} >Submit</Text>
   </Button></View>
     </View>} />
-    <ProfileModule isAdmin={user.isAdmin} requireAdmin={true} adv={advanced} title={"Retake Quiz" + (global.toSendNotificationTo==null ? "" : " to: " + global.toSendNotificationTo)} body={
+    <ProfileModule isAdmin={user.isAdmin} requireAdmin={false} adv={advancedQuiz} title={"Take Quiz"} body={
     <View style={styles.subContainer}>
-       <TextInput
-        style={styles.largeInput}
-        placeholder="Notification Text"
-        multiline={true}
-        onChangeText={text => setNotificationText(text)}
-        defaultValue={''}
-      />
-    <View style={styles.inputContainer}><Button style={styles.submit} mode="outlined" onPress={ () => {
-      console.log("Button Pressed: " + notificationTextbox);
-      sendNotification("From " + user.screenName);
-      setToSendNotificationTo(null);
+       {formattedQuestions}<View style={styles.buttonHolder2}><Button style={styles.submit} mode="outlined" onPress={ () => {
+      console.log("Button Pressed: ");
+      var totalQuiz = global.quizS + global.quizA + global.quizB + global.quizT + global.quizAl;
+      console.log("Current Sweetness: " + global.quizS/totalQuiz);
+      console.log("Current Acidity: " + global.quizA/totalQuiz);
+      console.log("Current Body: " + global.quizB/totalQuiz);
+      console.log("Current Tannins: " + global.quizT/totalQuiz);
+      console.log("Current Alcohol: " + global.quizAl/totalQuiz);
+      if(user.sweetness!=0)
+      {
+        user.sweetness = (eval(user.sweetness) + eval(global.quizS*100/totalQuiz))/2;
+      }
+      user.acidity = (eval(user.acidity) + (global.quizA*100/totalQuiz))/2;
+      user.body = (eval(user.body) + (global.quizB*100/totalQuiz))/2;
+      user.tannins = (eval(user.tannins) + (global.quizT*100/totalQuiz))/2;
+      user.alcohol = (1.5*eval(user.alcohol) + 1*(global.quizAl*100/totalQuiz))/2.5;
+      console.log("New Users Scores");
+      console.log("Sweetness: " + user.sweetness);
+      console.log("Acidity: " + user.acidity);
+      console.log("Body: " + user.body);
+      console.log("Tannins: " + user.tannins);
+      console.log("Alcohol: " + user.alcohol);
+      updatePreferences(user.sweetness, user.acidity, user.body, user.tannins, user.alcohol);
       setADV(false);
     }}
-      ><Text style={styles.submit} >Submit</Text>
-      </Button></View><View style={styles.buttonHolder}>
-    </View>
+      ><Text style={styles.submit} >Add to Profile</Text>
+      </Button>
+      <Button style={styles.submit} mode="outlined" onPress={ () => {
+      console.log("Button Pressed: ");
+      var totalQuiz = global.quizS + global.quizA + global.quizB + global.quizT + global.quizAl;
+      console.log("Current Sweetness: " + global.quizS/totalQuiz);
+      console.log("Current Acidity: " + global.quizA/totalQuiz);
+      console.log("Current Body: " + global.quizB/totalQuiz);
+      console.log("Current Tannins: " + global.quizT/totalQuiz);
+      console.log("Current Alcohol: " + global.quizAl/totalQuiz);
+      user.sweetness = (eval(user.sweetness) + eval(global.quizS*100/totalQuiz))/2;
+      user.acidity = ((global.quizA*100/totalQuiz));
+      user.body = ((global.quizB*100/totalQuiz));
+      user.tannins = ((global.quizT*100/totalQuiz));
+      user.alcohol = ((global.quizAl*100/totalQuiz));
+      updatePreferences(user.sweetness, user.acidity, user.body, user.tannins, user.alcohol);
+      setADV(false);
+    }}
+      ><Text style={styles.submit} >Replace Profile</Text>
+      </Button></View>
   </View>} />
-  <ProfileModule isAdmin={user.isAdmin} requireAdmin={true} adv={advanced} title={"Add New Wine"} body={
+  <ProfileModule isAdmin={user.isAdmin} requireAdmin={false} adv={advanced} title={"Add New Wine"} body={
     <View style={styles.subContainer}>
        <View style={styles.inputContainer}>
       <Text style={styles.inputLabel}>Wine Name:</Text>
@@ -617,12 +772,14 @@ function setToSendNotificationTo(recipient)
       <TextInput
         style={styles.input}
         placeholder="Sweetness"
+        keyboardType='numeric'
         onChangeText={text => setSweetness(text)}
         defaultValue={''} />
     </View><View style={styles.inputContainer}>
       <Text style={styles.inputLabel}>Acidity:</Text>
       <TextInput
         style={styles.input}
+        keyboardType='numeric'
         placeholder="Acidity"
         onChangeText={text => setAcidity(text)}
         defaultValue={''}
@@ -632,6 +789,7 @@ function setToSendNotificationTo(recipient)
       <TextInput
         style={styles.input}
         placeholder="Body"
+        keyboardType='numeric'
         onChangeText={text => setWBody(text)}
         defaultValue={''}
       />
@@ -640,6 +798,7 @@ function setToSendNotificationTo(recipient)
       <TextInput
         style={styles.input}
         placeholder="Tannins"
+        keyboardType='numeric'
         onChangeText={text => setTannins(text)}
         defaultValue={''}
       />
@@ -648,6 +807,7 @@ function setToSendNotificationTo(recipient)
       <TextInput
         style={styles.input}
         placeholder="Alcohol"
+        keyboardType='numeric'
         onChangeText={text => setAlcohol(text)}
         defaultValue={''}
       />
