@@ -28,7 +28,7 @@ export const Tile = (({name, icon, fullscreen}) => {
 export const HeaderTile = (({name, icon, fullscreen}) => {
     if(fullscreen)
     {
-        return(<View style={styles.container}>
+        return(<View style={styles.headerContainer}>
             <TouchableOpacity>
                 <View style={styles.textContainer}>
                     <Text style={styles.text}>{name}</Text>
@@ -39,7 +39,7 @@ export const HeaderTile = (({name, icon, fullscreen}) => {
     else
     {
         return(
-            <TouchableOpacity style={styles.container}>
+            <TouchableOpacity style={styles.headerContainer}>
                 <View style={styles.textContainer}>
                     <Text style={styles.text}>{name}</Text>
                 </View>
@@ -51,18 +51,30 @@ export const HeaderTile = (({name, icon, fullscreen}) => {
 
 const styles = StyleSheet.create({
     container: {
-      flex: .3,
-      height: 100,
-      width: 500,
-      fontSize: 48,
-      paddingBottom: 10,
-      fontWeight: 'bold',
-      backgroundColor: '#fff',
-      alignItems: 'center',
-      justifyContent: 'flex-end',
-      margin: 0
-
-    },
+        flex: .3,
+        height: 100,
+        width: 500,
+        fontSize: 48,
+        paddingBottom: 10,
+        fontWeight: 'bold',
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        margin: 0
+  
+      },
+      headerContainer: {
+        flex: .35,
+        height: 100,
+        fontSize: 48,
+        paddingBottom: 10,
+        fontWeight: 'bold',
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        margin: 0
+  
+      },
     max: {
         width: "100%"
     },
