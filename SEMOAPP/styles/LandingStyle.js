@@ -8,30 +8,26 @@ export const styles = StyleSheet.create({
       backgroundColor: '#eee',
       alignItems: 'center',
       alignContent: "center",
-      justifyContent: 'flex-start',
-      margin: 0
-
+      justifyContent: 'flex-start'
     },
     headerContainer: {
         flex: .35,
         flexDirection: "row",
-        display: "flex",
         width: '100%',
         backgroundColor: "#C8102E",
-        padding: 10,
-        justifyContent: "center"
+        padding: 10
     },
     headerSubContainer: {
+        flex: 1,
         flexDirection: "row",
         width: 500,
         height: 100,
-        padding: 10,
-        paddingTop: 35
+        paddingTop: 35,
+        justifyContent: "center"
     },
     tileContainer: {
         padding: 10,
         margin: 20,
-        justifyContent: "space-between",
         width: "100%"
     },
     tileSubContainer: {
