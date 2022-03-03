@@ -12,16 +12,13 @@ export const styles = StyleSheet.create({
     },
     headerContainer: {
         flex: .35,
-        flexDirection: "row",
-        width: '100%',
         backgroundColor: "#C8102E",
         padding: 10
     },
     headerSubContainer: {
-        display: "flex",
         flexDirection: "row",
-        width: "100%",
-        justifyContent: "space-between",
+        width: 500,
+        justifyContent: "space-evenly",
         paddingTop: 35
     },
     tileContainer: {
