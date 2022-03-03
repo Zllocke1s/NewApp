@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, Image, View } from 'react-native';
 import { styles } from './styles/LandingStyle';
-import { Tile, HeaderTile } from './components/Tile';
+import { Tile, HeaderTile, NewsTile } from './components/Tile';
 
 export default function App() {
   return (
@@ -29,7 +29,11 @@ export default function App() {
           <Tile name={""} src={false} fullscreen={false} />
         </View>
         </View>
+        <View style={styles.newsTileContainer}>
+          <NewsTile name={"News"} />
+        </View>
     </View>
+    
   );
 }
 

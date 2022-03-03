@@ -23,8 +23,16 @@ export const styles = StyleSheet.create({
     },
     tileContainer: {
         padding: 10,
-        margin: 20,
+        marginTop: 20,
         width: "100%"
+    },
+    newsTileContainer: {
+        display: "flex",
+        flexDirection: "row",
+        width: "100%",
+        height: 10,
+        justifyContent: "center",
+        padding: 0
     },
     tileSubContainer: {
         display: "flex",

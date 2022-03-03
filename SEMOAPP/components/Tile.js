@@ -56,6 +56,18 @@ export const HeaderTile = (({name, src, fullscreen}) => {
     }
 });
 
+export const NewsTile = (({name}) => {
+        return(
+            <TouchableOpacity style={styles.newsContainer}>
+                <View style={styles.textContainer}>
+                    <Text style={styles.text}>{name}</Text>
+                </View>
+            </TouchableOpacity>
+        );
+});
+
+
+
 const styles = StyleSheet.create({
     container: {
         flex: .3,
@@ -81,6 +93,17 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'flex-end',
         margin: 0
+  
+      },
+      newsContainer: {
+        flex: .85,
+        height: 80,
+        fontSize: 48,
+        paddingBottom: 10,
+        fontWeight: 'bold',
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
   
       },
       logo:
