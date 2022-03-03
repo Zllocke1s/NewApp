@@ -9,8 +9,6 @@ export default function App() {
       <View style={styles.headerContainer}>
         <View style={styles.headerSubContainer}>
           <HeaderTile name={"Calendar"} icon="icon" fullscreen={false} />
-        </View>
-        <View style={styles.headerSubContainer}>
           <HeaderTile name={"Maps"} icon="icon" fullscreen={false} />
         </View>
       </View>

@@ -53,6 +53,7 @@ const styles = StyleSheet.create({
     container: {
       flex: .3,
       height: 100,
+      width: 500,
       fontSize: 48,
       paddingBottom: 10,
       fontWeight: 'bold',

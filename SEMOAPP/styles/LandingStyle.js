@@ -18,12 +18,11 @@ export const styles = StyleSheet.create({
         padding: 10
     },
     headerSubContainer: {
-        flex: 1,
+        display: "flex",
         flexDirection: "row",
-        width: 500,
-        height: 100,
-        paddingTop: 35,
-        justifyContent: "center"
+        width: "100%",
+        justifyContent: "space-between",
+        paddingTop: 35
     },
     tileContainer: {
         padding: 10,
