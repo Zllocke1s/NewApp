@@ -1,14 +1,15 @@
 import { TouchableOpacity, Image, StyleSheet, Text, View, Touchable } from 'react-native';
 
 
-export const Tile = (({name, icon, fullscreen}) => {
+
+export const Tile = (({name, src, fullscreen}) => {
     if(fullscreen)
     {
         return(<View style={styles.container}>
             <TouchableOpacity>
-                <View style={styles.textContainer}>
-                    <Text style={styles.text}>{name}</Text>
-                </View>
+            <Image style={styles.fullLogo}
+                   source={src}
+           ></Image>
             </TouchableOpacity>
         </View>);
     }
@@ -17,6 +18,9 @@ export const Tile = (({name, icon, fullscreen}) => {
         return(
             <TouchableOpacity style={styles.container}>
                 <View style={styles.textContainer}>
+            <Image style={styles.logo}
+                   source={src}
+           ></Image>
                     <Text style={styles.text}>{name}</Text>
                 </View>
             </TouchableOpacity>
@@ -25,7 +29,7 @@ export const Tile = (({name, icon, fullscreen}) => {
     }
 });
 
-export const HeaderTile = (({name, icon, fullscreen}) => {
+export const HeaderTile = (({name, src, fullscreen}) => {
     if(fullscreen)
     {
         return(<View style={styles.headerContainer}>
@@ -41,6 +45,9 @@ export const HeaderTile = (({name, icon, fullscreen}) => {
         return(
             <TouchableOpacity style={styles.headerContainer}>
                 <View style={styles.textContainer}>
+                <Image style={styles.headerLogo}
+                   source={src}
+           ></Image>
                     <Text style={styles.text}>{name}</Text>
                 </View>
             </TouchableOpacity>
@@ -76,12 +83,28 @@ const styles = StyleSheet.create({
         margin: 0
   
       },
+      logo:
+      {
+        width: 50,
+        height: 50,
+        alignSelf:"center",
+      },
     max: {
         width: "100%"
     },
     textContainer: {
         padding: 0,
-        alignSelf: "center"
+        alignSelf: "center",
+        
+    },
+    fullLogo: {
+        width: 100,
+        height: 85,
+    },
+    
+    headerLogo: {
+        width: 65,
+        height: 65,
     },
     text: {
         //text formatting here
