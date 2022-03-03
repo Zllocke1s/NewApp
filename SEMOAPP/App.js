@@ -2,7 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, Image, View } from 'react-native';
 import { styles } from './styles/LandingStyle';
 import { Tile, HeaderTile, NewsTile } from './components/Tile';
-
+import { SocialMediaButton } from './components/SocialMediaButton';
 export default function App() {
   return (
     <View style={styles.container}>
@@ -31,6 +31,12 @@ export default function App() {
         </View>
         <View style={styles.newsTileContainer}>
           <NewsTile name={"News"} />
+        </View>
+        <View style={styles.socialMediaContainer}>
+        <SocialMediaButton type="Instagram" link="https://www.instagram.com/semissouristate/?hl=en"></SocialMediaButton>
+        <SocialMediaButton type="Facebook" link="https://www.facebook.com/SEMissouriState/"></SocialMediaButton>
+        <SocialMediaButton type="Twitter" link="https://twitter.com/SEMissouriState"></SocialMediaButton>
+        <SocialMediaButton type="Youtube" link="https://www.youtube.com/user/semissouristate"></SocialMediaButton>
         </View>
     </View>
     

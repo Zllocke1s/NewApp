@@ -40,6 +40,15 @@ export const styles = StyleSheet.create({
         width: "100%",
         justifyContent: "space-between",
         padding: 10
+    },
+    socialMediaContainer: {
+        display: "flex",
+        flexDirection: "row",
+        width: 180,
+        justifyContent: "space-between",
+        position: "absolute",
+        bottom: 0,
+        right: 5,
     }
   });
   
