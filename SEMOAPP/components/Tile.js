@@ -5,13 +5,13 @@ import { TouchableOpacity, Image, StyleSheet, Text, View, Touchable } from 'reac
 export const Tile = (({name, src, fullscreen}) => {
     if(fullscreen)
     {
-        return(<View style={styles.container}>
-            <TouchableOpacity>
+        return(
+            <TouchableOpacity style={styles.fullscreenContainer}>
             <Image style={styles.fullLogo}
                    source={src}
            ></Image>
             </TouchableOpacity>
-        </View>);
+        );
     }
     else
     {
@@ -82,6 +82,17 @@ const styles = StyleSheet.create({
         margin: 0
   
       },
+      fullscreenContainer: {
+        flex: .3,
+        height: 100,
+        fontSize: 48,
+        fontWeight: 'bold',
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        margin: 0
+  
+      },
       headerContainer: {
         flex: .35,
         height: 100,
@@ -121,8 +132,8 @@ const styles = StyleSheet.create({
         
     },
     fullLogo: {
-        width: 100,
-        height: 85,
+        width: 110,
+        height: 100,
     },
     
     headerLogo: {
@@ -130,6 +141,8 @@ const styles = StyleSheet.create({
         height: 65,
     },
     text: {
+        justifyContent: 'center',
+        alignSelf: 'center'
         //text formatting here
     }
   });
