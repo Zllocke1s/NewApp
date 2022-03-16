@@ -1,13 +1,14 @@
-import { TouchableOpacity, Image, StyleSheet, Text, View, Touchable } from 'react-native';
+import { TouchableOpacity, Linking, Image, StyleSheet, Text, View, Touchable } from 'react-native';
 import {theme} from '../core/theme';
 
 
 
-export const Tile = (({name, src, fullscreen}) => {
+export const Tile = (({name, onP, src, fullscreen}) => {
     if(fullscreen)
     {
         return(
-            <TouchableOpacity style={styles.fullscreenContainer}>
+            <TouchableOpacity onPress={() => onP({name})}
+            style={styles.fullscreenContainer}>
             <Image style={styles.fullLogo}
                    source={src}
            ></Image>
@@ -17,7 +18,8 @@ export const Tile = (({name, src, fullscreen}) => {
     else
     {
         return(
-            <TouchableOpacity style={styles.container}>
+            <TouchableOpacity onPress={() => onP({name})}
+             style={styles.container}>
                 <View style={styles.textContainer}>
             <Image style={styles.logo}
                    source={src}
@@ -62,7 +64,8 @@ export const HeaderTile = (({name, src, fullscreen, onP}) => {
 
 export const NewsTile = (({name}) => {
         return(
-            <TouchableOpacity style={styles.newsContainer}>
+            <TouchableOpacity onPress={ () => Linking.openURL("https://semo.edu/news")} 
+            style={styles.newsContainer}>
                 <View style={styles.textContainer}>
                     <Text style={styles.text}>{name}</Text>
                 </View>
