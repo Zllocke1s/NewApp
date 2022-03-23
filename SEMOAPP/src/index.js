@@ -11,7 +11,8 @@ import {
   Reserve,
   Shuttle,
   StuGov,
-  Secret
+  Secret,
+  Athletics
 } from './screens';
 
 const Router = createStackNavigator(
@@ -25,7 +26,8 @@ const Router = createStackNavigator(
   Reserve,
   Shuttle,
   StuGov,
-  Secret
+  Secret,
+  Athletics
   },
   {
     initialRouteName: 'Landing',

@@ -42,6 +42,8 @@ export default function Landing({ navigation }) {
   {navigation.navigate("Labs");
   }function reserve()
   {navigation.navigate("Reserve");
+  }function athletics()
+  {navigation.navigate("Athletics");
   }function stugov()
   {navigation.navigate("StuGov");
   }
@@ -61,11 +63,10 @@ export default function Landing({ navigation }) {
           <Tile name={"Dine on Campus"} onP={dining} src={require("../assets/tiles/plate.png")} fullscreen={false} />
         </View>
         <View style={styles.tileSubContainer}>
-          <Tile name={"Lab Availability"} onP={labs} src={require("../assets/tiles/calendar.png")} fullscreen={false} />
+          <Tile name={"Lab Availability"} onP={labs} src={require("../assets/tiles/editcal.png")} fullscreen={false} />
+          <Tile name={"Athletics"} onP={athletics} src={require("../assets/tiles/athletics.png")} fullscreen={false} />
           <Tile name={"Student Government"} onP={stugov} src={require("../assets/tiles/stugov.png")} fullscreen={true} />
-         {// <Tile name={"Reserve A Space"} onP={reserve} src={require("../assets/tiles/editcal.png")} fullscreen={false} />
-}
-<Tile name={""} onP={placeholder} src={false} fullscreen={false} />
+         
           </View>
         <View style={styles.tileSubContainer}>
           <Tile name={""} onP={placeholder} src={false} fullscreen={false} />

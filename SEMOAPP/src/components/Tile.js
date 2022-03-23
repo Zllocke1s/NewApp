@@ -136,6 +136,7 @@ const styles = StyleSheet.create({
     textContainer: {
         padding: 0,
         alignSelf: "center",
+        textAlign: "center"
         
     },
     fullLogo: {
@@ -149,7 +150,8 @@ const styles = StyleSheet.create({
     },
     text: {
         justifyContent: 'center',
-        alignSelf: 'center'
+        alignSelf: 'center',
+        textAlign: 'center'
         //text formatting here
     }
   });

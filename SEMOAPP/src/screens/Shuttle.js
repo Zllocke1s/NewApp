@@ -103,7 +103,7 @@ export default function Shuttle() {
   var tabs = [
               {id: 0, color: theme.colors.red, name: "Red", route: ""}, 
               {id: 1, color: theme.colors.blue, name: "River", route: "Myers, Rear of Kent, Pacific/Grauel, Broadway Catapult, Broadway Mass Media, Independence & Spanish, River Campus, Band Annex, Vandiver/Merick, Bookstore, Dempster, Poly-Tech/LaFerla, MMTF/Rec, International Village, Towers, Grauel, Rear of Academic, Memorial"},
-              {id: 2, color: theme.colors.green, name: "Green", route: ""}
+              {id: 2, color: theme.colors.green, name: "Green", route: "Memorial, Parker/Cheney, Scully, Dempster, Poly, Tech/LaFerla, MMTF/Rec, DPS/Greek Village, International Village, Towers, Grauel, Houck, Vandiver/Merick, U.C.Myers, Rear of Kent, Pacific, Grauel, Rear of Academic"}
             ] 
   if(!loaded)
   {
