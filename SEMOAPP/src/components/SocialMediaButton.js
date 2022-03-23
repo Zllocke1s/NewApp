@@ -1,4 +1,5 @@
 import { TouchableOpacity, Linking, Image, StyleSheet, Text, View, Touchable } from 'react-native';
+import { theme } from '../core/theme';
 
 
 
@@ -39,7 +40,7 @@ const styles = StyleSheet.create({
         fontSize: 48,
         paddingBottom: 5,
         fontWeight: 'bold',
-        backgroundColor: '#000',
+        backgroundColor: theme.colors.black,
         borderTopLeftRadius: 5, 
         borderTopRightRadius: 5,
         alignItems: 'center',

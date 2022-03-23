@@ -1,12 +1,14 @@
-import { TouchableOpacity, Image, StyleSheet, Text, View, Touchable } from 'react-native';
+import { TouchableOpacity, Linking, Image, StyleSheet, Text, View, Touchable } from 'react-native';
+import {theme} from '../core/theme';
 
 
 
-export const Tile = (({name, src, fullscreen}) => {
+export const Tile = (({name, onP, src, fullscreen}) => {
     if(fullscreen)
     {
         return(
-            <TouchableOpacity style={styles.fullscreenContainer}>
+            <TouchableOpacity onPress={() => onP({name})}
+            style={styles.fullscreenContainer}>
             <Image style={styles.fullLogo}
                    source={src}
            ></Image>
@@ -16,7 +18,8 @@ export const Tile = (({name, src, fullscreen}) => {
     else
     {
         return(
-            <TouchableOpacity style={styles.container}>
+            <TouchableOpacity onPress={() => onP({name})}
+             style={styles.container}>
                 <View style={styles.textContainer}>
             <Image style={styles.logo}
                    source={src}
@@ -29,11 +32,13 @@ export const Tile = (({name, src, fullscreen}) => {
     }
 });
 
-export const HeaderTile = (({name, src, fullscreen}) => {
+
+
+export const HeaderTile = (({name, src, fullscreen, onP}) => {
     if(fullscreen)
     {
         return(<View style={styles.headerContainer}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => onP({name})}>
                 <View style={styles.textContainer}>
                     <Text style={styles.text}>{name}</Text>
                 </View>
@@ -43,7 +48,8 @@ export const HeaderTile = (({name, src, fullscreen}) => {
     else
     {
         return(
-            <TouchableOpacity style={styles.headerContainer}>
+            <TouchableOpacity onPress={() => onP()}
+            style={styles.headerContainer}>
                 <View style={styles.textContainer}>
                 <Image style={styles.headerLogo}
                    source={src}
@@ -58,7 +64,8 @@ export const HeaderTile = (({name, src, fullscreen}) => {
 
 export const NewsTile = (({name}) => {
         return(
-            <TouchableOpacity style={styles.newsContainer}>
+            <TouchableOpacity onPress={ () => Linking.openURL("https://semo.edu/news")} 
+            style={styles.newsContainer}>
                 <View style={styles.textContainer}>
                     <Text style={styles.text}>{name}</Text>
                 </View>
@@ -76,7 +83,7 @@ const styles = StyleSheet.create({
         fontSize: 48,
         paddingBottom: 10,
         fontWeight: 'bold',
-        backgroundColor: '#fff',
+        backgroundColor: theme.colors.white,
         alignItems: 'center',
         justifyContent: 'flex-end',
         margin: 0
@@ -87,7 +94,7 @@ const styles = StyleSheet.create({
         height: 100,
         fontSize: 48,
         fontWeight: 'bold',
-        backgroundColor: '#fff',
+        backgroundColor: theme.colors.white,
         alignItems: 'center',
         justifyContent: 'flex-end',
         margin: 0
@@ -100,7 +107,7 @@ const styles = StyleSheet.create({
         marginTop: 10,
         paddingBottom: 10,
         fontWeight: 'bold',
-        backgroundColor: '#fff',
+        backgroundColor: theme.colors.white,
         alignItems: 'center',
         justifyContent: 'flex-end',
         margin: 0
@@ -112,7 +119,7 @@ const styles = StyleSheet.create({
         fontSize: 48,
         paddingBottom: 10,
         fontWeight: 'bold',
-        backgroundColor: '#fff',
+        backgroundColor: theme.colors.white,
         alignItems: 'center',
         justifyContent: 'flex-end',
   
