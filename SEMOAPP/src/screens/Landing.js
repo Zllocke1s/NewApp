@@ -3,13 +3,30 @@ import { StyleSheet, Text, Image, View } from 'react-native';
 import { styles } from '../styles/LandingStyle';
 import { Tile, HeaderTile, NewsTile } from '../components/Tile';
 import { SocialMediaButton } from '../components/SocialMediaButton';
-
+import React, { useState, useEffect } from 'react';
 
 
 export default function Landing({ navigation }) {
   function placeholder() {
             
   }
+
+  const [news, setNews] = React.useState({})
+
+  useEffect(() => {
+    fetch('https://semo.edu/_data/recent-news-data.json')
+    .then((response) => response.json())
+    .then((json) => {
+      console.log((json)) 
+      setNews(json)
+    }
+      )
+    .catch((error) => {
+      console.error(error);
+    });
+  }, [])
+
+
   function secret() {
     if(global.secretCounter>=20)
     {
@@ -48,6 +65,22 @@ export default function Landing({ navigation }) {
   {navigation.navigate("StuGov");
   }
 
+  var newsItem = {
+    title: "SEMO Women's Basketball Falls To SIUE",
+    intro: "The SEMO Women's Basketball team scored high and mighty this Saturday",
+    image: "https://www.semo.edu/news/2022/03/_images/regalia-nf-medium500x282.jpg",
+    link: "https://www.semo.edu/news/2022/03/may-2022-commencement-facultystaff-regalia-ordering-information-now-available.html"
+  }
+
+  const [counter, setCounter] = useState(0);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      console.log("Counter: " + counter);
+      setCounter((counter+1) % 10)
+    }, 8000);
+    return () => clearInterval(interval);
+  })
+
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
@@ -75,7 +108,7 @@ export default function Landing({ navigation }) {
         </View>
         </View>
         <View style={styles.newsTileContainer}>
-          <NewsTile name={"News"} />
+          <NewsTile name={"Latest News:"} item={news[counter]} />
         </View>
         <View style={styles.socialMediaContainer}>
         <SocialMediaButton type="Instagram" link="https://www.instagram.com/semissouristate/?hl=en"></SocialMediaButton>

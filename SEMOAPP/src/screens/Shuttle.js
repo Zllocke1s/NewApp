@@ -12,7 +12,7 @@ import * as Location from 'expo-location';
 
 
 
-
+//To-do: Find a way to make a route on the map
 
 
 export default function Shuttle() {

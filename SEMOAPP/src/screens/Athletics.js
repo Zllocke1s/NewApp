@@ -34,6 +34,9 @@ export default function Athletics() {
     
   ]
 
+
+
+
   useEffect(() => {
     setGames(
       dummyGames.map((game) => { 
@@ -52,6 +55,7 @@ export default function Athletics() {
   }, [])
 
   const [games, setGames] = useState(null)
+  
 
   const [loaded] = useFonts({
     Times: require('../assets/fonts/times.ttf'),

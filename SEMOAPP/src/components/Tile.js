@@ -1,6 +1,8 @@
 import { TouchableOpacity, Linking, Image, StyleSheet, Text, View, Touchable } from 'react-native';
 import {theme} from '../core/theme';
+import {decode} from 'html-entities';
 
+//Todo: Tiling News through the tile
 
 
 export const Tile = (({name, onP, src, fullscreen}) => {
@@ -62,12 +64,30 @@ export const HeaderTile = (({name, src, fullscreen, onP}) => {
     }
 });
 
-export const NewsTile = (({name}) => {
+export const NewsTile = (({name, item}) => {
+        if(item==null)
+        {
+            item = {
+                title: "",
+                image: "",
+                intro: "",
+                link: "http://semo.edu/news"
+            }
+        }
+
         return(
-            <TouchableOpacity onPress={ () => Linking.openURL("https://semo.edu/news")} 
+            <TouchableOpacity onPress={ () => Linking.openURL(item.link)} 
             style={styles.newsContainer}>
-                <View style={styles.textContainer}>
-                    <Text style={styles.text}>{name}</Text>
+                <View style={styles.newsTitleContainer}>
+                    <Text style={styles.text}>{name}</Text>                    
+                </View>
+                <View style={styles.newsBodyContainer}>
+                <Image style={styles.newsLogo}
+                   source={{uri: item.image}} />
+                <View style={styles.newsBodyTextContainer}>
+                    <Text style={styles.newsTitle}>{decode(item.title)}</Text>
+                    <Text style={styles.newsText}>{decode(item.intro.length) > 80 ? decode(item.intro.substring(0, 80)) + "..." : decode(item.intro)}</Text>
+                </View>
                 </View>
             </TouchableOpacity>
         );
@@ -115,16 +135,22 @@ const styles = StyleSheet.create({
       },
       newsContainer: {
         flex: .85,
-        height: 80,
+        height: 130,
         fontSize: 48,
         paddingBottom: 10,
         fontWeight: 'bold',
         backgroundColor: theme.colors.white,
-        alignItems: 'center',
-        justifyContent: 'flex-end',
+        alignItems: 'flex-start',
+        justifyContent: 'center',
   
       },
       logo:
+      {
+        width: 50,
+        height: 50,
+        alignSelf:"center",
+      },
+      newsLogo:
       {
         width: 50,
         height: 50,
@@ -137,6 +163,33 @@ const styles = StyleSheet.create({
         padding: 0,
         alignSelf: "center",
         textAlign: "center"
+        
+    },
+    newsTitleContainer: {
+        padding: 0,
+        alignSelf: "flex-start",
+        textAlign: 'left',
+        marginLeft: 10
+        
+    },
+    
+    newsBodyContainer: {
+        padding: 0,
+        display: "flex",
+        flexDirection: "row",
+        alignSelf: "flex-start",
+        textAlign: 'left',
+        marginLeft: 10,
+        
+    },
+    newsBodyTextContainer: {
+        padding: 0,
+        display: "flex",
+        flexDirection: "column",
+        alignSelf: "flex-start",
+        textAlign: 'left',
+        marginLeft: 10,
+        flex: 1
         
     },
     fullLogo: {
@@ -152,6 +205,20 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignSelf: 'center',
         textAlign: 'center'
+        //text formatting here
+    },
+    newsTitle: {
+        justifyContent: 'flex-start',
+        alignSelf: 'flex-start',
+        textAlign: 'left',
+        fontSize: 14,
+        fontWeight: 'bold'
+        //text formatting here
+    },
+    newsText: {
+        justifyContent: 'flex-start',
+        alignSelf: 'flex-start',
+        textAlign: 'left'
         //text formatting here
     }
   });
