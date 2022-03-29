@@ -8,15 +8,14 @@ export default function Dining() {
     <View style={styles.container}>
       <View style={styles.headerContainer}>
         <View style={styles.headerSubContainer}>
-          <Text style={[styles.pickTitle, {fontFamily: 'Times', color:'white'}]}>Choose a Location...</Text>
+          <Text style={[styles.pickTitle, {color:'white'}]}>Choose a Location...</Text>
          </View>
       </View>
       
       <View style={styles.tileContainer}>
         <View style={styles.diningTileSub}>
-          <Text>Dining</Text>
-          <Tile name={"Lab Availability"}  fullscreen={false} />
-          <Tile name={"Athletics"}  fullscreen={false} />
+          <Tile name={"Houcks Place"}  fullscreen={true} />
+          <Tile name={"Redhawks Market"}  fullscreen={true} />
           <Tile name={"Student Government"}  fullscreen={true} />
         </View>
       </View>
