@@ -11,28 +11,11 @@ export const styles = StyleSheet.create({
       alignContent: "center",
       justifyContent: 'flex-start'
     },
-    headerContainer: {
-        flex: .2,
-        backgroundColor: theme.colors.red,
-        padding: 50,
-    },
-    headerSubContainer: {
-        flexDirection: "row",
-        width: "100%",
-        justifyContent: "space-evenly",
-    },
     tileContainer: {
         padding: 10,
         marginTop: 20,
         width: '50%',
         marginRight: 200
-    },
-    tileSubContainer: {
-        display: "flex",
-        flexDirection: "column",
-        width: "100%",
-        justifyContent: "space-between",
-        padding: 10
     },
     diningTileSub: {
         flexDirection: "column",
@@ -41,9 +24,19 @@ export const styles = StyleSheet.create({
         justifyContent: "space-between",
         padding: 10
     },
+    headerContainer: {
+        flex: .50,
+        backgroundColor: theme.colors.red,
+        padding: 40
+    },
+    headerSubContainer: {
+        flexDirection: "row",
+        width: "100%",
+    },
     pickTitle: {
-        fontSize: 40,
+        fontSize: 35,
         flex: 1,
-        paddingLeft: 12,
+        marginTop: 25,
+        paddingLeft: 5
     },
   });
