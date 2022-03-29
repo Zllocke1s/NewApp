@@ -3,7 +3,23 @@ import { StyleSheet, Text, Image, View } from 'react-native';
 import { styles } from '../styles/DiningStyle';
 import { DiningChoiceTile } from '../components/Tile';
 
-export default function Dining() {
+export default function Dining({navigation}) {
+
+
+
+
+
+  function navigateTo(name) {
+    switch(name)
+    {
+      case("Houcks Place"):
+      console.log("Houcks")
+      break;
+      default:
+        console.log("Not Houcks");
+    }
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
@@ -14,9 +30,9 @@ export default function Dining() {
       
       <View style={styles.tileContainer}>
         <View style={styles.diningTileSub}>
-          <DiningChoiceTile name={"Houcks Place"} fullscreen={false} />
-          <DiningChoiceTile name={"Redhawks Market"} fullscreen={false} />
-          <DiningChoiceTile name={"Subway"} fullscreen={false} />
+          <DiningChoiceTile onP={navigateTo} name={"Houcks Place"} />
+          <DiningChoiceTile  onP={navigateTo} name={"Redhawks Market"} />
+          <DiningChoiceTile onP={navigateTo} name={"Subway"} />
         </View>
       </View>
     </View>

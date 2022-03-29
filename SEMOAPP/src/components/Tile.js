@@ -93,33 +93,23 @@ export const NewsTile = (({name, item}) => {
         );
 });
 
-export const DiningChoiceTile = (({name, onP, src, fullscreen}) => {
-    if(fullscreen)
-    {
+export const DiningChoiceTile = (({name, onP, src}) => {
+
         return(
-            <TouchableOpacity onPress={() => onP({name})}
-            style={styles.fullscreenContainer}>
-            <Image style={styles.fullLogo}
-                   source={src}
-           ></Image>
-            </TouchableOpacity>
-        );
-    }
-    else
-    {
-        return(
-            <TouchableOpacity onPress={() => onP({name})}
+            <TouchableOpacity onPress={() => onP(name)}
              style={styles.diningContainer}>
-                <View style={styles.diningTextContainer}>
-            <Image style={styles.logo}
-                   source={src}
-           ></Image>
-                    <Text style={styles.diningText}>{name}</Text>
+                <View style={styles.columns}>
+                    <View style={styles.rows}>
+                    <Text style={styles.diningTitle}>{name}</Text>
+                    <Text style={styles.diningText}>Address goes here</Text>
+                    <Text style={styles.diningHours}>Hours gonna go here</Text>
+                    </View>
+                    <Image style={styles.menuLogo}
+                   source={require("../assets/tiles/plate.png")}
+           />
                 </View>
             </TouchableOpacity>
         );
-    
-    }
 });
 
 const styles = StyleSheet.create({
@@ -176,7 +166,6 @@ const styles = StyleSheet.create({
         height: 100,
         width: "100%",
         fontSize: 48,
-        paddingBottom: 10,
         fontWeight: 'bold',
         backgroundColor: theme.colors.white,
         alignItems: 'flex-start',
@@ -202,9 +191,6 @@ const styles = StyleSheet.create({
         padding: 0,
         alignSelf: "center",
         textAlign: "center"
-        
-    },
-    diningTextContainer: {
         
     },
     newsTitleContainer: {
@@ -262,10 +248,45 @@ const styles = StyleSheet.create({
         textAlign: 'left'
         //text formatting here
     },
-    diningText: {
-        paddingLeft: 20,
+    menuLogo: {
+        alignSelf: "flex-start",
+        width: 50,
+        height: 50,
+        margin: 10,
+        display: "flex",
+        
+    },
+    diningTitle: {
+        paddingLeft: 10,
         fontWeight: 'bold',
         fontSize: 30,
         //text formatting here
+    },
+    diningText: {
+        paddingLeft: 10,
+        fontWeight: 'bold',
+        fontSize: 12,
+        //text formatting here
+    },
+    diningHours: {
+        paddingLeft: 10,
+        fontWeight: 'bold',
+        fontSize: 18,
+        //text formatting here
+    },
+    columns: {
+        display: "flex",
+        flexDirection: "row",
+        flex: 1,
+        width: "100%",
+        textAlign: "left",
+        justifyContent: "space-between"
+    },
+    rows:
+    {
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-around",
+        
     }
   });

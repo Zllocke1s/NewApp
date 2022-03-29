@@ -17,7 +17,6 @@ export default function Landing({ navigation }) {
     fetch('https://semo.edu/_data/recent-news-data.json')
     .then((response) => response.json())
     .then((json) => {
-      console.log((json)) 
       setNews(json)
     }
       )
@@ -75,7 +74,6 @@ export default function Landing({ navigation }) {
   const [counter, setCounter] = useState(0);
   useEffect(() => {
     const interval = setInterval(() => {
-      console.log("Counter: " + counter);
       setCounter((counter+1) % 10)
     }, 8000);
     return () => clearInterval(interval);
