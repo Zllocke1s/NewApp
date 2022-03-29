@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, Image, View } from 'react-native';
 import { styles } from '../styles/DiningStyle';
-import { Tile, HeaderTile, NewsTile } from '../components/Tile';
+import { DiningChoiceTile } from '../components/Tile';
 
 export default function Dining() {
   return (
@@ -14,9 +14,9 @@ export default function Dining() {
       
       <View style={styles.tileContainer}>
         <View style={styles.diningTileSub}>
-          <Tile name={"Houcks Place"}  fullscreen={true} />
-          <Tile name={"Redhawks Market"}  fullscreen={true} />
-          <Tile name={"Student Government"}  fullscreen={true} />
+          <DiningChoiceTile name={"Houcks Place"} fullscreen={false} />
+          <DiningChoiceTile name={"Redhawks Market"} fullscreen={false} />
+          <DiningChoiceTile name={"Subway"} fullscreen={false} />
         </View>
       </View>
     </View>

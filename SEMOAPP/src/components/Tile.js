@@ -93,7 +93,34 @@ export const NewsTile = (({name, item}) => {
         );
 });
 
-
+export const DiningChoiceTile = (({name, onP, src, fullscreen}) => {
+    if(fullscreen)
+    {
+        return(
+            <TouchableOpacity onPress={() => onP({name})}
+            style={styles.fullscreenContainer}>
+            <Image style={styles.fullLogo}
+                   source={src}
+           ></Image>
+            </TouchableOpacity>
+        );
+    }
+    else
+    {
+        return(
+            <TouchableOpacity onPress={() => onP({name})}
+             style={styles.diningContainer}>
+                <View style={styles.textContainer}>
+            <Image style={styles.logo}
+                   source={src}
+           ></Image>
+                    <Text style={styles.text}>{name}</Text>
+                </View>
+            </TouchableOpacity>
+        );
+    
+    }
+});
 
 const styles = StyleSheet.create({
     container: {
@@ -143,6 +170,18 @@ const styles = StyleSheet.create({
         alignItems: 'flex-start',
         justifyContent: 'center',
   
+      },
+      diningContainer: {
+        flex: .3,
+        height: 100,
+        width: "100%",
+        fontSize: 48,
+        paddingBottom: 10,
+        fontWeight: 'bold',
+        backgroundColor: theme.colors.white,
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        margin: 0
       },
       logo:
       {
