@@ -110,11 +110,11 @@ export const DiningChoiceTile = (({name, onP, src, fullscreen}) => {
         return(
             <TouchableOpacity onPress={() => onP({name})}
              style={styles.diningContainer}>
-                <View style={styles.textContainer}>
+                <View style={styles.diningTextContainer}>
             <Image style={styles.logo}
                    source={src}
            ></Image>
-                    <Text style={styles.text}>{name}</Text>
+                    <Text style={styles.diningText}>{name}</Text>
                 </View>
             </TouchableOpacity>
         );
@@ -179,8 +179,8 @@ const styles = StyleSheet.create({
         paddingBottom: 10,
         fontWeight: 'bold',
         backgroundColor: theme.colors.white,
-        alignItems: 'center',
-        justifyContent: 'flex-end',
+        alignItems: 'flex-start',
+        justifyContent: 'flex-start',
         margin: 0
       },
       logo:
@@ -204,6 +204,9 @@ const styles = StyleSheet.create({
         textAlign: "center"
         
     },
+    diningTextContainer: {
+        
+    },
     newsTitleContainer: {
         padding: 0,
         alignSelf: "flex-start",
@@ -211,7 +214,6 @@ const styles = StyleSheet.create({
         marginLeft: 10
         
     },
-    
     newsBodyContainer: {
         padding: 0,
         display: "flex",
@@ -258,6 +260,12 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         alignSelf: 'flex-start',
         textAlign: 'left'
+        //text formatting here
+    },
+    diningText: {
+        paddingLeft: 20,
+        fontWeight: 'bold',
+        fontSize: 30,
         //text formatting here
     }
   });

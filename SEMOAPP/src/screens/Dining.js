@@ -8,7 +8,7 @@ export default function Dining() {
     <View style={styles.container}>
       <View style={styles.headerContainer}>
         <View style={styles.headerSubContainer}>
-          <Text style={[styles.pickTitle, {color:'white'}]}>Choose a Location...</Text>
+          <Text style={[styles.choiceTitle, {color:'white'}]}>Choose a Location...</Text>
          </View>
       </View>
       

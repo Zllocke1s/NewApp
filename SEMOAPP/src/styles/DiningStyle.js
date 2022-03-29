@@ -33,7 +33,7 @@ export const styles = StyleSheet.create({
         flexDirection: "row",
         width: "100%",
     },
-    pickTitle: {
+    choiceTitle: {
         fontSize: 35,
         flex: 1,
         marginTop: 25,
