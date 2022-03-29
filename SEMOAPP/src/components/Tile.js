@@ -101,8 +101,8 @@ export const DiningChoiceTile = (({name, onP, src}) => {
                 <View style={styles.columns}>
                     <View style={styles.rows}>
                     <Text style={styles.diningTitle}>{name}</Text>
-                    <Text style={styles.diningText}>Address goes here</Text>
-                    <Text style={styles.diningHours}>Hours gonna go here</Text>
+                    <Text style={styles.diningText}>1 University Plaza{"\n"}Cape Girardeau, MO 63701</Text>
+                    <Text style={styles.diningHours}>Open. Closes at 12:00 p.m.</Text>
                     </View>
                     <Image style={styles.menuLogo}
                    source={require("../assets/tiles/plate.png")}
@@ -264,14 +264,12 @@ const styles = StyleSheet.create({
     },
     diningText: {
         paddingLeft: 10,
-        fontWeight: 'bold',
-        fontSize: 12,
+        fontSize: 18,
         //text formatting here
     },
     diningHours: {
         paddingLeft: 10,
-        fontWeight: 'bold',
-        fontSize: 18,
+        fontSize: 14,
         //text formatting here
     },
     columns: {

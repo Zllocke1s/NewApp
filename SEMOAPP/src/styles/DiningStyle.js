@@ -27,7 +27,7 @@ export const styles = StyleSheet.create({
     headerContainer: {
         flex: .50,
         backgroundColor: theme.colors.red,
-        padding: 40
+        padding: 35
     },
     headerSubContainer: {
         flexDirection: "row",

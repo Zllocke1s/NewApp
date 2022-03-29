@@ -5,18 +5,20 @@ import { DiningChoiceTile } from '../components/Tile';
 
 export default function Dining({navigation}) {
 
-
-
-
-
   function navigateTo(name) {
     switch(name)
     {
       case("Houcks Place"):
-      console.log("Houcks")
+      console.log("Houcks Place")
+      break;
+      case("Redhawks Market"):
+      console.log("Redhawks Market")
+      break;
+      case("Subway"):
+      console.log("Subway")
       break;
       default:
-        console.log("Not Houcks");
+        console.log("the abyss");
     }
   }
 
@@ -31,7 +33,7 @@ export default function Dining({navigation}) {
       <View style={styles.tileContainer}>
         <View style={styles.diningTileSub}>
           <DiningChoiceTile onP={navigateTo} name={"Houcks Place"} />
-          <DiningChoiceTile  onP={navigateTo} name={"Redhawks Market"} />
+          <DiningChoiceTile onP={navigateTo} name={"Redhawks Market"} />
           <DiningChoiceTile onP={navigateTo} name={"Subway"} />
         </View>
       </View>
