@@ -85,7 +85,7 @@ export default function Landing({ navigation }) {
       <View style={styles.tileContainer}>
       <View style={styles.tileSubContainer}>
             <Tile name={"Shuttle Tracker"} onP={shuttle} src={require("../assets/tiles/shuttle.png")} fullscreen={false} />
-          <Tile name={"Student Portal"} onP={portal} src={require("../assets/tiles/monitor.png")} fullscreen={false} />
+          <Tile name={"Student Grades"} onP={portal} src={require("../assets/tiles/monitor.png")} fullscreen={false} />
           <Tile name={"Dine on Campus"} onP={dining} src={require("../assets/tiles/plate.png")} fullscreen={false} />
         </View>
         <View style={styles.tileSubContainer}>
