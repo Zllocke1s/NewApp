@@ -75,6 +75,7 @@ export const styles = StyleSheet.create({
         width: "100%",
         marginTop: 10,
     },
+
     title: {
         fontSize: 25,
         marginLeft: 9,
@@ -89,7 +90,65 @@ export const styles = StyleSheet.create({
     },
     fullScheduleText: {
         color: theme.colors.gray
+    },
+
+
+
+    
+    infoContainer: {
+        backgroundColor: theme.colors.gray,
+        width: "100%",
+        marginTop: 10,
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    
+    textTitle: {
+        fontSize: 25,
+        marginTop: 9,
+        marginBottom: 10,
+        textAlign: "center"
+    },
+    address: {
+        marginTop: 5,
+        fontSize: 12,
+        marginBottom: 20,
+    },
+    hours: {
+        fontWeight: "bold"
+    },
+    hoursContainer: {
+        display: "flex",
+        flexDirection: "row",
+
+        justifyContent: "center"
+    },
+    dates: {
+        display: "flex",
+        flexDirection: "column",
+        flex: 0.4,
+        justifyContent: "flex-end",
+        alignItems: "flex-end",
+        paddingRight: 10,
+        borderRightWidth: 2,
+        borderRightColor: theme.colors.gray4
+    },
+    hoursListed: {
+        flex: 0.6,
+        marginLeft: 10,
+    },
+    facilityContainer: {
+        marginTop: 20,
+        textAlign: 'center',
+        alignItems: "center",
+    },
+    scrollable: {
+        width: "100%"
+    },
+    facility: {
+
     }
+    
 
   });
   

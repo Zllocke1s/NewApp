@@ -8,7 +8,8 @@ import { Ionicons } from '@expo/vector-icons';
 import React, { useState, useEffect } from 'react';
 import {Game}  from '../components/Game';
 import {SportsTile} from '../components/Tile';
-export default function Athletics() {
+
+export default function Athletics({navigation}) {
 
 
   var dummyGames = [
@@ -76,7 +77,10 @@ export default function Athletics() {
       <View style={styles.content}>
         <View style={styles.row1}>
           <Text style={[styles.quote, { fontFamily: 'Times'}]}>"The secret of getting ahead is getting started" -Mark Twain</Text>
-        <TouchableOpacity style={styles.hoursButton}>
+        <TouchableOpacity onPress={() => {
+          navigation.navigate("RecHours")
+      }}
+        style={styles.hoursButton}>
         <Ionicons name="hourglass-outline" size={44} color="black" />
           <Text>Hours</Text>
         </TouchableOpacity>

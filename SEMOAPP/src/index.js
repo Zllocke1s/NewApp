@@ -13,7 +13,8 @@ import {
   StuGov,
   Secret,
   Athletics,
-  SubDining
+  SubDining,
+  RecHours
 } from './screens';
 
 const Router = createStackNavigator(
@@ -29,7 +30,8 @@ const Router = createStackNavigator(
   StuGov,
   Secret,
   Athletics,
-  SubDining
+  SubDining,
+  RecHours
   },
   {
     initialRouteName: 'Landing',
