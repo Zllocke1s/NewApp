@@ -27,19 +27,27 @@ export const styles = StyleSheet.create({
         fontSize: 36,
         color: theme.colors.gray
     },
-    labContainer:
+    
+    galleryContainer:
     {
-        flex: 0.85,
+        flex: 0.45,
         justifyContent: "flex-start",
         alignItems: "flex-start",
         display: "flex",
-        width: "95%",
-        margin: 10,
-        backgroundColor: theme.colors.gray2,
-        marginLeft: 20,
-        marginRight: 20
+        width: "100%",
+        backgroundColor: theme.colors.gray2
+    },
+    galleryImg:
+    {
+        width: "100%",
+        height: "100%"
     },
     scrollView: {
+        width: "100%"
+    },
+    minutesContainer: {
+        flex: 0.4,
+        backgroundColor: theme.colors.gray2,
         width: "100%"
     }
 
