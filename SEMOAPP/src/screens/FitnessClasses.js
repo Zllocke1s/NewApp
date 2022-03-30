@@ -7,9 +7,9 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Ionicons } from '@expo/vector-icons'; 
 import React, { useState, useEffect } from 'react';
 import {Game}  from '../components/Game';
-import {SportsTile} from '../components/Tile';
+import {Tile} from '../components/Tile';
 
-export default function Athletics({navigation}) {
+export default function FitnessClasses({navigation}) {
 
 
   var dummyGames = [
@@ -77,7 +77,13 @@ export default function Athletics({navigation}) {
       <View style={styles.content}>
         <View style={styles.row1}>
           <Text style={[styles.quote, { fontFamily: 'Times'}]}>"The secret of getting ahead is getting started" -Mark Twain</Text>
-      
+        <TouchableOpacity onPress={() => {
+          navigation.navigate("RecHours")
+      }}
+        style={styles.hoursButton}>
+        <Ionicons name="hourglass-outline" size={44} color="black" />
+          <Text>Hours</Text>
+        </TouchableOpacity>
         </View>
       <View style={styles.upcomingContainer}>
         <Text style={[styles.title, {fontFamily: 'Times'}]}>Upcoming Games:</Text>
@@ -92,15 +98,15 @@ export default function Athletics({navigation}) {
       </View>
         </View>
       <View style={styles.tileContainer}>
-      <SportsTile name={"Facilities"} onP={() => {
-          navigation.navigate("RecHours")
-        }} src={require("../assets/tiles/facilities.png")}  />
-      <SportsTile name={"Fitness Classes"} onP={() => {
+      <Tile name={"Facilities"} onP={() => {
+        navigation.navigate("Facilities")
+  }} src={require("../assets/tiles/facilities.png")} fullscreen={false} />
+      <Tile name={"Fitness Classes"} onP={() => {
+        console.log("Launch Fitness Classes")
+      }} src={require("../assets/tiles/classes.png")} fullscreen={false} />
+      <Tile name={"Contact Information"} onP={() => {
         console.log("Launch Contact Info")
-      }} src={require("../assets/tiles/classes.png")}  />
-      <SportsTile name={"Contact Information"} onP={() => {
-        console.log("Launch Contact Info")
-      }} src={require("../assets/tiles/contact.png")}  />
+      }} src={require("../assets/tiles/contact.png")} fullscreen={false} />
       
       </View>
         </View>

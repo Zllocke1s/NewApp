@@ -14,7 +14,9 @@ import {
   Secret,
   Athletics,
   SubDining,
-  RecHours
+  RecHours,
+  Facilities,
+  FitnessClasses
 } from './screens';
 
 const Router = createStackNavigator(
@@ -31,7 +33,9 @@ const Router = createStackNavigator(
   Secret,
   Athletics,
   SubDining,
-  RecHours
+  RecHours,
+  Facilities,
+  FitnessClasses
   },
   {
     initialRouteName: 'Landing',

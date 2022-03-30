@@ -8,6 +8,7 @@ import { Ionicons } from '@expo/vector-icons';
 import React, { useState, useEffect } from 'react';
 import {Game}  from '../components/Game';
 import {Tile} from '../components/Tile';
+import {recFacilities} from '../core/static';
 
 export default function RecHours({navigation}) {
 
@@ -61,25 +62,11 @@ export default function RecHours({navigation}) {
         </View>
         <View style={styles.facilityContainer}>
           <Text style={[styles.hours, {fontFamily: "Times"}]}>Facilities</Text>
-          <Text style={styles.facility}>West Gym Court #1</Text>
-          <Text style={styles.facility}>West Gym Court #2</Text>
-          <Text style={styles.facility}>East Gym Court #3</Text>
-          <Text style={styles.facility}>East Gym Court #4</Text>
-          <Text style={styles.facility}>East Gym Court #5</Text>
-          <Text style={styles.facility}>Indoor Track</Text>
-          <Text style={styles.facility}>Multipurpose Room 1</Text>
-          <Text style={styles.facility}>Multipurpose Room 2</Text>
-          <Text style={styles.facility}>Group Fitness Studio</Text>
-          <Text style={styles.facility}>Upper Parker Gym (Dasherboard Court)</Text>
-          <Text style={styles.facility}>Parker Sand Volleyball Court</Text>
-          <Text style={styles.facility}>Parker Field</Text>
-          <Text style={styles.facility}>Sprigg Field (Artificial Turf)</Text>
-          <Text style={styles.facility}>Bertling Field (Artificial Turf)</Text>
-          <Text style={styles.facility}>Upper Bertling Field (Natural Grass)</Text>
-          <Text style={styles.facility}>Low Challenge Course</Text>
-          <Text style={styles.facility}>High Challenge Course</Text>
-          <Text style={styles.facility}>Indoor Rock Climbing Wall</Text>
-        </View>
+        {recFacilities.map((item) => {
+          return(
+            <Text style={styles.facility}>{item}</Text>
+          )
+        })}</View>
         </View>
         </View>
         </ScrollView>
