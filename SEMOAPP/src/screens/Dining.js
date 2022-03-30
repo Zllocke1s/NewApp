@@ -1,27 +1,55 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, Image, View } from 'react-native';
+import { StyleSheet, Text, Image, View, ScrollView } from 'react-native';
 import { styles } from '../styles/DiningStyle';
 import { DiningChoiceTile } from '../components/Tile';
+import React, { useEffect } from 'react';
+import AppLoading from 'expo-app-loading';
 
 export default function Dining({navigation}) {
 
-  function navigateTo(name) {
-    switch(name)
-    {
-      case("Houcks Place"):
-      console.log("Houcks Place")
-      break;
-      case("Redhawks Market"):
-      console.log("Redhawks Market")
-      break;
-      case("Subway"):
-      console.log("Subway")
-      break;
-      default:
-        console.log("the abyss");
-    }
+  var dining = {
+    name: "Houcks Place",
+    location: "1 University Plaza\nCape Girardeau, MO 63701",
+    hours: "Open; Closes at 6"
   }
 
+  const [hours, setHours] = React.useState(null)
+
+  const [formattedTiles, setFormattedTiles] = React.useState(null)
+
+  const [isLoaded, setLoaded] = React.useState(false)
+
+    useEffect(() => {
+      fetch('https://api.dineoncampus.com/v1/locations/status?site_id=5751fd3290975b60e0489360&platform=0')
+      .then((response) => response.json())
+      .then((json) => {
+        setHours(json)
+        console.log(json);
+      }
+        )
+      .catch((error) => {
+        console.error(error);
+      });
+      
+  
+    }, [])
+  
+
+  function navigateTo(id, name, status) {
+    navigation.navigate("SubDining", {id: id, name: name, status: status})
+  }
+
+  useEffect(() => {
+    if(hours!=null)
+    {
+    setFormattedTiles(hours.locations.map((item) => {
+      console.log(item)
+      return(
+        <DiningChoiceTile onP={navigateTo} key={item.id} id={item.id} name={item.name} location={item.metadata} status={item.status} />
+      )
+    }))
+  }
+  }, [hours])
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
@@ -31,14 +59,11 @@ export default function Dining({navigation}) {
       </View>
       
       <View style={styles.tileContainer}>
-        <View style={styles.diningTileSub}>
-          <DiningChoiceTile onP={navigateTo} name={"Houcks Place"} />
-          <DiningChoiceTile onP={navigateTo} name={"Redhawks Market"} />
-          <DiningChoiceTile onP={navigateTo} name={"Subway"} />
-        </View>
+        <ScrollView style={styles.diningTileSub}>
+          {formattedTiles}
+        </ScrollView>
       </View>
     </View>
     
   );
 }
-

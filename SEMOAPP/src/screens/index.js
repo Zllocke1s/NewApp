@@ -9,3 +9,4 @@ export { default as Shuttle } from './Shuttle';
 export { default as StuGov } from './StuGov';
 export { default as Secret } from './Secret';
 export { default as Athletics } from './Athletics';
+export { default as SubDining } from './SubDining';

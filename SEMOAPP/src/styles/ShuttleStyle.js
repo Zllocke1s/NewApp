@@ -97,16 +97,19 @@ export const styles = StyleSheet.create({
     routeContainer: {
         margin: 10,
         marginLeft: 20,
-        justifyContent: "flex-start",
-        alignItems: "flex-start"
+        flex: 0.4,
+
+    },
+    routeTitle: {
+        fontSize: 22
     },
     routeText: {
-        fontSize: 22,
+        fontSize: 16,
     },
     mapContainer: {
         flex: 1,
         margin: 10,
-        marginTop: 40,
+        marginTop: 10,
     },
     map: {
         flex: 1

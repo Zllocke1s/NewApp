@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, Image, View } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { styles } from '../styles/ShuttleStyle';
 import {theme} from '../core/theme';
 import { useFonts } from 'expo-font';
@@ -101,9 +101,9 @@ export default function Shuttle() {
 
   load = true;
   var tabs = [
-              {id: 0, color: theme.colors.red, name: "Red", route: ""}, 
-              {id: 1, color: theme.colors.blue, name: "River", route: "Myers, Rear of Kent, Pacific/Grauel, Broadway Catapult, Broadway Mass Media, Independence & Spanish, River Campus, Band Annex, Vandiver/Merick, Bookstore, Dempster, Poly-Tech/LaFerla, MMTF/Rec, International Village, Towers, Grauel, Rear of Academic, Memorial"},
-              {id: 2, color: theme.colors.green, name: "Green", route: "Memorial, Parker/Cheney, Scully, Dempster, Poly, Tech/LaFerla, MMTF/Rec, DPS/Greek Village, International Village, Towers, Grauel, Houck, Vandiver/Merick, U.C.Myers, Rear of Kent, Pacific, Grauel, Rear of Academic"}
+              {id: 0, color: theme.colors.red, name: "Red", route: "\u2022\tTowers\n\u2022\tDPS/Greek Village\n\u2022\tMMTF/Rec\n\u2022\tDempster\n\u2022\tScully\n\u2022\tParker/Cheney\n\u2022\tMemorial\n\u2022\tRear Academic\n\u2022\tGrauel\n\u2022\tUniversity Center\n\u2022\tMyers\n\u2022\tRear Kent\n\u2022\tPacific\n\u2022\tGrauel\n\u2022\tTowers"}, 
+              {id: 1, color: theme.colors.blue, name: "River", route: "\u2022\tMyers\n\u2022\tRear of Kent\n\u2022\tPacific/Grauel\n\u2022\tBroadway Catapult\n\u2022\tBroadway Mass Media\n\u2022\tIndependence & Spanish\n\u2022\tRiver Campus\n\u2022\tBand Annex\n\u2022\tVandiver/Merick\n\u2022\tBookstore\n\u2022\tDempster\n\u2022\tPoly-Tech/LaFerla\n\u2022\tMMTF/Rec\n\u2022\tInternational Village\n\u2022\tTowers\n\u2022\tGrauel\n\u2022\tRear of Academic\n\u2022\tMemorial"},
+              {id: 2, color: theme.colors.green, name: "Green", route: "\u2022\tMemorial\n\u2022\tParker/Cheney\n\u2022\tScully\n\u2022\tDempster\n\u2022\tPolyTech/LaFerla\n\u2022\tMMTF/Rec\n\u2022\tDPS/Greek Village\n\u2022\tInternational Village\n\u2022\tTowers\n\u2022\tGrauel\n\u2022\tHouck\n\u2022\tVandiver/Merick\n\u2022\tU.C.Myers\n\u2022\tRear of Kent\n\u2022\tPacific\n\u2022\tGrauel\n\u2022\tRear of Academic"}
             ] 
   if(!loaded)
   {
@@ -124,7 +124,10 @@ export default function Shuttle() {
         </View>
       <View style={[styles.infoContainer, {borderColor: tabs[aID].color}]}>
         <View style={styles.routeContainer}>
-          <Text style={[styles.routeText, { fontFamily: 'Times'}]}>Route: {route}</Text>
+        <Text style={[styles.routeTitle, {fontFamily: "Times"}]}>Route:</Text>
+        <ScrollView>
+          <Text style={[styles.routeText, { fontFamily: 'Times'}]}>{route}</Text>
+        </ScrollView>
         </View>
         <View style={styles.mapContainer}>
           <MapView style={styles.map}

@@ -21,7 +21,6 @@ export const styles = StyleSheet.create({
         flexDirection: "column",
         width: 375,
         height: 600,
-        justifyContent: "space-between",
         padding: 10
     },
     headerContainer: {
@@ -37,6 +36,6 @@ export const styles = StyleSheet.create({
         fontSize: 35,
         flex: 1,
         marginTop: 25,
-        paddingLeft: 5
+        paddingLeft: 5,
     },
   });

@@ -1,6 +1,7 @@
 import { TouchableOpacity, Linking, Image, StyleSheet, Text, View, Touchable } from 'react-native';
 import {theme} from '../core/theme';
 import {decode} from 'html-entities';
+import { AntDesign } from '@expo/vector-icons'; 
 
 //Todo: Tiling News through the tile
 
@@ -93,16 +94,16 @@ export const NewsTile = (({name, item}) => {
         );
 });
 
-export const DiningChoiceTile = (({name, onP, src}) => {
+export const DiningChoiceTile = (({name, id, status, onP, location, src}) => {
 
         return(
-            <TouchableOpacity onPress={() => onP(name)}
+            <TouchableOpacity onPress={() => onP(id, name, status)}
              style={styles.diningContainer}>
                 <View style={styles.columns}>
                     <View style={styles.rows}>
                     <Text style={styles.diningTitle}>{name}</Text>
-                    <Text style={styles.diningText}>1 University Plaza{"\n"}Cape Girardeau, MO 63701</Text>
-                    <Text style={styles.diningHours}>Open. Closes at 12:00 p.m.</Text>
+                    <Text style={styles.diningText}>{location}</Text>
+                    <Text style={[styles.diningHours, {color: status.color}]}><AntDesign name="clockcircleo" size={18} color={status.color} />  {status.message}</Text>
                     </View>
                     <Image style={styles.menuLogo}
                    source={require("../assets/tiles/plate.png")}
@@ -170,7 +171,8 @@ const styles = StyleSheet.create({
         backgroundColor: theme.colors.white,
         alignItems: 'flex-start',
         justifyContent: 'flex-start',
-        margin: 0
+        marginBottom: 50,
+        padding: 5
       },
       logo:
       {
@@ -283,6 +285,7 @@ const styles = StyleSheet.create({
     rows:
     {
         display: "flex",
+        flex: 1,
         flexDirection: "column",
         justifyContent: "space-around",
         

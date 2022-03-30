@@ -64,12 +64,7 @@ export default function Landing({ navigation }) {
   {navigation.navigate("StuGov");
   }
 
-  var newsItem = {
-    title: "SEMO Women's Basketball Falls To SIUE",
-    intro: "The SEMO Women's Basketball team scored high and mighty this Saturday",
-    image: "https://www.semo.edu/news/2022/03/_images/regalia-nf-medium500x282.jpg",
-    link: "https://www.semo.edu/news/2022/03/may-2022-commencement-facultystaff-regalia-ordering-information-now-available.html"
-  }
+
 
   const [counter, setCounter] = useState(0);
   useEffect(() => {
