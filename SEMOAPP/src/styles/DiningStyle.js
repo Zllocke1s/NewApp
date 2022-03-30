@@ -14,17 +14,15 @@ export const styles = StyleSheet.create({
     tileContainer: {
         padding: 10,
         marginTop: 20,
-        width: '50%',
-        marginRight: 200
+        width: '95%',
+        flex: 1
     },
     diningTileSub: {
         flexDirection: "column",
-        width: 375,
-        height: 600,
-        padding: 10
+        width: "100%",
     },
     headerContainer: {
-        flex: .50,
+        flex: .15,
         backgroundColor: theme.colors.red,
         padding: 35
     },

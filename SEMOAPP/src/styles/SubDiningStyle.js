@@ -48,7 +48,7 @@ export const styles = StyleSheet.create({
         paddingBottom: 20,
     },
     headerTileContainerContainer: {
-        flexDirection: "row",
+        flexDirection: "column",
         marginTop: 10,
         width: "95%",
         backgroundColor: theme.colors.gray,
@@ -92,6 +92,7 @@ export const styles = StyleSheet.create({
     hours: {
         marginLeft: 5,
         marginBottom: 10,
+        
     }
   });
   

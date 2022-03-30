@@ -24,7 +24,6 @@ export default function Dining({navigation}) {
       .then((response) => response.json())
       .then((json) => {
         setHours(json)
-        console.log(json);
       }
         )
       .catch((error) => {
@@ -34,6 +33,23 @@ export default function Dining({navigation}) {
   
     }, [])
   
+    React.useEffect(() => {
+      const interval = setInterval(() => {
+        console.log("Refreshing Hours")
+        fetch('https://api.dineoncampus.com/v1/locations/status?site_id=5751fd3290975b60e0489360&platform=0')
+      .then((response) => response.json())
+      .then((json) => {
+        setHours(json)
+      }
+        )
+      .catch((error) => {
+        console.error(error);
+      });
+      
+  
+      }, 30000);
+      return () => clearInterval(interval);
+    })
 
   function navigateTo(id, name, status) {
     navigation.navigate("SubDining", {id: id, name: name, status: status})
@@ -43,7 +59,6 @@ export default function Dining({navigation}) {
     if(hours!=null)
     {
     setFormattedTiles(hours.locations.map((item) => {
-      console.log(item)
       return(
         <DiningChoiceTile onP={navigateTo} key={item.id} id={item.id} name={item.name} location={item.metadata} status={item.status} />
       )
@@ -59,7 +74,7 @@ export default function Dining({navigation}) {
       </View>
       
       <View style={styles.tileContainer}>
-        <ScrollView style={styles.diningTileSub}>
+        <ScrollView persistentScrollbar={true} style={styles.diningTileSub}>
           {formattedTiles}
         </ScrollView>
       </View>
