@@ -1,10 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, Image, View, ScrollView } from 'react-native';
+import { StyleSheet, ActivityIndicator, Text, Image, View, ScrollView } from 'react-native';
 import { styles } from '../styles/DiningStyle';
 import { DiningChoiceTile } from '../components/Tile';
 import React, { useEffect } from 'react';
-import AppLoading from 'expo-app-loading';
-
+import { theme } from '../core/theme';
 export default function Dining({navigation}) {
 
   var dining = {
@@ -62,7 +61,9 @@ export default function Dining({navigation}) {
       return(
         <DiningChoiceTile onP={navigateTo} key={item.id} id={item.id} name={item.name} location={item.metadata} status={item.status} />
       )
+      
     }))
+    setLoaded(true)
   }
   }, [hours])
   return (
@@ -75,7 +76,7 @@ export default function Dining({navigation}) {
       
       <View style={styles.tileContainer}>
         <ScrollView persistentScrollbar={true} style={styles.diningTileSub}>
-          {formattedTiles}
+          {isLoaded ? formattedTiles : <ActivityIndicator style={styles.loadingBar} size="large" color={theme.colors.red} />}
         </ScrollView>
       </View>
     </View>

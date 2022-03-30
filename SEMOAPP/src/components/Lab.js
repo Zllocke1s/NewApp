@@ -65,6 +65,8 @@ export const Lab = (({auth, item}) => {
              style={styles.container}>
                 <View style={styles.textContainer}>
                     <Text style={styles.text}>{item.name}</Text>
+                    <View style={styles.barContainer}>
+                        <Text style={styles.barLabel}>Status</Text>
                     <View style={styles.barHolder}>
                         <View style={[styles.bar, {width: (((stats.online-stats.inUse)*100/stats.online).toFixed().toString() + "%")}]}>
                         </View>
@@ -72,6 +74,7 @@ export const Lab = (({auth, item}) => {
                         <Text style={styles.label}>{(stats.total!=0) ? ((stats.online-stats.inUse)*100/stats.online).toFixed() + "% Open" : ""}</Text>
                     </View>
                     </View>
+                </View>
                 </View>
                 <View style={!isOpen ? styles.hidden : styles.detailsContainer}>
                 <View style={styles.row}>
@@ -98,15 +101,25 @@ export const Lab = (({auth, item}) => {
 });
 
 const styles = StyleSheet.create({
-    barHolder: {
+    barContainer: {
         flex: 0.4,
+        
+    },
+    barLabel: {
+        justifyContent: "center",
+        alignSelf: "center"
+    },
+    barHolder: {
         backgroundColor: theme.colors.gray2,
-        borderRadius: 10
+        borderRadius: 10,
+        width: "100%",
+        flex: 1
     },
     bar: {
         width: "100%",
         backgroundColor: theme.colors.red,
         flex: 1,
+        height: 30,
         borderRadius: 10,
         justifyContent: "center",
         alignItems: "center"
