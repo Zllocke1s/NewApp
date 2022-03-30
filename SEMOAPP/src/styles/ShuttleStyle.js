@@ -113,6 +113,19 @@ export const styles = StyleSheet.create({
     },
     map: {
         flex: 1
+    },
+    hidden: {
+        display: "none"
+    },
+    error: {
+        backgroundColor: "#ffffff",
+        padding: 5,
+        fontStyle: 'italic',
+        fontWeight: 'bold',
+    },
+    snapButton: {
+        backgroundColor: theme.colors.red
     }
+    
   });
   

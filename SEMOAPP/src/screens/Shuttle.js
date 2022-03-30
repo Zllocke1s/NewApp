@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, Image, View } from 'react-native';
+import { StyleSheet, Button, Text, Image, View } from 'react-native';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { styles } from '../styles/ShuttleStyle';
 import {theme} from '../core/theme';
@@ -37,14 +37,19 @@ export default function Shuttle() {
   }, []);
 
 
+  const snap = () => {
+    //console.log(tracker[0].props.coordinate.latitude)
+    animateMap(tracker[0].props.coordinate.longitude, tracker[0].props.coordinate.latitude)
+  }
+
   useEffect(() => {
     if(location!=null)
     {
     mapRef.current.animateToRegion({
       latitude: location.latitude,
       longitude: location.longitude,
-      latitudeDelta: 0.1,
-      longitudeDelta: 0.1
+      latitudeDelta: 0.05,
+      longitudeDelta: 0.05
     })
   }
     //console.log("LOCATION: " + JSON.stringify(location.latitude + location.longitude))
@@ -66,16 +71,31 @@ export default function Shuttle() {
     return () => clearInterval(interval);
   })
 
+  const animateMap = (lat, lng) => {
+    mapRef.current.animateToRegion({ // Takes a region object as parameter
+        longitude: lat,
+        latitude: lng,
+        latitudeDelta: 0.005,
+        longitudeDelta: 0.005,
+    },1000);
+}
 
   function defineTrackers() {
     fetch('http://wds.semo.edu/nexus/get_data.php')
     .then((response) => response.json())
     .then((json) => {
-      console.log((json)) 
+    //  console.log((json)) 
       setTracker(json.map((item) => {
-        console.log('lat: ' + parseFloat(item.lng))
+     //   console.log('lat: ' + parseFloat(item.lng))
         if(item.route.includes(tabs[aID].name))
         {
+         if(mapRef.current!=null)
+         {
+          animateMap(item.lat, item.lng)
+         }
+         else{
+           console.log(item.lat, item.lng)
+         }
         return <MapView.Marker key={item.id}
         coordinate={{latitude: parseFloat(item.lat),
         longitude: parseFloat(item.lng)}}
@@ -98,6 +118,7 @@ export default function Shuttle() {
     setRoute(tabs[aID].route)
     defineTrackers()
   }, [load, aID])
+
 
   load = true;
   var tabs = [
@@ -130,6 +151,12 @@ export default function Shuttle() {
         </ScrollView>
         </View>
         <View style={styles.mapContainer}>
+          <Text style={tracker==null || tracker[0]==undefined ? styles.error : styles.hidden}>
+            Uh Oh!  We can't seem to locate the shuttle.{"\n"}Please try again later.
+          </Text>
+          <View style={tracker==null || tracker[0]==undefined ? styles.hidden : styles.snap}>
+          <Button color={theme.colors.red} title="Snap To Shuttle" onPress={snap}></Button>
+          </View>
           <MapView style={styles.map}
               showsUserLocation={true}
               ref={mapRef}
