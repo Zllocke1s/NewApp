@@ -14,17 +14,18 @@ export const styles = StyleSheet.create({
     headerContainer: {
         flex: .15,
         backgroundColor: theme.colors.red,
-        padding: 10
+        padding: 10,
+        width: "100%",
+        justifyContent: "center"
     },
     headerSubContainer: {
-        flexDirection: "row",
+        flexDirection: "column",
         width: "100%",
-        justifyContent: "space-evenly",
-        paddingTop: 35
+        justifyContent: "center",
+        alignItems: "center"
     },
     title: {
         fontSize: 36,
-        marginTop: 20,
         color: theme.colors.gray
     },
     mapContainer: {

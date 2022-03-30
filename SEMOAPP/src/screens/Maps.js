@@ -94,7 +94,7 @@ export default function Maps() {
     <View style={styles.container}>
       <View style={styles.headerContainer}>
         <View style={styles.headerSubContainer}>
-          <Text style={styles.title}>Maps</Text>
+        <Text style={styles.title}>Maps</Text>
          </View>
       </View>
       
