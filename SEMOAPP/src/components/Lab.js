@@ -68,10 +68,10 @@ export const Lab = (({auth, item}) => {
                     <View style={styles.barContainer}>
                         <Text style={styles.barLabel}>Status</Text>
                     <View style={styles.barHolder}>
-                        <View style={[styles.bar, {width: (((stats.online-stats.inUse)*100/stats.online).toFixed().toString() + "%")}]}>
+                        <View style={[styles.bar, {width: (((stats.online-stats.inUse)*100/stats.online).toFixed().toString()=="NaN" ? "0%" : ((stats.online-stats.inUse)*100/stats.online).toFixed().toString() + "%")}]}>
                         </View>
                         <View style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, justifyContent: 'center', alignItems: 'center'}}>
-                        <Text style={styles.label}>{(stats.total!=0) ? ((stats.online-stats.inUse)*100/stats.online).toFixed() + "% Open" : ""}</Text>
+                        <Text style={styles.label}>{(stats.total!=0) ? (((stats.online-stats.inUse)*100/stats.online).toFixed().toString()=="NaN" ? "0%" : ((stats.online-stats.inUse)*100/stats.online).toFixed().toString() + "%")+ " Open" : ""}</Text>
                     </View>
                     </View>
                 </View>
