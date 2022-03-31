@@ -7,25 +7,42 @@ import { useState, useEffect } from 'react';
 import * as Location from 'expo-location';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { FontAwesome } from '@expo/vector-icons'; 
-import { TextInput } from 'react-native-paper';
+import { Button, TextInput } from 'react-native-paper';
 import { theme } from '../core/theme';
 
 
 export default function Maps() {
 
+  var colors = [
+    "#0A9258",
+    "#125589",
+    "#F00",
+    "#D4470F",
+    "#A0A",
+    "#D5A30F",
+    "#1BAE0C",
+    "#AB0C66",
+    "#444",
+    "#696969"
+  ]
   const [poi, setPOI] = React.useState(null)
-  const [buildings, setBuildings] = React.useState(null)
-  const [resHalls, setResHall] = React.useState(null)
-  const [showB, toggleB] = React.useState(false)
-  const [showR, toggleR] = React.useState(false)
+  const [expanded, expand] = React.useState(false)
+  const [buildings, setBuildings] = React.useState([])
+  const [showMarkers, toggleMarker] = React.useState([])
   const [search, setSearch] = React.useState("")
 
+
   useEffect(() => {
-    fetch("https://api.concept3d.com/categories/8965,7961,7928?map=423&batch&children&key=0001085cc708b9cef47080f064612ca5")
+    console.log(showMarkers);
+  }, [showMarkers])
+
+  useEffect(() => {
+    fetch("https://api.concept3d.com/categories/7961,7928,7942,8810,3164,3165,3160,7956,7945,3163?map=423&batch&children&key=0001085cc708b9cef47080f064612ca5")
       .then((response) => response.json())
       .then((json) => {
-        setPOI(json.slice(1))
-        //console.log(json)
+       // console.log(json)
+        setPOI(json)
+
       }
         )
       .catch((error) => {
@@ -44,29 +61,24 @@ export default function Maps() {
       //console.log(JSON.stringify(poi[1].children.locations))
       //console.log(poi[1].children.locations)
       console.log(search)
-      setBuildings(poi[0].children.locations.map((item) => {
-        if(item.name.includes(search))
-        {
-        return <MapView.Marker key={item.id}
-        coordinate={{latitude: parseFloat(item.lat),
-        longitude: parseFloat(item.lng)}}
-        title={item.name}
-        ><FontAwesome name="map-marker" size={34} color={"#e55"} />
-        </MapView.Marker>
-        }
-      }))
-      setResHall(poi[1].children.locations.map((item) => {
-        if(item.name.includes(search))
-        {
-        return <MapView.Marker key={item.id}
-        coordinate={{latitude: parseFloat(item.lat),
-        longitude: parseFloat(item.lng)}}
-        title={item.name}
-        ><FontAwesome name="map-marker" size={34} color={"#5a5"} />
-        </MapView.Marker>
-        }
-      }))
 
+      setBuildings(poi.map((location, index) => {
+        return({
+          group: location.name,
+          elements: location.children.locations.map((item) => {
+        if(item.name.includes(search))
+        {
+        return (<MapView.Marker key={item.name}
+        coordinate={{latitude: parseFloat(item.lat),
+        longitude: parseFloat(item.lng)}}
+        title={item.name}
+        ><FontAwesome name="map-marker" size={34} color={colors[index]} />
+        </MapView.Marker>)
+        }
+      })})
+    }
+      )
+      )
     }
   }, [poi, search])
 
@@ -109,20 +121,38 @@ export default function Maps() {
           }}
 
         >
-          {showB ? buildings : null}
-          {showR ? resHalls : null}
+          {buildings.map((item) => {
+            if(showMarkers.includes(item.group))
+            {
+              return item.elements
+            }
+          })}
         </MapView>
         <View style={styles.legend}>
-          <TouchableOpacity onPress={() => {
-            toggleR(!showR)
+          <View style={expanded ? styles.legendOption : styles.hidden}>
+         {poi!=null ? poi.map((item, index) => {
+           return( <TouchableOpacity key={item.name} onPress={() => {
+             //console.log(item.name)
+              if(showMarkers.includes(item.name))
+              {
+                toggleMarker(showMarkers.filter((i) => i != item.name))
+              }
+              else
+              {
+                toggleMarker([... showMarkers, item.name])
+              }
+
           }} style={styles.legendOption}>
-            <Text><FontAwesome name="map-marker" size={21} color={showR ? "#5a5" : "#ddd"} />  Residence Halls</Text>
+            <Text><FontAwesome name="map-marker" size={21} color={showMarkers.includes(item.name) ? colors[index] : "#bbb"} /> {item.name}</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => {
-            toggleB(!showB)
-          } }style={styles.legendOption}>
-            <Text><FontAwesome name="map-marker" size={21} color={showB ? "#e55" : "#ddd"} />  Academic Buildings</Text>
-          </TouchableOpacity>
+           )
+          }) : null
+          }
+          </View>
+          <Button onPress={() => {
+            expand(!expanded)
+          }}>{expanded ? "^" : "v"}</Button>
+          
         </View>
         </View>
         <View style={styles.searchContainer}>

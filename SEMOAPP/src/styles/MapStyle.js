@@ -38,17 +38,26 @@ export const styles = StyleSheet.create({
     },
     legend: {
         position: "absolute",
-        top: 5,
-        left: 5,
-        margin: 10,
+        top: 0,
+        left: 0,
         padding: 10,
         backgroundColor: 'rgba(235, 235, 235, 0.9)',
         borderRadius: 10,
 
     },
+    release: {
+        backgroundColor: 'rgba(245,245,245,1)',
+        width: "20%",
+        alignSelf: "center",
+        textAlign: "center",
+        color: "#777"
+    },
+    hidden: {
+        display: "none"
+    },
     legendOption: {
-        marginTop: 10,
-        marginBottom: 10,
+        marginTop: 5,
+        marginBottom: 5,
         padding: 10,
         paddingRight: 5,
         paddingLeft: 5,
