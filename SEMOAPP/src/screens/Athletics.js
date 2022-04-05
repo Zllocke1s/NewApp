@@ -77,7 +77,6 @@ export default function Athletics({navigation}) {
       <View style={styles.content}>
         <View style={styles.row1}>
           <Text style={[styles.quote, { fontFamily: 'Times'}]}>"The secret of getting ahead is getting started" -Mark Twain</Text>
-      
         </View>
       <View style={styles.upcomingContainer}>
         <Text style={[styles.title, {fontFamily: 'Times'}]}>Upcoming Games:</Text>
