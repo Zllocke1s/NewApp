@@ -113,9 +113,27 @@ export const DiningChoiceTile = (({name, id, status, onP, location, src}) => {
         );
 });
 
+export const SecretTile = (({onP}) => {
+    return(
+        <TouchableOpacity onPress={() => onP()}
+         style={styles.secretContainer}
+         ><Text></Text>
+        </TouchableOpacity>
+    );
+
+});
+
 const styles = StyleSheet.create({
+    secretContainer: {
+        backgroundColor: theme.colors.gray,
+        position: "absolute",
+        bottom: 0,
+        left: 0,
+        width: 100,
+        height: 100
+    },
     container: {
-        flex: .3,
+        flex: .45,
         height: 100,
         width: 500,
         fontSize: 48,
@@ -128,7 +146,7 @@ const styles = StyleSheet.create({
   
       },
       fullscreenContainer: {
-        flex: .3,
+        flex: .45,
         height: 100,
         fontSize: 48,
         fontWeight: 'bold',
@@ -176,8 +194,8 @@ const styles = StyleSheet.create({
       },
       logo:
       {
-        width: 50,
-        height: 50,
+        width: 60,
+        height: 60,
         alignSelf:"center",
       },
       newsLogo:
@@ -222,8 +240,8 @@ const styles = StyleSheet.create({
         
     },
     fullLogo: {
-        width: 110,
-        height: 100,
+        width: "100%",
+        height: 100
     },
     
     headerLogo: {

@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, Image, View } from 'react-native';
 import { styles } from '../styles/LandingStyle';
-import { Tile, HeaderTile, NewsTile } from '../components/Tile';
+import { Tile, HeaderTile, NewsTile, SecretTile } from '../components/Tile';
 import { SocialMediaButton } from '../components/SocialMediaButton';
 import React, { useState, useEffect } from 'react';
 
@@ -86,30 +86,37 @@ export default function Landing({ navigation }) {
       <View style={styles.tileSubContainer}>
             <Tile name={"Shuttle Tracker"} onP={shuttle} src={require("../assets/tiles/shuttle.png")} fullscreen={false} />
           <Tile name={"Student Grades"} onP={portal} src={require("../assets/tiles/monitor.png")} fullscreen={false} />
-          <Tile name={"Dine on Campus"} onP={dining} src={require("../assets/tiles/plate.png")} fullscreen={false} />
-        </View>
+         </View>
         <View style={styles.tileSubContainer}>
+        <Tile name={"Dine on Campus"} onP={dining} src={require("../assets/tiles/plate.png")} fullscreen={false} />
           <Tile name={"Lab Availability"} onP={labs} src={require("../assets/tiles/editcal.png")} fullscreen={false} />
+            
+          </View>
+        <View style={styles.tileSubContainer}>
           <Tile name={"Athletics"} onP={athletics} src={require("../assets/tiles/athletics.png")} fullscreen={false} />
           <Tile name={"Student Government"} onP={stugov} src={require("../assets/tiles/stugov.png")} fullscreen={true} />
          
           </View>
-        <View style={styles.tileSubContainer}>
+      {/*  <View style={styles.tileSubContainer}>
           <Tile name={""} onP={placeholder} src={false} fullscreen={false} />
           <Tile name={""} onP={secret} src={false} fullscreen={false} />
           <Tile name={""} onP={placeholder} src={false} fullscreen={false} />
-        </View>
+  </View>*/}
         </View>
         <View style={styles.newsTileContainer}>
           <NewsTile name={"Latest News:"} item={news[counter]} />
         </View>
+        <SecretTile name={"Secret"} onP={secret} />
+
         <View style={styles.socialMediaContainer}>
         <SocialMediaButton type="Instagram" link="https://www.instagram.com/semissouristate/?hl=en"></SocialMediaButton>
         <SocialMediaButton type="Facebook" link="https://www.facebook.com/SEMissouriState/"></SocialMediaButton>
         <SocialMediaButton type="Twitter" link="https://twitter.com/SEMissouriState"></SocialMediaButton>
         <SocialMediaButton type="Youtube" link="https://www.youtube.com/user/semissouristate"></SocialMediaButton>
         </View>
+        
     </View>
+    
     
   );
 }
