@@ -7,7 +7,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Ionicons } from '@expo/vector-icons'; 
 import React, { useState, useEffect } from 'react';
 import {Game}  from '../components/Game';
-import {Tile} from '../components/Tile';
+import {SportsTile} from '../components/Tile';
 
 export default function Athletics() {
 
@@ -95,15 +95,15 @@ export default function Athletics() {
       </View>
         </View>
       <View style={styles.tileContainer}>
-      <Tile name={"Facilities"} onP={() => {
+      <SportsTile name={"Facilities"} onP={() => {
         console.log("Launch Facilities")
-      }} src={require("../assets/tiles/facilities.png")} fullscreen={false} />
-      <Tile name={"Fitness Classes"} onP={() => {
+      }} src={require("../assets/tiles/facilities.png")}  />
+      <SportsTile name={"Fitness Classes"} onP={() => {
         console.log("Launch Fitness Classes")
-      }} src={require("../assets/tiles/classes.png")} fullscreen={false} />
-      <Tile name={"Contact Information"} onP={() => {
+      }} src={require("../assets/tiles/classes.png")}  />
+      <SportsTile name={"Contact Information"} onP={() => {
         console.log("Launch Contact Info")
-      }} src={require("../assets/tiles/contact.png")} fullscreen={false} />
+      }} src={require("../assets/tiles/contact.png")}  />
       
       </View>
         </View>

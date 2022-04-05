@@ -35,6 +35,22 @@ export const Tile = (({name, onP, src, fullscreen}) => {
     }
 });
 
+export const SportsTile = (({name, onP, src}) => {
+        return(
+            <TouchableOpacity onPress={() => onP({name})}
+             style={styles.sportsContainer}>
+                <View style={styles.textContainer}>
+            <Image style={styles.logoSports}
+                   source={src}
+           ></Image>
+                    <Text style={styles.text}>{name}</Text>
+                </View>
+            </TouchableOpacity>
+        );
+    
+    
+});
+
 
 
 export const HeaderTile = (({name, src, fullscreen, onP}) => {
@@ -145,6 +161,18 @@ const styles = StyleSheet.create({
         margin: 0
   
       },
+      sportsContainer: {
+        flex: .3,
+        height: 100,
+        fontSize: 48,
+        paddingBottom: 10,
+        fontWeight: 'bold',
+        backgroundColor: theme.colors.white,
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        margin: 0
+  
+      },
       fullscreenContainer: {
         flex: .45,
         height: 100,
@@ -196,6 +224,12 @@ const styles = StyleSheet.create({
       {
         width: 60,
         height: 60,
+        alignSelf:"center",
+      },
+      logoSports:
+      {
+        width: 50,
+        height: 50,
         alignSelf:"center",
       },
       newsLogo:
