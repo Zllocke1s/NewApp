@@ -9,6 +9,7 @@ import { theme } from '../core/theme';
 import Moment from 'moment';
 import {Calendar, CalendarList, AgendaList} from 'react-native-calendars';
 import {CalendarItem} from '../components/CalendarItem';
+import { Entypo } from '@expo/vector-icons'; 
 
 export default function CalendarPage() {
 
@@ -78,7 +79,6 @@ var currentTags = [{"tag":"River Campus","color":"#3d2fa3"},
 {"tag":"Academic Events","color":"#ec3303"},
 {"tag":"Alumni & Foundation","color":"#3a87df"},
 {"tag":"Greek Life","color":"#3f8527"}]
-
 useEffect(() => {
   fetch('https://semo.edu/_data/event-data.json')
   .then((response) => response.json())
@@ -124,23 +124,8 @@ useEffect(() => {
 
 }, [])
 
-useEffect(() => {
-  if(data!=null)
-  {
-   // console.log((data))
-  }
-}, [data])
 
-useEffect(() => {
-  if(dotsMapped!=null)
-  {
-  // console.log((dotsMapped))
-  }
-}, [dotsMapped])
 
-const vacation = {key: 'vacation', color: 'red', selectedDotColor: 'blue'};
-const massage = {key: 'massage', color: 'blue', selectedDotColor: 'blue'};
-const workout = {key: 'workout', color: 'green'};
 
 const [loaded] = useFonts({
   Times: require('../assets/fonts/times.ttf'),
@@ -167,6 +152,22 @@ else {
   selected={Moment(Date().toString()).format("YYYY-MM-DD")}
   markingType={'multi-dot'}
   markedDates={dotsMapped}
+  renderArrow={direction => {
+    console.log(direction)
+    if(direction=="left")
+    {
+      return (
+        <Entypo name="chevron-left" size={24} color="black" />
+      )
+    }
+    else
+    {
+      return (
+        <Entypo name="chevron-right" size={24} color="black" />
+      )
+    }
+    
+  }}
   // Callback that fires when the calendar is opened or closed
   onCalendarToggled={calendarOpened => {
 //    console.log(calendarOpened);
@@ -196,10 +197,8 @@ else {
     console.log("Scrolled")
   }}
   
-  rowHasChanged={(r1, r2) => {
-    console.log(JSON.stringify(r1.id !== r2.id))
-    return r1.id !== r2.id;
-  }}
+  enableSwipeMonths={true}
+
 
   // Specify how each date should be rendered. day can be undefined if the item is not first in that day
 
@@ -209,9 +208,6 @@ else {
     agendaDayTextColor: theme.colors.gray3,
     todayTextColor: theme.colors.red,
     dotColor: theme.colors.red,
-    agendaDayNumColor: theme.colors.gray3,
-    agendaTodayColor: theme.colors.red,
-    agendaKnobColor: theme.colors.redPastel
   }}
   // Agenda container style
   style={{}}

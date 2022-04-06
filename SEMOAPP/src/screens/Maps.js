@@ -149,7 +149,7 @@ export default function Maps() {
           }) : null
           }
           </View>
-          <Button onPress={() => {
+          <Button style={{borderWidth: 1, borderColor: theme.colors.gray3}} onPress={() => {
             expand(!expanded)
           }}>{expanded ? "^" : "v"}</Button>
           
