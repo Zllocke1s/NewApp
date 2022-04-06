@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, Image, View } from 'react-native';
+import { StyleSheet, Text, Linking, Image, View } from 'react-native';
 import { styles } from '../styles/AthleticsStyle';
 import { useFonts } from 'expo-font';
 import AppLoading from 'expo-app-loading';
@@ -98,8 +98,8 @@ export default function Athletics({navigation}) {
           navigation.navigate("FitnessClasses")
         }} src={require("../assets/tiles/classes.png")}  />
       <SportsTile name={"Contact Information"} onP={() => {
-          navigation.navigate("AthleticsContact")
-        }} src={require("../assets/tiles/contact.png")}  />
+Linking.openURL("https:semo.edu/student-support/health-wellness/rec-services/team-directory.html")
+      }} src={require("../assets/tiles/contact.png")}  />
       
       </View>
         </View>

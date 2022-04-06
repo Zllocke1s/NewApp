@@ -4,7 +4,6 @@ import { createStackNavigator } from 'react-navigation-stack';
 import {
   Landing,
   CalendarPage,
-  AthleticsContact, 
   Dining,
   Labs,
   Maps,
@@ -25,7 +24,6 @@ const Router = createStackNavigator(
   {
     Landing,
   CalendarPage,
-  AthleticsContact,
   Dining,
   Labs,
   Maps,

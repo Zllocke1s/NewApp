@@ -13,5 +13,4 @@ export { default as SubDining } from './SubDining';
 export { default as RecHours } from './RecHours';
 export { default as Facilities } from './Facilities';
 export { default as FitnessClasses } from './FitnessClasses';
-export { default as AthleticsContact } from './FitnessClasses';
-export { default as IMSchedule } from './FitnessClasses';
+export { default as IMSchedule } from './IMSchedule';
