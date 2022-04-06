@@ -9,7 +9,7 @@ import React, { useState, useEffect } from 'react';
 import {Game}  from '../components/Game';
 import {SportsTile} from '../components/Tile';
 
-export default function Athletics({navigation}) {
+export default function AthleticsContact({navigation}) {
 
 
   var dummyGames = [
@@ -83,8 +83,8 @@ export default function Athletics({navigation}) {
         <View style={styles.gameContainer}>
           {games}
         <TouchableOpacity onPress={() => {
-          navigation.navigate("IMSchedule")
-        }} style={styles.fullSchedule}>
+        console.log("Launch Full Schedule")
+      }} style={styles.fullSchedule}>
           <Text style={[styles.fullScheduleText, {fontFamily: 'Times'}]}>View Full Schedule</Text>
         </TouchableOpacity>
         </View>
@@ -95,11 +95,11 @@ export default function Athletics({navigation}) {
           navigation.navigate("RecHours")
         }} src={require("../assets/tiles/facilities.png")}  />
       <SportsTile name={"Fitness Classes"} onP={() => {
-          navigation.navigate("FitnessClasses")
-        }} src={require("../assets/tiles/classes.png")}  />
+        console.log("Launch Contact Info")
+      }} src={require("../assets/tiles/classes.png")}  />
       <SportsTile name={"Contact Information"} onP={() => {
-          navigation.navigate("AthleticsContact")
-        }} src={require("../assets/tiles/contact.png")}  />
+        console.log("Launch Contact Info")
+      }} src={require("../assets/tiles/contact.png")}  />
       
       </View>
         </View>

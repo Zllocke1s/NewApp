@@ -4,6 +4,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 import {
   Landing,
   CalendarPage,
+  AthleticsContact, 
   Dining,
   Labs,
   Maps,
@@ -16,19 +17,22 @@ import {
   SubDining,
   RecHours,
   Facilities,
-  FitnessClasses
+  FitnessClasses,
+  IMSchedule
 } from './screens';
 
 const Router = createStackNavigator(
   {
     Landing,
   CalendarPage,
+  AthleticsContact,
   Dining,
   Labs,
   Maps,
   Portal,
   Reserve,
   Shuttle,
+  IMSchedule,
   StuGov,
   Secret,
   Athletics,
