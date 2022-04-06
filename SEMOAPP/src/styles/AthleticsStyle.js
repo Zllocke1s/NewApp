@@ -49,6 +49,14 @@ export const styles = StyleSheet.create({
         width: "100%",
         justifyContent: "space-between",
     },
+    
+    row2: {
+        display: "flex",
+        flexDirection: "row",
+        width: "100%",
+        backgroundColor: theme.colors.gray2,
+        justifyContent: "space-around",
+    },
     content: {
         display: "flex",
         flexDirection: "column",
@@ -79,6 +87,28 @@ export const styles = StyleSheet.create({
     title: {
         fontSize: 25,
         marginLeft: 9,
+        color: theme.colors.black
+    },
+    hidden:
+    {
+        display: 'none'
+    },
+    scheduleContainer: {
+        width: "100%",
+        flex: 0.5
+    },
+    
+    classContainer: {
+        width: "90%",
+        flex: 0.95,
+        backgroundColor: theme.colors.gray
+    },
+    
+    titleActive: {
+        fontSize: 25,
+        marginLeft: 9,
+        color: theme.colors.red,
+        textDecorationLine: 'underline'
     },
     fullSchedule: {
         backgroundColor: theme.colors.gray3,
@@ -91,6 +121,12 @@ export const styles = StyleSheet.create({
     fullScheduleText: {
         color: theme.colors.gray
     },
+    items:
+    {
+        width: "100%",
+        backgroundColor: theme.colors.gray,
+        flex: 1
+    },
 
 
 
@@ -101,6 +137,9 @@ export const styles = StyleSheet.create({
         marginTop: 10,
         justifyContent: "center",
         alignItems: "center"
+    },
+    individualContainer: {
+        marginTop: 15
     },
     
     textTitle: {
