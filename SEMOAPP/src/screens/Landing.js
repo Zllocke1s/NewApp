@@ -43,7 +43,7 @@ export default function Landing({ navigation }) {
     }
   }
   function calendar()
-  {navigation.navigate("Calendar");
+  {navigation.navigate("CalendarPage");
   }
   function maps()
   {navigation.navigate("Maps");

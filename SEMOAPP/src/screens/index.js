@@ -1,5 +1,5 @@
 export { default as Landing } from './Landing';
-export { default as Calendar } from './Calendar';
+export { default as CalendarPage } from './CalendarPage';
 export { default as Dining } from './Dining';
 export { default as Labs } from './Labs';
 export { default as Maps } from './Maps';

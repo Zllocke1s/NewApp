@@ -8,7 +8,6 @@ import { Ionicons } from '@expo/vector-icons';
 import React, { useState, useEffect } from 'react';
 import {Game}  from '../components/Game';
 import {SportsTile} from '../components/Tile';
-
 export default function Athletics() {
 
 
@@ -81,7 +80,7 @@ export default function Athletics() {
         <Ionicons name="hourglass-outline" size={44} color="black" />
           <Text>Hours</Text>
         </TouchableOpacity>
-        </View>
+        </View> 
       <View style={styles.upcomingContainer}>
         <Text style={[styles.title, {fontFamily: 'Times'}]}>Upcoming Games:</Text>
         <View style={styles.gameContainer}>

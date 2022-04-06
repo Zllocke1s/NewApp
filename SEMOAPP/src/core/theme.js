@@ -13,6 +13,7 @@ if(Appearance.getColorScheme() !== "dark" )
   colors: {
     ...DefaultTheme.colors,
     red: '#C8102E',
+    redPastel: '#fbd0d7',
     gray: '#eee',
     gray2: "#ccc",
     gray3: "#aaa",

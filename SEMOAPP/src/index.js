@@ -3,7 +3,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 
 import {
   Landing,
-  Calendar,
+  CalendarPage,
   Dining,
   Labs,
   Maps,
@@ -19,7 +19,7 @@ import {
 const Router = createStackNavigator(
   {
     Landing,
-  Calendar,
+  CalendarPage,
   Dining,
   Labs,
   Maps,
