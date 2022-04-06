@@ -95,7 +95,8 @@ export default function Athletics({navigation}) {
           navigation.navigate("RecHours")
         }} src={require("../assets/tiles/facilities.png")}  />
       <SportsTile name={"Fitness Classes"} onP={() => {
-          navigation.navigate("FitnessClasses")
+         // navigation.navigate("FitnessClasses")
+         Linking.openURL("https://semo.edu/student-support/health-wellness/rec-services/fitness-wellness/group-fitness.html")
         }} src={require("../assets/tiles/classes.png")}  />
       <SportsTile name={"Contact Information"} onP={() => {
 Linking.openURL("https:semo.edu/student-support/health-wellness/rec-services/team-directory.html")
