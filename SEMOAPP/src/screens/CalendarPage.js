@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, Image, View, Dimensions } from 'react-native';
+import { StyleSheet, Text, Image, View, Dimensions, ScrollView } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import { styles } from '../styles/CalendarStyle';
 import { useFonts } from 'expo-font';
@@ -7,13 +7,14 @@ import AppLoading from 'expo-app-loading';
 import CalendarPicker from 'react-native-calendar-picker';
 import { theme } from '../core/theme';
 import Moment from 'moment';
-import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
+import {Calendar, CalendarList, AgendaList} from 'react-native-calendars';
 import {CalendarItem} from '../components/CalendarItem';
 
 export default function CalendarPage() {
 
   const [data, setData] = React.useState(null)
   const [date, setDate] = React.useState(null)
+  const [itemList, setItemList] = React.useState(null)
   const [dataMapped, setDataMap] = React.useState(null)
   const [dotsMapped, setDots] = React.useState(null)
   //var cds = {}
@@ -160,10 +161,9 @@ else {
       </View>
       <View style={styles.calContainer}>
         <Image source={require("../assets/semo.png")} style={{width: 300, height: 120}}></Image>
-     <Agenda
+     <Calendar
      //Right now, each item in the datamapped object has a .dots property
      //I need the property to be the only thing, and in the actual object, not the sub object
-  items={data}
   selected={Moment(Date().toString()).format("YYYY-MM-DD")}
   markingType={'multi-dot'}
   markedDates={dotsMapped}
@@ -174,6 +174,18 @@ else {
   // Callback that gets called on day press
   onDayPress={day => {
     console.log('day pressed');
+    if(data[day.dateString]!=null)
+    {
+    setItemList(
+      
+      (data[day.dateString].map((event) => {
+      return (<CalendarItem item={event} />)
+      })))
+    }
+    else
+    {
+      setItemList(null)
+    }
   }}
   // Initially selected day
   // Specify how each item should be rendered in agenda
@@ -189,7 +201,6 @@ else {
     return r1.id !== r2.id;
   }}
 
-  showOnlySelectedDayItems={false}
   // Specify how each date should be rendered. day can be undefined if the item is not first in that day
 
   // Agenda theme
@@ -205,6 +216,9 @@ else {
   // Agenda container style
   style={{}}
 />
+<ScrollView>
+  {itemList}
+</ScrollView>
         </View>
         </View>
     
