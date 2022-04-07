@@ -3,7 +3,6 @@ import {theme} from '../core/theme';
 import { useFonts } from 'expo-font';
 import AppLoading from 'expo-app-loading';
 
-
 export const Game = (({sport, home, away, location, date, time}) => {
 
     const [loaded] = useFonts({

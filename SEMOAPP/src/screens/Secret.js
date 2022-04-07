@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, Image, View } from 'react-native';
-import { styles } from '../styles/LandingStyle';
+import { styles } from '../styles/SecretStyle';
+
 export default function Secret() {
   return (
     <View style={styles.container}>
@@ -11,7 +12,7 @@ export default function Secret() {
       </View>
       
       <View style={styles.tileContainer}>
-        <Text>Secret</Text>
+
         </View>
         </View>
     
