@@ -139,74 +139,78 @@ export const SecretTile = (({onP}) => {
 
 });
 
-export const ClassTile = (({classname, professor}) => {
-    return(<View style={styles.gradesContainer}>
-        <TouchableOpacity>
-            <View style={styles.gradesTextContainer}>
+export const ClassTile = (({color, classname, professor}) => {
+    return(<View style={[styles.classContainer, {backgroundColor: color}]}>
+            <View style={styles.classTextContainer}>
                 <Text style={styles.classText}>{classname}</Text>
                 <Text style={styles.professorText}>{professor}</Text>
             </View>
-        </TouchableOpacity>
     </View>);
 });
 
-export const GradePercentTile = (({percentage}) => {
-    return(<View style={styles.gradesContainer}>
-        <TouchableOpacity>
+export const GradePercentTile = (({color, percentage}) => {
+    return(<View style={[styles.gradesContainer, {backgroundColor: color}]}>
             <View style={styles.gradesTextContainer}>
                 <Text style={styles.gradeText}>{percentage}</Text>
             </View>
-        </TouchableOpacity>
     </View>);
 });
 
 const styles = StyleSheet.create({
     classText: {
-        width: 100,
         justifyContent: 'flex-start',
-        alignSelf: 'center',
         textAlign: 'left',
-        paddingTop: 25,
-        paddingLeft: 15,
+        paddingLeft:15,
+        paddingTop: 20,
+        color: theme.colors.gray2,
+        fontSize: 16
         //text formatting here
     },
     professorText: {
-        justifyContent: 'flex-start',
-        alignSelf: 'flex-end',
-        textAlign: 'center',
-        paddingRight: 25,
+        position: "absolute",
+        bottom: 10,
+        right: 0,
+        color: theme.colors.gray2,
+        fontSize: 14
         //text formatting here
     },
     gradeText: {
-        width: 100,
         height: 100,
-        paddingTop: 25,
         justifyContent: 'center',
         alignSelf: 'center',
+        textAlignVertical: "center",
         textAlign: 'center',
         //text formatting here
     },
     gradesContainer: {
-        flex: 1,
-        height: 100,
-        width: 100,
         fontSize: 48,
         marginTop: 10,
-        paddingBottom: 10,
+        display: 'flex',
+        height: 100,
+        flex: 0.2,
         fontWeight: 'bold',
-        backgroundColor: theme.colors.white,
+        alignItems: "center",
+        justifyContent: 'center',
+    },
+    classContainer: {
+        fontSize: 48,
+        marginTop: 10,
+        display: 'flex',
+        height: 100,
+        flex: .7,
+        fontWeight: 'bold',
         alignItems: "flex-start",
         justifyContent: 'center',
-        margin: 0
+        borderRadius: 500,
     },
     gradesTextContainer: {
-        padding: 0,
+        width: "100%",
+        justifyContent: "center",
+        alignContent: "center",
+        
+    },classTextContainer: {
         flex: 1,
-        width: "50%",
-        textAlign: "left",
-        justifyContent: "flex-start",
-        alignItems: "flex-start",
-        backgroundColor: theme.colors.red,
+        width: "90%",
         
     },
     secretContainer: {

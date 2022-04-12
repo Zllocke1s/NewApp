@@ -17,12 +17,7 @@ export const styles = StyleSheet.create({
         width: "95%",
         backgroundColor: theme.colors.blue
     },
-    gradeTileSub: {
-        width: 100,
-        height: 100,
-        alignItems: "flex-start",
-        justifyContent: 'center',
-    },
+
     headerContainer: {
         flex: .15,
         backgroundColor: theme.colors.white,
@@ -41,25 +36,17 @@ export const styles = StyleSheet.create({
         paddingTop: 25,
         backgroundColor: theme.colors.white,
     },
-    classTile: {
-        fontSize: 35,
-        flex: .25,
-        marginTop: 25,
-        paddingLeft: 5
-    },
-    gradePercTile: {
-        fontSize: 35,
-        flex: .25,
-        marginTop: 25,
-        paddingLeft: 5
+    editButton: {
+        justifyContent: "center",
+        marginRight: 10
     },
     columns: {
         display: "flex",
         flexDirection: "row",
-        flex: 1,
         width: "100%",
+        backgroundColor: "yellow",
         textAlign: "left",
-        justifyContent: "flex-start"
+        justifyContent: "space-between"
     },
     rows:{
         display: "flex",
