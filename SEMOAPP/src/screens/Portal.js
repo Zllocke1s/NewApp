@@ -13,18 +13,18 @@ export default function Portal() {
   const [credentials, setCredentials] = React.useState(null)
   const [terms, setTerms] = React.useState(null)
   const [formattedTerms, setFormattedTerms] =React.useState(null)
-
-
+  const [colors, setColors] = React.useState([])
+  const [attemptColors, setAttemptGrab] = React.useState(false)
   useEffect(() => {
     if(terms!=null)
     {
       
-    setFormattedTerms(terms.find((obj) => obj.name=="Spring 2022").sections.map((item) => {
-      console.log(JSON.stringify(item))
+    setFormattedTerms(terms.find((obj) => obj.name=="Spring 2022").sections.map((item, index) => {
+      //console.log(JSON.stringify(item))
       return(
         <View key={item.sectionId} style={styles.columns}>
-        <ClassTile color={'#99e06a'} classname={item.sectionTitle} professor={item.courseName + " - " + item.courseSectionNumber}></ClassTile>
-        <GradePercentTile color={'#99e06a'} percentage={item.grades[item.grades.length-1].value} percentageType={item.grades[item.grades.length-1].name}></GradePercentTile>
+        <ClassTile color={colors[index]} classname={item.sectionTitle} professor={item.courseName + " - " + item.courseSectionNumber}></ClassTile>
+        <GradePercentTile color={colors[index]} percentage={item.grades[item.grades.length-1].value} percentageType={item.grades[item.grades.length-1].name}></GradePercentTile>
         <TouchableOpacity style={styles.editButton}>
         <Feather name="edit" size={24} color={theme.colors.gray3} />
         </TouchableOpacity>
@@ -45,7 +45,7 @@ export default function Portal() {
     }, 
     })
     .then((response) => {
-      console.log(JSON.stringify(response))
+      //console.log(JSON.stringify(response))
       if(!response.ok)
       {
        // throw new Error("invalid_credentials")
@@ -68,9 +68,51 @@ export default function Portal() {
     }
   }
 
+  const getColors = async () => {
+    try {
+      const jsonValue = await AsyncStorage.getItem("gradeColors")
+      setColors( jsonValue != null ? (JSON.parse(jsonValue)) : null);
+      setAttemptGrab(true)
+      console.log("Colors: " + jsonValue)
+    } catch(e) {
+      console.log(e)
+      // error reading value
+    }
+  }
+  const storeColors = async () => {
+    try {
+      const jsonValue = JSON.stringify(colors)
+      await AsyncStorage.setItem("gradeColors", jsonValue)
+    } catch (e) {
+      // saving error
+    }
+    console.log("Stored")
+    
+  }
+
+  useEffect(() => {
+    if(colors.length==0 && attemptColors==true)
+    {
+      console.log("No Colors set")
+      setColors([
+        "#abd67d",
+        "#a7ddda",
+        "#ff876b",
+        "#ffbfb0",
+        "#c7a1d1",
+        "#e2aedd",
+        "#ff876b"]
+      )
+    }
+    else if(colors!=[])
+    {
+      storeColors()
+    }
+  }, [colors, attemptColors])
+
   useEffect(() => {
     getData("credentials")
-
+    getColors()
   }, [])
 
   var classes = [{
