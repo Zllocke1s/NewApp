@@ -4,6 +4,8 @@ import { styles } from '../styles/DiningStyle';
 import { DiningChoiceTile } from '../components/Tile';
 import React, { useEffect } from 'react';
 import { theme } from '../core/theme';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 export default function Dining({navigation}) {
 
   var dining = {
@@ -13,7 +15,7 @@ export default function Dining({navigation}) {
   }
 
   const [hours, setHours] = React.useState(null)
-
+  const [so, setSO] = React.useState(null)
   const [board, setBoard] = React.useState(null)
   const [flex, setFlex] = React.useState(null)
   const [redbucks, setRedBucks] = React.useState(null)
@@ -34,8 +36,25 @@ export default function Dining({navigation}) {
       
   
     }, [])
-useEffect(() => {
 
+
+    
+  const getData = async (key) => {
+    try {
+      const jsonValue = await AsyncStorage.getItem(key)
+      setSO( jsonValue != null ? (JSON.parse(jsonValue).so) : null);
+      console.log("Pulled: " + jsonValue)
+    } catch(e) {
+      console.log("error")
+      // error reading value
+    }
+  }
+
+  getData("credentials")
+
+useEffect(() => {
+if(so!=null)
+{
   fetch("http://app.semo.edu/genl/cbalance/index.asp", {
     "headers": {
       "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
@@ -45,7 +64,7 @@ useEffect(() => {
       "upgrade-insecure-requests": "1"
     },
     "referrerPolicy": "strict-origin-when-cross-origin",
-    "body": "varid=S01984484",
+    "body": "varid=" + so,
     "method": "POST",
     "mode": "cors",
     "credentials": "include"
@@ -57,8 +76,9 @@ useEffect(() => {
   //console.log(array[array.indexOf(array.find((item) => item.includes("Board</div>")))+1])
   //console.log(array)
 })
+}
 
-}, [])
+}, [so])
     React.useEffect(() => {
       const interval = setInterval(() => {
         console.log("Refreshing Hours")
