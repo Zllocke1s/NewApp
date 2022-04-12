@@ -18,7 +18,7 @@ export const MinuteItem = (({auth, minutes}) => {
             }}
              style={styles.container}>
                 <View style={styles.textContainer}>
-                    <Text style={styles.label}>{minutes.Title}</Text>
+                    <Text style={styles.label}>{minutes.Title.replace("Senate Mins_", "").replace(".pdf", "")}</Text>
                 </View>
                 <View style={!isOpen ? styles.hidden : styles.detailsContainer}>
                 </View>
