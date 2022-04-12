@@ -66,6 +66,26 @@ export const styles = StyleSheet.create({
     },
     message: {
         fontSize: 18,
+        marginBottom: 20
+    },
+    rows: {
+        display: "flex",
+        flexDirection: "row"
+    },
+    rememberMeRow: {
+        display: "flex",
+        flexDirection: "row",
+        paddingTop: 10,
+        marginLeft: 10,
+        paddingBottom: 10
+    },
+    visible: {
+        justifyContent: "center",
+        marginLeft: 5
+    },
+    error: {
+        fontSize: 15,
+        color: theme.colors.red
     },
     hidden: {
         display: "none"
@@ -82,7 +102,6 @@ export const styles = StyleSheet.create({
     },
     button: {
         width: 100,
-        marginTop: 10,
         paddingTop: 10,
         paddingBottom: 10,
         display: "flex",

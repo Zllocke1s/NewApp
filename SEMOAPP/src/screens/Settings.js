@@ -5,6 +5,9 @@ import { styles } from '../styles/SettingsStyle';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Button } from 'react-native-paper';
 import base64 from 'react-native-base64'
+import { Entypo } from '@expo/vector-icons'; 
+import { theme } from '../core/theme';
+import { AntDesign } from '@expo/vector-icons'; 
 
 export default function Settings() {
 
@@ -12,7 +15,8 @@ export default function Settings() {
   const [invalid, setInvalid] = React.useState(false);
   const [username, onChangeUser] = React.useState("");
   const [password, onChangePass] = React.useState("");
-
+  const [isSecure, toggleSecure] = React.useState(true);
+  const [save, toggleSave] = React.useState(true);
 
   const storeData = async (key, value) => {
     try {
@@ -29,6 +33,7 @@ export default function Settings() {
     try {
       const jsonValue = await AsyncStorage.getItem(key)
       setMessage( jsonValue != null ? (JSON.parse(jsonValue)) : null);
+      console.log("Pulled: " + jsonValue)
     } catch(e) {
       console.log("error")
       // error reading value
@@ -53,28 +58,32 @@ export default function Settings() {
     }, 
     })
     .then((response) => {
-      if(response.ok)
-      {
-      response.json()
-      }
-      else
+      console.log(JSON.stringify(response))
+      if(!response.ok)
       {
        // throw new Error("invalid_credentials")
         setInvalid(true)
         return;
       }
-    })
-    .then((json) => {
+      response.json().then((json) => {
       console.log(json)
-      storeData("credentials", {username: username, password: password, so: json.userId})
+      setInvalid(false)
+      if(save)
+      {
+        storeData("credentials", {username: username, password: password, so: json.userId})
+      }
     }
-      )
+      )})
     .catch((error) => {
       console.log((error));
     });
     //
   }
   
+  
+  React.useEffect(() => {
+      getData("credentials")
+      }, [])
 
 
   return (
@@ -95,21 +104,36 @@ export default function Settings() {
       </View>
       <View style={message==null ? styles.logIn : styles.hidden}>
       <Text style={styles.message}>You are not currently logged in</Text>
+      <Text style={invalid ? styles.error : styles.hidden}>Error: Invalid Login.  Please try again.</Text>
 <TextInput
         style={styles.input}
         onChangeText={onChangeUser}
         value={username}
+        autoComplete="username"
         placeholder="Username"
       />
+      <View style={styles.rows}>
       <TextInput
         style={styles.input}
         error={true}
         errorText={{color: "red"}}
         onChangeText={onChangePass}
         value={password}
+        autoComplete="password"
         placeholder="Password"
+        secureTextEntry={isSecure}
       />
-        <TouchableOpacity style={styles.button} onPress={() => {
+      <TouchableOpacity style={styles.visible} onPress={() => {
+        toggleSecure(!isSecure)
+      }}><Entypo name={isSecure ? "eye-with-line" : "eye"} size={24} color={theme.colors.red} /></TouchableOpacity>
+      
+      </View>
+ {/*       <TouchableOpacity style={styles.rememberMeRow} onPress={() => {
+        toggleSave(!save)
+      }}><AntDesign name={!save ? "checksquareo" : "checksquare"} size={20} color={theme.colors.red} />
+      <Text>Remember me</Text>
+    </TouchableOpacity> */}
+              <TouchableOpacity style={styles.button} onPress={() => {
           login()
         }}><Text style={styles.logout}>Log In</Text></TouchableOpacity>    
         </View>
