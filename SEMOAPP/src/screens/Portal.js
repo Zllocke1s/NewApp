@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, Image, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Modal, Text, Image, View, TouchableOpacity } from 'react-native';
 import { styles } from '../styles/GradesStyle.js';
 import { ClassTile, GradePercentTile } from '../components/Tile';
 import { Feather } from '@expo/vector-icons'; 
@@ -7,14 +7,17 @@ import { theme } from '../core/theme.js';
 import React, { useEffect } from 'react';
 import base64 from 'react-native-base64'
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Button } from 'react-native-paper';
 
 export default function Portal() {
 
   const [credentials, setCredentials] = React.useState(null)
   const [terms, setTerms] = React.useState(null)
   const [formattedTerms, setFormattedTerms] =React.useState(null)
-  const [colors, setColors] = React.useState([])
+  const [colors, setColors] = React.useState(null)
   const [attemptColors, setAttemptGrab] = React.useState(false)
+  const [modal, setModal] = React.useState(null)
+  const [modalVisible, setModalVisible] = React.useState(false)
   useEffect(() => {
     if(terms!=null)
     {
@@ -23,9 +26,11 @@ export default function Portal() {
       //console.log(JSON.stringify(item))
       return(
         <View key={item.sectionId} style={styles.columns}>
-        <ClassTile color={colors[index]} classname={item.sectionTitle} professor={item.courseName + " - " + item.courseSectionNumber}></ClassTile>
-        <GradePercentTile color={colors[index]} percentage={item.grades[item.grades.length-1].value} percentageType={item.grades[item.grades.length-1].name}></GradePercentTile>
-        <TouchableOpacity style={styles.editButton}>
+        <ClassTile color={colors==null ? "#ccc" : colors[index]} classname={item.sectionTitle} professor={item.courseName + " - " + item.courseSectionNumber}></ClassTile>
+        <GradePercentTile color={colors==null ? "#ccc" : colors[index]} percentage={item.grades[item.grades.length-1].value} percentageType={item.grades[item.grades.length-1].name}></GradePercentTile>
+        <TouchableOpacity onPress={() => {
+          setModalVisible(true)
+        }} style={styles.editButton}>
         <Feather name="edit" size={24} color={theme.colors.gray3} />
         </TouchableOpacity>
       </View>
@@ -53,6 +58,7 @@ export default function Portal() {
         return;
       }
       response.json().then((json) => {
+        console.log(json)
       setTerms(json.terms)})})
     }
   }, [credentials])
@@ -71,8 +77,7 @@ export default function Portal() {
   const getColors = async () => {
     try {
       const jsonValue = await AsyncStorage.getItem("gradeColors")
-      setColors( jsonValue != null ? (JSON.parse(jsonValue)) : null);
-      setAttemptGrab(true)
+      setColors( jsonValue != null ? (JSON.parse(jsonValue)) : []);
       console.log("Colors: " + jsonValue)
     } catch(e) {
       console.log(e)
@@ -91,7 +96,7 @@ export default function Portal() {
   }
 
   useEffect(() => {
-    if(colors.length==0 && attemptColors==true)
+    if(colors==[] || colors==null)
     {
       console.log("No Colors set")
       setColors([
@@ -108,7 +113,7 @@ export default function Portal() {
     {
       storeColors()
     }
-  }, [colors, attemptColors])
+  }, [colors])
 
   useEffect(() => {
     getData("credentials")
@@ -159,6 +164,24 @@ export default function Portal() {
       <View style={styles.tileContainer}>
         <View style={styles.rows}>
             {formattedTerms}
+            <Modal
+        animationType="fade"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}
+      >
+          <View style={styles.modalView}>
+            <Text style={styles.modalText}>Hello World!</Text>
+            <Button
+              style={[styles.closeModal]}
+              onPress={() => setModalVisible(!modalVisible)}
+            >
+              <Text style={styles.closeText}>Hide Modal</Text>
+            </Button>
+          </View>
+      </Modal>
             </View>
         </View>
     </View>

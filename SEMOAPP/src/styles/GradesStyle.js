@@ -10,6 +10,17 @@ export const styles = StyleSheet.create({
       alignContent: "center",
       backgroundColor: theme.colors.white
     },
+    modalView: {
+        width: "70%",
+        backgroundColor: theme.colors.white,
+        alignSelf: "center",
+        marginTop: 200,
+        justifyContent: "flex-end",
+        flex: 0.5,
+        borderRadius: 4,
+
+
+    },
     tileContainer: {
         paddingHorizontal: 10,
         marginTop: 20,
@@ -23,6 +34,12 @@ export const styles = StyleSheet.create({
         backgroundColor: theme.colors.gray,
         padding: 35,
         alignContent: "flex-start"
+    },
+    closeModal: {
+
+    },
+    closeText: {
+        color: theme.colors.black
     },
     headerSubContainer: {
         flexDirection: "row",
