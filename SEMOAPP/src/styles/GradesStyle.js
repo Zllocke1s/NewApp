@@ -10,12 +10,16 @@ export const styles = StyleSheet.create({
       alignContent: "center",
       backgroundColor: theme.colors.white
     },
+    modalText: {
+        fontSize: 20,
+        textAlign: "center"
+    },
     modalView: {
         width: "70%",
         backgroundColor: theme.colors.white,
         alignSelf: "center",
         marginTop: 200,
-        justifyContent: "flex-end",
+        justifyContent: "space-between",
         flex: 0.5,
         borderRadius: 4,
 

@@ -8,8 +8,11 @@ import React, { useEffect } from 'react';
 import base64 from 'react-native-base64'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Button } from 'react-native-paper';
+import { TriangleColorPicker } from 'react-native-color-picker'
+ 
 
 export default function Portal() {
+
 
   const [credentials, setCredentials] = React.useState(null)
   const [terms, setTerms] = React.useState(null)
@@ -18,6 +21,7 @@ export default function Portal() {
   const [attemptColors, setAttemptGrab] = React.useState(false)
   const [modal, setModal] = React.useState(null)
   const [modalVisible, setModalVisible] = React.useState(false)
+  const [modalPicker, setModalPicker] = React.useState(null)
   useEffect(() => {
     if(terms!=null)
     {
@@ -30,6 +34,23 @@ export default function Portal() {
         <GradePercentTile color={colors==null ? "#ccc" : colors[index]} percentage={item.grades[item.grades.length-1].value} percentageType={item.grades[item.grades.length-1].name}></GradePercentTile>
         <TouchableOpacity onPress={() => {
           setModalVisible(true)
+          setModalPicker(<TriangleColorPicker
+            oldColor={colors[index]}
+            onColorSelected={color => {
+              var newColors = colors
+              newColors[index] = color
+              setColors(newColors)
+              setModalVisible(false)
+              }
+            }
+            onColorChange={(color) => {
+              let newColors = [...colors]
+              newColors[index] = color
+              console.log(newColors)
+              setColors(newColors)
+            }}
+            style={{flex: 1}}
+          />)
         }} style={styles.editButton}>
         <Feather name="edit" size={24} color={theme.colors.gray3} />
         </TouchableOpacity>
@@ -38,7 +59,7 @@ export default function Portal() {
     }))
     
   }
-  }, [terms])
+  }, [terms, colors])
 
   useEffect(() => {
     if(credentials!=null)
@@ -173,7 +194,8 @@ export default function Portal() {
         }}
       >
           <View style={styles.modalView}>
-            <Text style={styles.modalText}>Hello World!</Text>
+            <Text style={styles.modalText}>Select a Color!</Text>
+            {modalPicker}
             <Button
               style={[styles.closeModal]}
               onPress={() => setModalVisible(!modalVisible)}
