@@ -79,7 +79,7 @@ export default function Portal() {
         return;
       }
       response.json().then((json) => {
-        console.log(json)
+       // console.log(json)
       setTerms(json.terms)})})
     }
   }, [credentials])
@@ -205,6 +205,11 @@ export default function Portal() {
           </View>
       </Modal>
             </View>
+            <Button onPress={ () => {
+              setColors(null)
+            }
+            }
+style={styles.resetButton}><Text style={styles.resetButton}>Reset Colors</Text></Button>
         </View>
     </View>
     

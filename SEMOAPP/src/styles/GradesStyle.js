@@ -10,6 +10,17 @@ export const styles = StyleSheet.create({
       alignContent: "center",
       backgroundColor: theme.colors.white
     },
+    resetButton: {
+        backgroundColor: "#fff",
+        color: theme.colors.black,
+        width: "80%",
+        justifyContent: "center",
+        alignSelf: "center",
+        marginBottom: 20,
+        borderColor: theme.colors.gray3,
+        borderWidth: 2,
+        borderRadius: 5
+    },
     modalText: {
         fontSize: 20,
         textAlign: "center"
