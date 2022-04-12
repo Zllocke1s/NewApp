@@ -22,18 +22,25 @@ export const styles = StyleSheet.create({
         width: "100%",
     },
     headerContainer: {
-        flex: .15,
+        flex: .25,
         backgroundColor: theme.colors.red,
-        padding: 35
+        width: "100%",
+        padding: 35,
+        paddingBottom: 10
     },
     headerSubContainer: {
-        flexDirection: "row",
-        width: "100%",
+        flexDirection: "column",
+        flex: 1,
     },
     choiceTitle: {
         fontSize: 35,
-        flex: 1,
         marginTop: 25,
         paddingLeft: 5,
+        flexShrink: 1
+    },
+    mealsRemaining: {
+        fontSize: 18,
+        paddingLeft: 5,
+        flexShrink: 1
     },
   });
