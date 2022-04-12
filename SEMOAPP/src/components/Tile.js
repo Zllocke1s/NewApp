@@ -139,25 +139,55 @@ export const SecretTile = (({onP}) => {
 
 });
 
-export const GradeTile = (() => {
+export const ClassTile = (({classname, professor}) => {
     return(<View style={styles.gradesContainer}>
         <TouchableOpacity>
             <View style={styles.gradesTextContainer}>
-                <Text style={styles.gradesText}>hi</Text>
+                <Text style={styles.classText}>{classname}</Text>
+                <Text style={styles.professorText}>{professor}</Text>
+            </View>
+        </TouchableOpacity>
+    </View>);
+});
+
+export const GradePercentTile = (({percentage}) => {
+    return(<View style={styles.gradesContainer}>
+        <TouchableOpacity>
+            <View style={styles.gradesTextContainer}>
+                <Text style={styles.gradeText}>{percentage}</Text>
             </View>
         </TouchableOpacity>
     </View>);
 });
 
 const styles = StyleSheet.create({
-    gradesText: {
-        justifyContent: 'center',
+    classText: {
+        width: "100%",
+        justifyContent: 'flex-start',
         alignSelf: 'center',
-        textAlign: 'center'
+        textAlign: 'left',
+        paddingTop: 25,
+        paddingLeft: 15,
+        //text formatting here
+    },
+    professorText: {
+        justifyContent: 'flex-start',
+        alignSelf: 'flex-end',
+        textAlign: 'center',
+        paddingRight: 25,
+        //text formatting here
+    },
+    gradeText: {
+        width: "100%",
+        height: "100%",
+        paddingTop: 25,
+        justifyContent: 'flex-start',
+        alignSelf: 'center',
+        textAlign: 'center',
         //text formatting here
     },
     gradesContainer: {
-        flex: .4,
+        flex: 1,
         height: 100,
         fontSize: 48,
         marginTop: 10,
@@ -170,6 +200,8 @@ const styles = StyleSheet.create({
     },
     gradesTextContainer: {
         padding: 0,
+        flex: 1,
+        width: 351,
         alignSelf: "center",
         textAlign: "center"
         

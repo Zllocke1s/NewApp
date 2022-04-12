@@ -13,13 +13,14 @@ export const styles = StyleSheet.create({
     tileContainer: {
         padding: 10,
         marginTop: 20,
-        width: '95%',
+        width: "95%",
         flex: 1,
         backgroundColor: theme.colors.blue
     },
     gradeTileSub: {
-        flexDirection: "column",
-        width: "100%"
+        width: "100%",
+        alignItems: "flex-start",
+        justifyContent: 'center',
     },
     headerContainer: {
         flex: .15,
@@ -48,4 +49,19 @@ export const styles = StyleSheet.create({
     gradePercTile: {
 
     },
+    columns: {
+        display: "flex",
+        flexDirection: "row",
+        flex: 1,
+        width: "100%",
+        textAlign: "left",
+        justifyContent: "space-between"
+    },
+    rows:
+    {
+        display: "flex",
+        flex: 1,
+        flexDirection: "column",
+        justifyContent: "space-around",
+    }
   });
