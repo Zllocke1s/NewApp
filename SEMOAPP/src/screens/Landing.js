@@ -3,6 +3,7 @@ import { StyleSheet, Text, Image, View } from 'react-native';
 import { styles } from '../styles/LandingStyle';
 import { Tile, HeaderTile, NewsTile, SecretTile } from '../components/Tile';
 import { SocialMediaButton } from '../components/SocialMediaButton';
+import { SettingsButton } from '../components/SettingsButton';
 import React, { useState, useEffect } from 'react';
 
 
@@ -62,6 +63,8 @@ export default function Landing({ navigation }) {
   {navigation.navigate("Athletics");
   }function stugov()
   {navigation.navigate("StuGov");
+  }function settings()
+  {navigation.navigate("Settings");
   }
 
 
@@ -81,6 +84,7 @@ export default function Landing({ navigation }) {
           <HeaderTile name={'Calendar'} onP={calendar} src={require("../assets/tiles/calendar.png")} fullscreen={false} />
           <HeaderTile name={"Maps"} onP={maps} src={require("../assets/tiles/map.png")} fullscreen={false} />
         </View>
+        <SettingsButton pass={settings}/>
       </View>
       <View style={styles.tileContainer}>
       <View style={styles.tileSubContainer}>
