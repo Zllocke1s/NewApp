@@ -149,7 +149,7 @@ export const ClassTile = (({color, classname, professor}) => {
 });
 
 export const GradePercentTile = (({color, percentage}) => {
-    return(<View style={[styles.gradesContainer, {backgroundColor: color}]}>
+    return(<View style={[styles.gradesContainer, {borderColor: color}]}>
             <View style={styles.gradesTextContainer}>
                 <Text style={styles.gradeText}>{percentage}</Text>
             </View>
@@ -191,6 +191,9 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         alignItems: "center",
         justifyContent: 'center',
+        backgroundColor: theme.colors.gray,
+        borderWidth: 3,
+
     },
     classContainer: {
         fontSize: 48,

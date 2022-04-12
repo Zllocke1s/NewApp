@@ -11,12 +11,14 @@ export default function Portal() {
     name: "CS155-01: Computer Science I",
     professor: "Suhair Amer",
     percentage: "85.5%",
-    id: 1
+    id: 1,
+    color: "#ff0000"
   },{
     name: "CS245-01: Discrete Structures I",
     professor: "Charles McAllister",
     percentage: "95.5%",
-    id: 2
+    id: 2,
+    color: "#ff00ff"
   }]
 
 
@@ -33,8 +35,8 @@ export default function Portal() {
             {classes.map((item) => {
               return(
                 <View key={item.id} style={styles.columns}>
-                <ClassTile color={"red"} classname={item.name} professor={item.professor}></ClassTile>
-                <GradePercentTile color={"blue"} percentage={item.percentage}></GradePercentTile>
+                <ClassTile color={item.color} classname={item.name} professor={item.professor}></ClassTile>
+                <GradePercentTile color={item.color} percentage={item.percentage}></GradePercentTile>
                 <TouchableOpacity style={styles.editButton}>
                 <Feather name="edit" size={24} color={theme.colors.gray3} />
                 </TouchableOpacity>
