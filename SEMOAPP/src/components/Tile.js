@@ -140,7 +140,7 @@ export const SecretTile = (({onP}) => {
 });
 
 export const GradeTile = (() => {
-    return(<View style={styles.gradesHeaderContainer}>
+    return(<View style={styles.gradesContainer}>
         <TouchableOpacity>
             <View style={styles.gradesTextContainer}>
                 <Text style={styles.gradesText}>hi</Text>
@@ -156,16 +156,16 @@ const styles = StyleSheet.create({
         textAlign: 'center'
         //text formatting here
     },
-    gradesHeaderContainer: {
-        flex: .13,
+    gradesContainer: {
+        flex: .4,
         height: 100,
         fontSize: 48,
         marginTop: 10,
         paddingBottom: 10,
         fontWeight: 'bold',
         backgroundColor: theme.colors.white,
-        alignItems: 'center',
-        justifyContent: 'flex-end',
+        alignItems: "flex-start",
+        justifyContent: 'center',
         margin: 0
     },
     gradesTextContainer: {

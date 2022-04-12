@@ -15,6 +15,7 @@ export default function Portal() {
       <View style={styles.tileContainer}>
         <View style={styles.gradeTileSub}></View>
           <GradeTile style={styles.gradeInfoTile}>hi</GradeTile>
+          <GradeTile style={styles.gradePercTile}>hi</GradeTile>
       </View>
     </View>
     

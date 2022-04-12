@@ -19,8 +19,7 @@ export const styles = StyleSheet.create({
     },
     gradeTileSub: {
         flexDirection: "column",
-        width: "100%",
-        backgroundColor: theme.colors.purple,
+        width: "100%"
     },
     headerContainer: {
         flex: .15,
@@ -31,8 +30,7 @@ export const styles = StyleSheet.create({
     },
     headerSubContainer: {
         flexDirection: "row",
-        width: "100%",
-        backgroundColor: theme.colors.pink
+        width: "100%"
     },
     gradeTitle: {
         fontSize: 35,
@@ -45,8 +43,7 @@ export const styles = StyleSheet.create({
         fontSize: 35,
         flex: .25,
         marginTop: 25,
-        paddingLeft: 5,
-        backgroundColor: theme.colors.orange,
+        paddingLeft: 5
     },
     gradePercTile: {
 
