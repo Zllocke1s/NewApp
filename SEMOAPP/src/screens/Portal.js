@@ -13,13 +13,14 @@ export default function Portal() {
       </View>
       
       <View style={styles.tileContainer}>
-        <View style={styles.gradeTileSub}></View>
+        <View style={styles.gradeTileSub}>
           <View style={styles.rows}>
             <View style={styles.columns}>
-              <ClassTile style={styles.gradeInfoTile} classname="CS155-01: Computer Science I" professor="Suhair Amer"></ClassTile>
+              <ClassTile style={styles.classTile} classname="CS155-01: Computer Science I" professor="Suhair Amer"></ClassTile>
               <GradePercentTile style={styles.gradePercTile} percentage="85.5%"></GradePercentTile>
             </View>
           </View>
+        </View>
       </View>
     </View>
     

@@ -162,7 +162,7 @@ export const GradePercentTile = (({percentage}) => {
 
 const styles = StyleSheet.create({
     classText: {
-        width: "100%",
+        width: 100,
         justifyContent: 'flex-start',
         alignSelf: 'center',
         textAlign: 'left',
@@ -178,10 +178,10 @@ const styles = StyleSheet.create({
         //text formatting here
     },
     gradeText: {
-        width: "100%",
-        height: "100%",
+        width: 100,
+        height: 100,
         paddingTop: 25,
-        justifyContent: 'flex-start',
+        justifyContent: 'center',
         alignSelf: 'center',
         textAlign: 'center',
         //text formatting here
@@ -189,6 +189,7 @@ const styles = StyleSheet.create({
     gradesContainer: {
         flex: 1,
         height: 100,
+        width: 100,
         fontSize: 48,
         marginTop: 10,
         paddingBottom: 10,
@@ -201,9 +202,11 @@ const styles = StyleSheet.create({
     gradesTextContainer: {
         padding: 0,
         flex: 1,
-        width: 351,
-        alignSelf: "center",
-        textAlign: "center"
+        width: "50%",
+        textAlign: "left",
+        justifyContent: "flex-start",
+        alignItems: "flex-start",
+        backgroundColor: theme.colors.red,
         
     },
     secretContainer: {
@@ -405,7 +408,7 @@ const styles = StyleSheet.create({
         display: "flex",
         flex: 1,
         flexDirection: "column",
-        justifyContent: "space-around",
+        justifyContent: "space-between",
         
     }
   });

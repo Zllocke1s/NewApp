@@ -11,14 +11,15 @@ export const styles = StyleSheet.create({
       alignContent: "center"
     },
     tileContainer: {
-        padding: 10,
+        paddingHorizontal: 10,
         marginTop: 20,
-        width: "95%",
         flex: 1,
+        width: "95%",
         backgroundColor: theme.colors.blue
     },
     gradeTileSub: {
-        width: "100%",
+        width: 100,
+        height: 100,
         alignItems: "flex-start",
         justifyContent: 'center',
     },
@@ -40,14 +41,17 @@ export const styles = StyleSheet.create({
         paddingTop: 25,
         backgroundColor: theme.colors.white,
     },
-    gradeInfoTile: {
+    classTile: {
         fontSize: 35,
         flex: .25,
         marginTop: 25,
         paddingLeft: 5
     },
     gradePercTile: {
-
+        fontSize: 35,
+        flex: .25,
+        marginTop: 25,
+        paddingLeft: 5
     },
     columns: {
         display: "flex",
@@ -55,13 +59,12 @@ export const styles = StyleSheet.create({
         flex: 1,
         width: "100%",
         textAlign: "left",
-        justifyContent: "space-between"
+        justifyContent: "flex-start"
     },
-    rows:
-    {
+    rows:{
         display: "flex",
         flex: 1,
         flexDirection: "column",
-        justifyContent: "space-around",
+        justifyContent: "flex-start",
     }
   });
