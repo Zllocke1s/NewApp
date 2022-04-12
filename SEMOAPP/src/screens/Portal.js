@@ -12,13 +12,31 @@ export default function Portal() {
     professor: "Suhair Amer",
     percentage: "85.5%",
     id: 1,
-    color: "#ff0000"
+    color: "#00d600"
   },{
-    name: "CS245-01: Discrete Structures I",
-    professor: "Charles McAllister",
-    percentage: "95.5%",
+    name: "CS265-01: Computer Science II",
+    professor: "Ziping Liu",
+    percentage: "92.8%",
     id: 2,
-    color: "#ff00ff"
+    color: "#008000"
+  },{
+    name: "CS351-01: C & Posix Environment",
+    professor: "David Dai",
+    percentage: "97.9%",
+    id: 3,
+    color: "#66cdaa"
+  },{
+    name: "CY201-01: Introduction to Cybersecurity",
+    professor: "Wee Wee Sim",
+    percentage: "89.8%",
+    id: 4,
+    color: "#00b7eb"
+  },{
+    name: "IS245: Web Development and Security",
+    professor: "Carole Pfeiffer",
+    percentage: "72.4%",
+    id: 5,
+    color: "#041690"
   }]
 
 

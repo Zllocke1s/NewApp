@@ -161,8 +161,8 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         textAlign: 'left',
         paddingLeft:15,
-        paddingTop: 20,
-        color: theme.colors.gray2,
+        paddingTop: 15,
+        color: theme.colors.white,
         fontSize: 16
         //text formatting here
     },
@@ -170,11 +170,12 @@ const styles = StyleSheet.create({
         position: "absolute",
         bottom: 10,
         right: 0,
-        color: theme.colors.gray2,
+        color: theme.colors.white,
         fontSize: 14
         //text formatting here
     },
     gradeText: {
+        paddingTop: 40,
         height: 100,
         justifyContent: 'center',
         alignSelf: 'center',
@@ -191,8 +192,9 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         alignItems: "center",
         justifyContent: 'center',
-        backgroundColor: theme.colors.gray,
+        backgroundColor: theme.colors.white,
         borderWidth: 3,
+        borderRadius: 2.5
 
     },
     classContainer: {
@@ -204,7 +206,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         alignItems: "flex-start",
         justifyContent: 'center',
-        borderRadius: 500,
+        borderRadius: 2.5,
     },
     gradesTextContainer: {
         width: "100%",

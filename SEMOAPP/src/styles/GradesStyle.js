@@ -6,23 +6,22 @@ export const styles = StyleSheet.create({
       flex: 1,
       fontSize: 48,
       fontWeight: 'bold',
-      backgroundColor: theme.colors.red,
       alignItems: 'center',
-      alignContent: "center"
+      alignContent: "center",
+      backgroundColor: theme.colors.white
     },
     tileContainer: {
         paddingHorizontal: 10,
         marginTop: 20,
         flex: 1,
         width: "95%",
-        backgroundColor: theme.colors.blue
+        backgroundColor: theme.colors.white
     },
 
     headerContainer: {
         flex: .15,
-        backgroundColor: theme.colors.white,
+        backgroundColor: theme.colors.gray,
         padding: 35,
-        backgroundColor: theme.colors.green,
         alignContent: "flex-start"
     },
     headerSubContainer: {
@@ -34,7 +33,7 @@ export const styles = StyleSheet.create({
         flex: 1,
         marginTop: 25,
         paddingTop: 25,
-        backgroundColor: theme.colors.white,
+        backgroundColor: theme.colors.gray,
     },
     editButton: {
         justifyContent: "center",
@@ -44,7 +43,6 @@ export const styles = StyleSheet.create({
         display: "flex",
         flexDirection: "row",
         width: "100%",
-        backgroundColor: "yellow",
         textAlign: "left",
         justifyContent: "space-between"
     },
