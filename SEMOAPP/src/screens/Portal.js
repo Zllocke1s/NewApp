@@ -4,8 +4,74 @@ import { styles } from '../styles/GradesStyle.js';
 import { ClassTile, GradePercentTile } from '../components/Tile';
 import { Feather } from '@expo/vector-icons'; 
 import { theme } from '../core/theme.js';
+import React, { useEffect } from 'react';
+import base64 from 'react-native-base64'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Portal() {
+
+  const [credentials, setCredentials] = React.useState(null)
+  const [terms, setTerms] = React.useState(null)
+  const [formattedTerms, setFormattedTerms] =React.useState(null)
+
+
+  useEffect(() => {
+    if(terms!=null)
+    {
+      
+    setFormattedTerms(terms.find((obj) => obj.name=="Spring 2022").sections.map((item) => {
+      console.log(JSON.stringify(item))
+      return(
+        <View key={item.sectionId} style={styles.columns}>
+        <ClassTile color={'#99e06a'} classname={item.sectionTitle} professor={item.courseName + " - " + item.courseSectionNumber}></ClassTile>
+        <GradePercentTile color={'#99e06a'} percentage={item.grades[item.grades.length-1].value} percentageType={item.grades[item.grades.length-1].name}></GradePercentTile>
+        <TouchableOpacity style={styles.editButton}>
+        <Feather name="edit" size={24} color={theme.colors.gray3} />
+        </TouchableOpacity>
+      </View>
+      )
+    }))
+    
+  }
+  }, [terms])
+
+  useEffect(() => {
+    if(credentials!=null)
+    {
+    fetch('http://mportal.semo.edu:8080/banner-mobileserver/api/2.0/grades/' + credentials.so,
+    {
+      headers: {
+        Authorization: 'Basic '+base64.encode(credentials.username + ":" + credentials.password), 
+    }, 
+    })
+    .then((response) => {
+      console.log(JSON.stringify(response))
+      if(!response.ok)
+      {
+       // throw new Error("invalid_credentials")
+        setInvalid(true)
+        return;
+      }
+      response.json().then((json) => {
+      setTerms(json.terms)})})
+    }
+  }, [credentials])
+
+  const getData = async (key) => {
+    try {
+      const jsonValue = await AsyncStorage.getItem(key)
+      setCredentials( jsonValue != null ? (JSON.parse(jsonValue)) : null);
+      console.log("Pulled: " + jsonValue)
+    } catch(e) {
+      console.log(e)
+      // error reading value
+    }
+  }
+
+  useEffect(() => {
+    getData("credentials")
+
+  }, [])
 
   var classes = [{
     name: "CS155-01: Computer Science I",
@@ -50,17 +116,7 @@ export default function Portal() {
       
       <View style={styles.tileContainer}>
         <View style={styles.rows}>
-            {classes.map((item) => {
-              return(
-                <View key={item.id} style={styles.columns}>
-                <ClassTile color={item.color} classname={item.name} professor={item.professor}></ClassTile>
-                <GradePercentTile color={item.color} percentage={item.percentage}></GradePercentTile>
-                <TouchableOpacity style={styles.editButton}>
-                <Feather name="edit" size={24} color={theme.colors.gray3} />
-                </TouchableOpacity>
-              </View>
-              )
-            })}
+            {formattedTerms}
             </View>
         </View>
     </View>

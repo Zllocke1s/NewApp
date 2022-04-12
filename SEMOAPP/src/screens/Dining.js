@@ -50,7 +50,9 @@ export default function Dining({navigation}) {
     }
   }
 
-  getData("credentials")
+  useEffect(() => {
+    getData("credentials")
+  }, [])
 
 useEffect(() => {
 if(so!=null)

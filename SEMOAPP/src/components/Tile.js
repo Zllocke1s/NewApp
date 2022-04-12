@@ -148,11 +148,12 @@ export const ClassTile = (({color, classname, professor}) => {
     </View>);
 });
 
-export const GradePercentTile = (({color, percentage}) => {
+export const GradePercentTile = (({percentageType, color, percentage}) => {
     return(<View style={[styles.gradesContainer, {borderColor: color}]}>
             <View style={styles.gradesTextContainer}>
-                <Text style={styles.gradeText}>{percentage}</Text>
-            </View>
+            <Text style={styles.percentTypeText}>{percentageType}</Text>
+            <Text style={styles.gradeText}>{percentage}</Text>
+             </View>
     </View>);
 });
 
@@ -175,12 +176,16 @@ const styles = StyleSheet.create({
         //text formatting here
     },
     gradeText: {
-        paddingTop: 40,
-        height: 100,
+        fontSize: 26,
+        marginBottom: 10,
         justifyContent: 'center',
         alignSelf: 'center',
-        textAlignVertical: "center",
+        //text formatting here
+    },
+    percentTypeText: {
+        fontSize: 11,
         textAlign: 'center',
+        fontStyle: "italic"
         //text formatting here
     },
     gradesContainer: {
@@ -210,8 +215,9 @@ const styles = StyleSheet.create({
     },
     gradesTextContainer: {
         width: "100%",
-        justifyContent: "center",
-        alignContent: "center",
+        flex: 1,
+        justifyContent: "space-around",
+        textAlignVertical: 'top'
         
     },classTextContainer: {
         flex: 1,
