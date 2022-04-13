@@ -99,8 +99,7 @@ export const NewsTile = (({name, item}) => {
                     <Text style={styles.text}>{name}</Text>                    
                 </View>
                 <View style={styles.newsBodyContainer}>
-                <Image style={styles.newsLogo}
-                   source={{uri: item.image}} />
+                {item.image!="" ? <Image style={styles.newsLogo} source={{uri: item.image}} /> : <View />}
                 <View style={styles.newsBodyTextContainer}>
                     <Text style={styles.newsTitle}>{decode(item.title)}</Text>
                     <Text style={styles.newsText}>{decode(item.intro.length) > 80 ? decode(item.intro.substring(0, 80)) + "..." : decode(item.intro)}</Text>

@@ -10,7 +10,14 @@ export const styles = StyleSheet.create({
       alignItems: 'center',
       alignContent: "center",
       justifyContent: 'flex-start'
-    },
+    },input: {
+        height: 40,
+        width: "100%",
+        backgroundColor: theme.colors.white,
+        borderRadius: 4,
+        borderWidth: 1,
+        alignSelf: "center"
+      },
     headerSubContainer: {
         flexDirection: "row",
         width: "100%",

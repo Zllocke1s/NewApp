@@ -16,6 +16,7 @@ export default function Settings() {
   const [username, onChangeUser] = React.useState("");
   const [password, onChangePass] = React.useState("");
   const [isSecure, toggleSecure] = React.useState(true);
+  const [highscore, setHS] = React.useState(null);
   const [save, toggleSave] = React.useState(true);
 
   const storeData = async (key, value) => {
@@ -29,16 +30,36 @@ export default function Settings() {
     getData("credentials")
   }
 
-  const getData = async (key) => {
+  async function removeItemValue(key) {
     try {
-      const jsonValue = await AsyncStorage.getItem(key)
-      setMessage( jsonValue != null ? (JSON.parse(jsonValue)) : null);
-      console.log("Pulled: " + jsonValue)
-    } catch(e) {
-      console.log("error")
-      // error reading value
+        await AsyncStorage.removeItem(key);
+        return true;
     }
+    catch(exception) {
+        return false;
+    }
+}
+
+const getData = async (key) => {
+  try {
+    const jsonValue = await AsyncStorage.getItem(key)
+    setMessage( jsonValue != null ? (JSON.parse(jsonValue)) : null);
+    console.log("Pulled: " + jsonValue)
+  } catch(e) {
+    console.log("error")
+    // error reading value
   }
+}
+const getHS = async (key) => {
+  try {
+    const jsonValue = await AsyncStorage.getItem("highscore")
+    setHS( jsonValue != null ? (JSON.parse(jsonValue)) : null);
+    console.log("Pulled: " + jsonValue)
+  } catch(e) {
+    console.log("error")
+    // error reading value
+  }
+}
 
   const clearAll = async () => {
     try {
@@ -83,6 +104,7 @@ export default function Settings() {
   
   React.useEffect(() => {
       getData("credentials")
+      getHS()
       }, [])
 
 
@@ -98,7 +120,7 @@ export default function Settings() {
       <View style={message!=null ? styles.loggedIn : styles.hidden}>
         <Text style={styles.message}>You are currently logged in as: <Text style={styles.username}>{message != null ? message.username : ""}</Text></Text>
         <TouchableOpacity style={styles.button} onPress={() => {
-          clearAll()
+          removeItemValue("credentials")
           setMessage(null)
         }}><Text style={styles.logout}>Logout</Text></TouchableOpacity>    
       </View>
@@ -137,7 +159,10 @@ export default function Settings() {
           login()
         }}><Text style={styles.logout}>Log In</Text></TouchableOpacity>    
         </View>
-     
+     {highscore!=null ? <TouchableOpacity style={styles.button} onPress={() => {
+          removeItemValue("highscore")
+          setHS(null)
+        }}><Text style={styles.logout}>Clear High Score</Text></TouchableOpacity>  : null}
    
         </View>
         </View>
