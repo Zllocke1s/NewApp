@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, Image, View, Dimensions, ImageBackground } from 'react-native';
+import { StyleSheet, Text, Image, View, Dimensions, ImageBackground, Linking } from 'react-native';
 import { styles } from '../styles/SecretStyle';
 import { GameEngine} from 'react-native-game-engine';
 import entities from '../game/entities';
@@ -134,6 +134,10 @@ export default function Secret() {
                 if(highScore==null || highScore==0 || currentPoints>highScore)
                 {
                   saveHighScore(currentPoints)
+                }
+                if(currentPoints>100)
+                {
+                  Linking.openURL("https://www.youtube.com/watch?v=B8zkCR6rh0s")
                 }
                 break;
               case 'new_point':
