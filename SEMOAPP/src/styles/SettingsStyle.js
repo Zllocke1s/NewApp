@@ -112,6 +112,20 @@ export const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 7,
     },
+    
+    clearHS: {
+        width: 100,
+        marginTop: 10,
+        paddingTop: 10,
+        paddingBottom: 10,
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: theme.colors.white,
+        borderColor: 'black',
+        borderWidth: 1,
+        borderRadius: 7,
+    },
     logout: {
         color: theme.colors.black,
         fontSize: 17,

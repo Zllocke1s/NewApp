@@ -159,7 +159,7 @@ const getHS = async (key) => {
           login()
         }}><Text style={styles.logout}>Log In</Text></TouchableOpacity>    
         </View>
-     {highscore!=null ? <TouchableOpacity style={styles.button} onPress={() => {
+     {highscore!=null ? <TouchableOpacity style={styles.clearHS} onPress={() => {
           removeItemValue("highscore")
           setHS(null)
         }}><Text style={styles.logout}>Clear High Score</Text></TouchableOpacity>  : null}

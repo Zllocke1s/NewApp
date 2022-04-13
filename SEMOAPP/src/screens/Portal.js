@@ -7,7 +7,7 @@ import { theme } from '../core/theme.js';
 import React, { useEffect } from 'react';
 import base64 from 'react-native-base64'
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Button } from 'react-native-paper';
+import { ActivityIndicator, Button } from 'react-native-paper';
 import { TriangleColorPicker } from 'react-native-color-picker'
  
 
@@ -184,7 +184,7 @@ export default function Portal() {
       
       <View style={styles.tileContainer}>
         <View style={styles.rows}>
-            {formattedTerms}
+            {formattedTerms != null ? formattedTerms : <ActivityIndicator size="large" color={theme.colors.red}></ActivityIndicator>}
             <Modal
         animationType="fade"
         transparent={true}
