@@ -43,8 +43,7 @@ export default function Dining({navigation}) {
     try {
       const jsonValue = await AsyncStorage.getItem(key)
       setSO( jsonValue != null ? (JSON.parse(jsonValue).so) : null);
-      console.log("Pulled: " + jsonValue)
-    } catch(e) {
+      } catch(e) {
       console.log("error")
       // error reading value
     }
