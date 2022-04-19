@@ -118,7 +118,6 @@ export const DiningChoiceTile = (({name, id, status, onP, location, src}) => {
                 <View style={styles.columns}>
                     <View style={styles.rows}>
                     <Text style={styles.diningTitle}>{name}</Text>
-                    <Text style={styles.diningText}>{location}</Text>
                     <Text style={[styles.diningHours, {color: status.color}]}><AntDesign name="clockcircleo" size={18} color={status.color} />  {status.message}</Text>
                     </View>
                     <Image style={styles.menuLogo}
@@ -294,7 +293,6 @@ const styles = StyleSheet.create({
       },
       diningContainer: {
         flex: .3,
-        height: 100,
         width: "100%",
         fontSize: 48,
         fontWeight: 'bold',
@@ -425,6 +423,7 @@ const styles = StyleSheet.create({
     diningHours: {
         paddingLeft: 10,
         fontSize: 14,
+        paddingTop: 10,
         //text formatting here
     },
     columns: {

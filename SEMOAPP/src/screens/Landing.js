@@ -80,7 +80,7 @@ export default function Landing({ navigation }) {
 
 
   function secret() {
-    if(global.secretCounter>=20)
+    if(global.secretCounter>=4)
     {
       global.secretCounter=0;
       navigation.navigate("Secret");
