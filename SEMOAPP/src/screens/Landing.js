@@ -251,7 +251,7 @@ export default function Landing({ navigation }) {
             </View>  
         <View style={styles.tileSubContainer}>
         <Tile name={"Settings"} onP={settings} src={require("../assets/tiles/settings.png")} fullscreen={false} />
-        <Tile name={"Schedule"} onPD={() => {promptLogin(true)}} disabled={credentials==null} onP={schedule} src={require("../assets/tiles/calendar.png")} fullscreen={false} /> 
+        <Tile name={"Classes"} onPD={() => {promptLogin(true)}} disabled={credentials==null} onP={schedule} src={require("../assets/tiles/calendar.png")} fullscreen={false} /> 
         <Tile name={"Student Grades"} onPD={() => {promptLogin(true)}} disabled={credentials==null} onP={portal} src={require("../assets/tiles/monitor.png")} fullscreen={false} />
           </View>
       {/*  <View style={styles.tileSubContainer}>
