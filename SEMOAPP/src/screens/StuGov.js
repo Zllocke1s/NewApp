@@ -6,9 +6,16 @@ import React, { useEffect } from 'react';
 import { theme } from '../core/theme';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Moment from 'moment';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Button, TextInput } from 'react-native-paper';
+import * as ImagePicker from 'expo-image-picker';
+import uploadToAnonymousFilesAsync from 'anonymous-files'; 
+import * as FileSystem from 'expo-file-system';
+ 
 
 export default function StuGov() {
 
+  const [imgURL, onChangeURL] = React.useState("")
   const [minutes, setMinutes] = React.useState(null)
   const [agenda, setAgenda] = React.useState(null)
   const [formattedItems, setFormattedItems] = React.useState(null);
@@ -17,6 +24,45 @@ export default function StuGov() {
   const [pDates, setPDates] = React.useState([])
   const [accessors, setAccessors] = React.useState([])
   const colors = [theme.colors.red, theme.colors.blue]
+  const [credentials, setCredentials] = React.useState(null)
+  const [prompt, showPrompt] = React.useState(false)
+  const [image, setImage] = React.useState(null);
+  const [remoteUri, setRemoteURI] = React.useState("");
+  const [pulledImage, setPimage] = React.useState({uri: "https://outpostorganizer.com/SEMO/stugov.png?" + Math.round(Math.random()*100000).toString() + "=" + Math.round(Math.random()*100000).toString()})
+
+  const pickImage = async () => {
+    // No permissions request is necessary for launching the image library
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [3, 3],
+      quality: 1,
+    });
+
+    console.log(result);
+
+    if (!result.cancelled) {
+      setImage(result);
+    }
+  };
+  const getData = async (key) => {
+    try {
+      const jsonValue = await AsyncStorage.getItem(key)
+      setCredentials( jsonValue != null ? (JSON.parse(jsonValue)) : null);
+    } catch(e) {
+      console.log("error")
+      // error reading value
+    }
+  }
+  
+
+  useEffect(() => {
+    if(remoteUri!="" && remoteUri!=null)
+    {
+      console.log("URI: ");
+      console.log(remoteUri)
+    }
+  }, [remoteUri])
 
   const fetchAgenda = () => {
     setIsLoaded(false);
@@ -73,6 +119,7 @@ export default function StuGov() {
   React.useEffect(() => {
     fetchAgenda()
     fetchMinutes()
+    getData("credentials")
   }, [])
   
   React.useEffect(() => {
@@ -177,7 +224,6 @@ export default function StuGov() {
 
   React.useEffect(() => {
     var currentA = []
-
     fetch("https://selink.semo.edu/api/discovery/organization/174263/position?take=100&isOfficer=true", {
   "headers": {
     "accept": "application/json",
@@ -192,16 +238,83 @@ export default function StuGov() {
 }).then((response) => 
   response.json()
 ).then((responseJSON) => {
+
   (responseJSON.items.map((item) => {
     (item.holders.map((holder) => {
-      currentA.push(holder.primaryEmailAddress.split("@")[0])
+      currentA.push(holder.primaryEmailAddress.split("@")[0].toLowerCase())
     }))
   }))
+  currentA.push("zllocke1s")
   setAccessors(currentA);
 });
   }, [])
 
+  function updateImageStart() {
+    showPrompt(!prompt)
+  }
+
   
+async function uploadImageAsync(uri) {
+  let apiUrl = 'https://outpostorganizer.com/SEMO/imageUpload.php';
+
+  // Note:
+  // Uncomment this if you want to experiment with local server
+  //
+  // if (Constants.isDevice) {
+  //   apiUrl = `https://your-ngrok-subdomain.ngrok.io/upload`;
+  // } else {
+  //   apiUrl = `http://localhost:3000/upload`
+  // }
+
+  let uriParts = uri.split('.');
+  let fileType = uriParts[uriParts.length - 1];
+
+  let formData = new FormData();
+  formData.append('photo', {
+    uri,
+    name: `photo.${fileType}`,
+    type: `image/${fileType}`,
+  });
+
+  let options = {
+    method: 'POST',
+    body: formData,
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'multipart/form-data',
+    },
+  };
+
+  return fetch(apiUrl, options);
+}
+  
+
+  async function updateImage() {
+   /* console.log(image.base64)
+    let remoteUri = await uploadToAnonymousFilesAsync(image.uri);
+    console.log(remoteUri)
+    fetch("https://outpostorganizer.com/SEMO/imageUpload.php", {
+      method: 'POST',
+      body: {
+        verified: 1,
+        img: image.base64
+      },
+    }).then((response) => {
+      console.log(response.ok)
+      return(response.json())
+    }).then((responseJSON) => {
+        console.log(responseJSON)
+      })*/
+    uploadImageAsync(image.uri)
+    showPrompt(false)
+  }
+
+  useEffect(() => {
+    if(prompt==false)
+    {
+    setPimage({uri: image.uri})
+  }}, [prompt])
+
 
 
   return (
@@ -213,7 +326,18 @@ export default function StuGov() {
       </View>
       
       <View style={styles.galleryContainer}>
-        <Image source={require("../assets/stugov.png")} style={styles.galleryImg}></Image>
+        {pulledImage!=null ? <Image source={pulledImage} style={styles.galleryImg}></Image> : <Image source={require("../assets/stugov.png")} style={styles.galleryImg}></Image>}
+        <Button onPress={() => {
+          updateImageStart()
+        }}style={(credentials!=null && accessors.includes(credentials.username.toLowerCase())) ? {position: "absolute", top: 20, right: 10, backgroundColor: "rgba(235, 235, 235, 0.9)"} : {display: 'none'}}><Text style={{color: "black"}}>Update</Text></Button>
+        <View style={prompt ? {display: "flex", justifyContent: "space-between", flexDirection: "row", position: "absolute", left: 10, right: 10, padding: 20, borderRadius: 10, bottom: 10, backgroundColor: "rgba(235, 235, 235, 0.9)"} : {display: 'none'}}>
+        <Button onPress={() => {
+          pickImage()
+        }}
+        style={{alignItems: "center", justifyContent: "center", flex: 0.6, borderWidth: 1, borderColor: "#888"}}><Text style={{textAlignVertical: "center", color: theme.colors.red, fontSize: 16, justifyContent: "center"}}>{!image ? "Select Image" : "Replace Image"}</Text></Button><Button onPress={() => {
+          updateImage()
+        }}
+        style={{alignItems: "center", justifyContent: "center", flex: 0.3, borderWidth: 1, borderColor: "#888"}}><Text style={{textAlignVertical: "center", color: theme.colors.red, fontSize: 16, justifyContent: "center"}}>Update</Text></Button></View>
         </View>
         <View style={styles.tabContainer}>
       <TouchableOpacity onPress={() => setAID(0)} style={aID==0 ? styles.redActive: styles.inactive}><Text style={styles.tabTitle}>Agendas</Text></TouchableOpacity>
