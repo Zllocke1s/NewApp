@@ -15,6 +15,7 @@ export default function StuGov() {
   const [isLoaded, setIsLoaded] = React.useState(false);
   const [aID, setAID] = React.useState(0)
   const [pDates, setPDates] = React.useState([])
+  const [accessors, setAccessors] = React.useState([])
   const colors = [theme.colors.red, theme.colors.blue]
 
   const fetchAgenda = () => {
@@ -61,7 +62,6 @@ export default function StuGov() {
       "credentials": "include"
     }).then((response) => response.json())
     .then((json) => {
-      console.log("Still Loading")
       setMinutes((json))
     }).catch((error) => {
       console.log(error)
@@ -100,7 +100,7 @@ export default function StuGov() {
     setFormattedItems(
       minutes.map((minute) => {
         return(
-          <MinuteItem type="minutes" minutes={minute}/>
+          <MinuteItem key={minute.Id} type="minutes" minutes={minute}/>
         )
       })
     )
@@ -140,7 +140,7 @@ export default function StuGov() {
     setFormattedItems(
       agenda.map((minute) => {
         return(
-          <MinuteItem type="agenda" minutes={minute}/>
+          <MinuteItem key={minute.Id} type="agenda" minutes={minute}/>
         )
       })
     )
@@ -159,12 +159,49 @@ export default function StuGov() {
     }
   }, [aID])
 
+  /*fetch("http://app.semo.edu/genl/cbalance/index.asp", {
+    "headers": {
+      "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,;q=0.8,application/signed-exchange;v=b3;q=0.9",
+      "accept-language": "en-US,en;q=0.9",
+      "cache-control": "max-age=0",
+      "content-type": "application/x-www-form-urlencoded",
+      "upgrade-insecure-requests": "1"
+    },
+    "referrerPolicy": "strict-origin-when-cross-origin",
+    "body": "varid=" + so,
+    "method": "POST",
+    "mode": "cors",
+    "credentials": "include"
+  }).then((resp)=>{ return resp.text() }).then((text)=>{
+  */
 
   React.useEffect(() => {
-    fetch("https://www.instagram.com/sga_semo/").then((response) => {
-      console.log(typeof(response))
-    })
+    var currentA = []
+
+    fetch("https://selink.semo.edu/api/discovery/organization/174263/position?take=100&isOfficer=true", {
+  "headers": {
+    "accept": "application/json",
+    "accept-language": "en-US,en;q=0.9",
+  },
+  "referrer": "https://selink.semo.edu/organization/studentgov/",
+  "referrerPolicy": "strict-origin-when-cross-origin",
+  "body": null,
+  "method": "GET",
+  "mode": "cors",
+  "credentials": "include"
+}).then((response) => 
+  response.json()
+).then((responseJSON) => {
+  (responseJSON.items.map((item) => {
+    (item.holders.map((holder) => {
+      currentA.push(holder.primaryEmailAddress.split("@")[0])
+    }))
+  }))
+  setAccessors(currentA);
+});
   }, [])
+
+  
 
 
   return (
