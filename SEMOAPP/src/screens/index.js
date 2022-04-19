@@ -11,3 +11,5 @@ export { default as Secret } from './Secret';
 export { default as Athletics } from './Athletics';
 export { default as SubDining } from './SubDining';
 export { default as Settings } from './Settings';
+export { default as Alerts } from './Alerts';
+export { default as Schedule } from './Schedule';

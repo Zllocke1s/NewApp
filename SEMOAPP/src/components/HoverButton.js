@@ -3,13 +3,13 @@ import { theme } from '../core/theme';
 
 
 
-export const SettingsButton = ((pass) => {
+export const HoverButton = ((pass) => {
 
 
         return(
             <TouchableOpacity onPress={ () => (pass.pass())} style={styles.container}>
             <Image style={styles.logo}
-                   source={require("../assets/gear.png")}
+                   source={require("../assets/tiles/bell.png")}
            ></Image>
             </TouchableOpacity>
         );

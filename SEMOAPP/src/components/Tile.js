@@ -6,7 +6,7 @@ import { AntDesign } from '@expo/vector-icons';
 //Todo: Tiling News through the tile
 
 
-export const Tile = (({name, onP, src, fullscreen}) => {
+export const Tile = (({name, onP, onPD, src, fullscreen, disabled}) => {
     if(fullscreen)
     {
         return(
@@ -21,13 +21,13 @@ export const Tile = (({name, onP, src, fullscreen}) => {
     else
     {
         return(
-            <TouchableOpacity onPress={() => onP({name})}
+            <TouchableOpacity onPress={() => disabled ? onPD({name}) : onP({name})}
              style={styles.container}>
                 <View style={styles.textContainer}>
-            <Image style={styles.logo}
+            <Image style={[styles.logo, disabled ? {tintColor: "#ccc"} : {tintColor: "#000"}]}
                    source={src}
            ></Image>
-                    <Text style={styles.text}>{name}</Text>
+                    <Text style={disabled ? styles.textDisabled : styles.text}>{name}</Text>
                 </View>
             </TouchableOpacity>
         );
@@ -96,13 +96,14 @@ export const NewsTile = (({name, item}) => {
             <TouchableOpacity onPress={ () => Linking.openURL(item.link)} 
             style={styles.newsContainer}>
                 <View style={styles.newsTitleContainer}>
-                    <Text style={styles.text}>{name}</Text>                    
+                    <Text style={styles.newsText2}>{name}</Text>   
+                    <Text numberOfLines={1} style={styles.newsTitle}>{decode(item.title)}</Text>
+                                  
                 </View>
                 <View style={styles.newsBodyContainer}>
-                {item.image!="" ? <Image style={styles.newsLogo} source={{uri: item.image}} /> : <View />}
+                {item.image!="" ? <Image resizeMode='stretch' style={styles.newsLogo} source={{uri: item.image}} /> : <View />}
                 <View style={styles.newsBodyTextContainer}>
-                    <Text style={styles.newsTitle}>{decode(item.title)}</Text>
-                    <Text style={styles.newsText}>{decode(item.intro.length) > 80 ? decode(item.intro.substring(0, 80)) + "..." : decode(item.intro)}</Text>
+                    <Text numberOfLines={4} style={styles.newsText}>{decode(item.intro)}</Text>
                 </View>
                 </View>
             </TouchableOpacity>
@@ -229,10 +230,10 @@ const styles = StyleSheet.create({
         bottom: 0,
         left: 0,
         width: 100,
-        height: 100
+        height: 30
     },
     container: {
-        flex: .45,
+        flex: .3,
         height: 100,
         width: 500,
         fontSize: 48,
@@ -257,7 +258,7 @@ const styles = StyleSheet.create({
   
       },
       fullscreenContainer: {
-        flex: .45,
+        flex: .3,
         height: 100,
         fontSize: 48,
         fontWeight: 'bold',
@@ -282,13 +283,13 @@ const styles = StyleSheet.create({
       },
       newsContainer: {
         flex: .85,
-        height: 130,
         fontSize: 48,
         paddingBottom: 10,
         fontWeight: 'bold',
         backgroundColor: theme.colors.white,
         alignItems: 'flex-start',
         justifyContent: 'center',
+        height: 100
   
       },
       diningContainer: {
@@ -318,8 +319,6 @@ const styles = StyleSheet.create({
       newsLogo:
       {
         width: 50,
-        height: 50,
-        alignSelf:"center",
       },
     max: {
         width: "100%"
@@ -333,8 +332,11 @@ const styles = StyleSheet.create({
     newsTitleContainer: {
         padding: 0,
         alignSelf: "flex-start",
+        justifyContent: "flex-start",
         textAlign: 'left',
-        marginLeft: 10
+        marginLeft: 10,
+        flex: 1
+
         
     },
     newsBodyContainer: {
@@ -368,7 +370,21 @@ const styles = StyleSheet.create({
     text: {
         justifyContent: 'center',
         alignSelf: 'center',
-        textAlign: 'center'
+        textAlign: 'center',
+        color: "#000"
+        //text formatting here
+    },
+    textDisabled: {
+        justifyContent: 'center',
+        alignSelf: 'center',
+        textAlign: 'center',
+        color: "#888"
+        //text formatting here
+    },
+    newsLabel: {
+        justifyContent: 'flex-start',
+        alignSelf: 'flex-start',
+        textAlign: 'left'
         //text formatting here
     },
     newsTitle: {
@@ -382,7 +398,9 @@ const styles = StyleSheet.create({
     newsText: {
         justifyContent: 'flex-start',
         alignSelf: 'flex-start',
-        textAlign: 'left'
+        textAlign: 'left',
+        height: 'auto',
+        fontSize: 10
         //text formatting here
     },
     menuLogo: {
