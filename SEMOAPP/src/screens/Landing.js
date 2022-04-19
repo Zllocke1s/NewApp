@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, Image, View, Dimensions, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, Image, View, Dimensions, TextInput, TouchableOpacity, Linking } from 'react-native';
 import { styles } from '../styles/LandingStyle';
 import { Tile, HeaderTile, NewsTile, SecretTile } from '../components/Tile';
 import { SocialMediaButton } from '../components/SocialMediaButton';
@@ -245,7 +245,9 @@ export default function Landing({ navigation }) {
             
           </View>
           <View style={styles.tileSubContainer}>
-          <Tile name={"Directory"} onP={labs} src={require("../assets/tiles/directory.png")} fullscreen={false} />
+          <Tile name={"Directory"} onP={() => {
+            Linking.openURL("https://semo.edu/people-directory/")
+          }} src={require("../assets/tiles/directory.png")} fullscreen={false} />
           <Tile name={"Reserve A Space"} onP={labs} src={require("../assets/tiles/editcal.png")} fullscreen={false} />
           <Tile name={"Student Government"} onP={stugov} src={require("../assets/tiles/stugov.png")} fullscreen={true} />    
             </View>  
