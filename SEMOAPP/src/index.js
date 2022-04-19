@@ -16,7 +16,11 @@ import {
   SubDining,
   Settings,
   Alerts,
-  Schedule
+  Schedule,
+  RecHours,
+  Facilities,
+  FitnessClasses,
+  IMSchedule,
 } from './screens';
 
 const Router = createStackNavigator(
@@ -29,13 +33,17 @@ const Router = createStackNavigator(
   Portal,
   Reserve,
   Shuttle,
+  IMSchedule,
   StuGov,
   Secret,
   Athletics,
   SubDining,
   Settings,
   Alerts,
-  Schedule
+  Schedule,
+  RecHours,
+  Facilities,
+  FitnessClasses,
   },
   {
     initialRouteName: 'Landing',

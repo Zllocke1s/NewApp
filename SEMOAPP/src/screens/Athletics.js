@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, Image, View } from 'react-native';
+import { StyleSheet, Text, Linking, Image, View } from 'react-native';
 import { styles } from '../styles/AthleticsStyle';
 import { useFonts } from 'expo-font';
 import AppLoading from 'expo-app-loading';
@@ -8,7 +8,8 @@ import { Ionicons } from '@expo/vector-icons';
 import React, { useState, useEffect } from 'react';
 import {Game}  from '../components/Game';
 import {SportsTile} from '../components/Tile';
-export default function Athletics() {
+
+export default function Athletics({navigation}) {
 
 
   var dummyGames = [
@@ -76,18 +77,14 @@ export default function Athletics() {
       <View style={styles.content}>
         <View style={styles.row1}>
           <Text style={[styles.quote, { fontFamily: 'Times'}]}>"The secret of getting ahead is getting started" -Mark Twain</Text>
-        <TouchableOpacity style={styles.hoursButton}>
-        <Ionicons name="hourglass-outline" size={44} color="black" />
-          <Text>Hours</Text>
-        </TouchableOpacity>
-        </View> 
+        </View>
       <View style={styles.upcomingContainer}>
         <Text style={[styles.title, {fontFamily: 'Times'}]}>Upcoming Games:</Text>
         <View style={styles.gameContainer}>
           {games}
         <TouchableOpacity onPress={() => {
-        console.log("Launch Full Schedule")
-      }} style={styles.fullSchedule}>
+          navigation.navigate("IMSchedule")
+        }} style={styles.fullSchedule}>
           <Text style={[styles.fullScheduleText, {fontFamily: 'Times'}]}>View Full Schedule</Text>
         </TouchableOpacity>
         </View>
@@ -95,13 +92,13 @@ export default function Athletics() {
         </View>
       <View style={styles.tileContainer}>
       <SportsTile name={"Facilities"} onP={() => {
-        console.log("Launch Facilities")
-      }} src={require("../assets/tiles/facilities.png")}  />
+          navigation.navigate("RecHours")
+        }} src={require("../assets/tiles/facilities.png")}  />
       <SportsTile name={"Fitness Classes"} onP={() => {
-        console.log("Launch Fitness Classes")
-      }} src={require("../assets/tiles/classes.png")}  />
+          navigation.navigate("FitnessClasses")
+        }} src={require("../assets/tiles/classes.png")}  />
       <SportsTile name={"Contact Information"} onP={() => {
-        console.log("Launch Contact Info")
+Linking.openURL("https:semo.edu/student-support/health-wellness/rec-services/team-directory.html")
       }} src={require("../assets/tiles/contact.png")}  />
       
       </View>

@@ -4,7 +4,6 @@ import React, { useState, useEffect } from 'react';
 import { styles } from '../styles/CalendarStyle';
 import { useFonts } from 'expo-font';
 import AppLoading from 'expo-app-loading';
-import CalendarPicker from 'react-native-calendar-picker';
 import { theme } from '../core/theme';
 import Moment from 'moment';
 import {Calendar, CalendarList, AgendaList} from 'react-native-calendars';

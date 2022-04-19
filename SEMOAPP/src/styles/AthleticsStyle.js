@@ -49,6 +49,14 @@ export const styles = StyleSheet.create({
         width: "100%",
         justifyContent: "space-between",
     },
+    
+    row2: {
+        display: "flex",
+        flexDirection: "row",
+        width: "100%",
+        backgroundColor: theme.colors.gray2,
+        justifyContent: "space-around",
+    },
     content: {
         display: "flex",
         flexDirection: "column",
@@ -75,9 +83,32 @@ export const styles = StyleSheet.create({
         width: "100%",
         marginTop: 10,
     },
+
     title: {
         fontSize: 25,
         marginLeft: 9,
+        color: theme.colors.black
+    },
+    hidden:
+    {
+        display: 'none'
+    },
+    scheduleContainer: {
+        width: "100%",
+        flex: 0.5
+    },
+    
+    classContainer: {
+        width: "90%",
+        flex: 0.95,
+        backgroundColor: theme.colors.gray
+    },
+    
+    titleActive: {
+        fontSize: 25,
+        marginLeft: 9,
+        color: theme.colors.red,
+        textDecorationLine: 'underline'
     },
     fullSchedule: {
         backgroundColor: theme.colors.gray3,
@@ -89,7 +120,74 @@ export const styles = StyleSheet.create({
     },
     fullScheduleText: {
         color: theme.colors.gray
+    },
+    items:
+    {
+        width: "100%",
+        backgroundColor: theme.colors.gray,
+        flex: 1
+    },
+
+
+
+    
+    infoContainer: {
+        backgroundColor: theme.colors.gray,
+        width: "100%",
+        marginTop: 10,
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    individualContainer: {
+        marginTop: 15
+    },
+    
+    textTitle: {
+        fontSize: 25,
+        marginTop: 9,
+        marginBottom: 10,
+        textAlign: "center"
+    },
+    address: {
+        marginTop: 5,
+        fontSize: 12,
+        marginBottom: 20,
+    },
+    hours: {
+        fontWeight: "bold"
+    },
+    hoursContainer: {
+        display: "flex",
+        flexDirection: "row",
+
+        justifyContent: "center"
+    },
+    dates: {
+        display: "flex",
+        flexDirection: "column",
+        flex: 0.4,
+        justifyContent: "flex-end",
+        alignItems: "flex-end",
+        paddingRight: 10,
+        borderRightWidth: 2,
+        borderRightColor: theme.colors.gray4
+    },
+    hoursListed: {
+        flex: 0.6,
+        marginLeft: 10,
+    },
+    facilityContainer: {
+        marginTop: 20,
+        textAlign: 'center',
+        alignItems: "center",
+    },
+    scrollable: {
+        width: "100%"
+    },
+    facility: {
+
     }
+    
 
   });
   
