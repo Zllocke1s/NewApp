@@ -2,23 +2,33 @@ import { TouchableOpacity, Linking, Image, StyleSheet, Text, View, Touchable } f
 import {theme} from '../core/theme';
 import {decode} from 'html-entities';
 import React from 'react';
+import Moment from 'moment';
 
 //Todo: Tiling News through the tile
 
 
-export const MinuteItem = (({auth, minutes}) => {
+export const MinuteItem = (({type, auth, minutes}) => {
 
-    
+    const d = (minutes.Title.replace(new RegExp("Senate Mins[_ ]"), "").replace(".pdf", ""));
+
+    var dateExp = d.split("_");
+    var year = "20" + dateExp[2];
+    var month = dateExp[0].length==1 ? "0" + dateExp[0] : dateExp[0];
+    var day = dateExp[1].length==1 ? "0" + dateExp[1] : dateExp[1];
+    var dateString = Moment(year + "-" + month + "-" + day).format('MMMM Do, YYYY')
+    var valid = Moment(year + "-" + month + "-" + day).isValid()
+
+
     const [isOpen, toggleDet] = React.useState(false)
-
+    //console.log("https://selink.semo.edu/organization/studentgov/documents/view/" + minutes.Id)
         return(
             <TouchableOpacity onPress={() => {
-                Linking.openURL(minutes.Links[0].Href)
+                Linking.openURL("https://selink.semo.edu" + minutes.Links[0].Href)
                 toggleDet(!isOpen)
             }}
              style={styles.container}>
                 <View style={styles.textContainer}>
-                    <Text style={styles.label}>{minutes.Title.replace("Senate Mins_", "").replace(".pdf", "")}</Text>
+                    <Text style={styles.label}>{valid ? (type=="minutes" ? "Minutes - " : "Agenda - ") + dateString : minutes.Title}</Text>
                 </View>
                 <View style={!isOpen ? styles.hidden : styles.detailsContainer}>
                 </View>
@@ -68,7 +78,8 @@ const styles = StyleSheet.create({
         marginTop: 10,
         padding: 10,
         borderRadius: 4,
-        width: "90%"
+        width: "90%",
+        borderWidth: 1,
   
       },
     textContainer: {
