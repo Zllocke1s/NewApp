@@ -310,7 +310,7 @@ async function uploadImageAsync(uri) {
   }
 
   useEffect(() => {
-    if(prompt==false)
+    if(prompt==false && image!=null)
     {
     setPimage({uri: image.uri})
   }}, [prompt])
