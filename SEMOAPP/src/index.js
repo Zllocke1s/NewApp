@@ -17,7 +17,8 @@ import {
   RecHours,
   Facilities,
   FitnessClasses,
-  IMSchedule
+  IMSchedule,
+  Settings
 } from './screens';
 
 const Router = createStackNavigator(
@@ -37,7 +38,8 @@ const Router = createStackNavigator(
   SubDining,
   RecHours,
   Facilities,
-  FitnessClasses
+  FitnessClasses,
+  Settings
   },
   {
     initialRouteName: 'Landing',

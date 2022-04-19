@@ -33,7 +33,7 @@ export const styles = StyleSheet.create({
         justifyContent: "flex-start",
         alignItems: "flex-start",
         display: "flex",
-        width: "90%",
+        width: "95%",
         margin: 10,
         backgroundColor: theme.colors.gray2,
         marginLeft: 20,

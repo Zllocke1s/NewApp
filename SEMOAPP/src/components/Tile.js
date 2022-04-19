@@ -99,8 +99,7 @@ export const NewsTile = (({name, item}) => {
                     <Text style={styles.text}>{name}</Text>                    
                 </View>
                 <View style={styles.newsBodyContainer}>
-                <Image style={styles.newsLogo}
-                   source={{uri: item.image}} />
+                {item.image!="" ? <Image style={styles.newsLogo} source={{uri: item.image}} /> : <View />}
                 <View style={styles.newsBodyTextContainer}>
                     <Text style={styles.newsTitle}>{decode(item.title)}</Text>
                     <Text style={styles.newsText}>{decode(item.intro.length) > 80 ? decode(item.intro.substring(0, 80)) + "..." : decode(item.intro)}</Text>
@@ -139,7 +138,91 @@ export const SecretTile = (({onP}) => {
 
 });
 
+export const ClassTile = (({color, classname, professor}) => {
+    return(<View style={[styles.classContainer, {backgroundColor: color}]}>
+            <View style={styles.classTextContainer}>
+                <Text style={styles.classText}>{classname}</Text>
+                <Text style={styles.professorText}>{professor}</Text>
+            </View>
+    </View>);
+});
+
+export const GradePercentTile = (({percentageType, color, percentage}) => {
+    return(<View style={[styles.gradesContainer, {borderColor: color}]}>
+            <View style={styles.gradesTextContainer}>
+            <Text style={styles.percentTypeText}>{percentageType}</Text>
+            <Text style={styles.gradeText}>{percentage}</Text>
+             </View>
+    </View>);
+});
+
 const styles = StyleSheet.create({
+    classText: {
+        justifyContent: 'flex-start',
+        textAlign: 'left',
+        paddingLeft:15,
+        paddingTop: 15,
+        color: theme.colors.white,
+        fontSize: 16
+        //text formatting here
+    },
+    professorText: {
+        position: "absolute",
+        bottom: 10,
+        right: 0,
+        color: theme.colors.white,
+        fontSize: 14
+        //text formatting here
+    },
+    gradeText: {
+        fontSize: 26,
+        marginBottom: 10,
+        justifyContent: 'center',
+        alignSelf: 'center',
+        //text formatting here
+    },
+    percentTypeText: {
+        fontSize: 11,
+        textAlign: 'center',
+        fontStyle: "italic"
+        //text formatting here
+    },
+    gradesContainer: {
+        fontSize: 48,
+        marginTop: 10,
+        display: 'flex',
+        height: 100,
+        flex: 0.2,
+        fontWeight: 'bold',
+        alignItems: "center",
+        justifyContent: 'center',
+        backgroundColor: theme.colors.white,
+        borderWidth: 3,
+        borderRadius: 2.5
+
+    },
+    classContainer: {
+        fontSize: 48,
+        marginTop: 10,
+        display: 'flex',
+        height: 100,
+        flex: .7,
+        fontWeight: 'bold',
+        alignItems: "flex-start",
+        justifyContent: 'center',
+        borderRadius: 2.5,
+    },
+    gradesTextContainer: {
+        width: "100%",
+        flex: 1,
+        justifyContent: "space-around",
+        textAlignVertical: 'top'
+        
+    },classTextContainer: {
+        flex: 1,
+        width: "90%",
+        
+    },
     secretContainer: {
         backgroundColor: theme.colors.gray,
         position: "absolute",
@@ -339,7 +422,7 @@ const styles = StyleSheet.create({
         display: "flex",
         flex: 1,
         flexDirection: "column",
-        justifyContent: "space-around",
+        justifyContent: "space-between",
         
     }
   });

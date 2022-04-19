@@ -84,7 +84,9 @@ export default function Shuttle() {
     fetch('http://wds.semo.edu/nexus/get_data.php')
     .then((response) => response.json())
     .then((json) => {
-    //  console.log((json)) 
+      console.log((json)) 
+      if(json!=null)
+      {
       setTracker(json.map((item) => {
      //   console.log('lat: ' + parseFloat(item.lng))
         if(item.route.includes(tabs[aID].name))
@@ -104,7 +106,9 @@ export default function Shuttle() {
           <FontAwesome name="map-marker" size={34} color={tabs[aID].color} />
         </MapView.Marker>
         }
+        
       }))
+    }
       
       return json;
     })
