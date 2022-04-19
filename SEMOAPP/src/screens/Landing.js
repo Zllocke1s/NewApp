@@ -14,17 +14,46 @@ export default function Landing({ navigation }) {
 
   const [news, setNews] = React.useState({})
 
+  /* item = {
+                title: "",
+                image: "",
+                intro: "",
+                link: "http://semo.edu/news"
+            }*/
+
   useEffect(() => {
     fetch('https://semo.edu/_data/recent-news-data.json')
     .then((response) => response.json())
     .then((json) => {
-      setNews(json)
+      setNews(json.slice(0, 10))
     }
       )
     .catch((error) => {
       console.error(error);
     });
   }, [])
+
+  //
+ /* useEffect(() => {
+    fetch('https://content.guardianapis.com/search?api-key=1d18721a-fb93-4b9a-8c0f-e79873ba3d8c')
+    .then((response) => response.json())
+    .then((json) => {
+      var newNews = []
+      json.response.results.map((item) => {
+        console.log(item)
+        newNews.push({title: item.webTitle,
+        image: "",
+        intro: "",
+        link: item.webUrl})
+      })
+      //setNews(newNews)
+    }
+      )
+    .catch((error) => {
+      console.error(error);
+    });
+  }, [])*/
+    
 
 
   function secret() {
@@ -72,7 +101,7 @@ export default function Landing({ navigation }) {
   const [counter, setCounter] = useState(0);
   useEffect(() => {
     const interval = setInterval(() => {
-      setCounter((counter+1) % 10)
+      setCounter((counter+1) % news.length)
     }, 8000);
     return () => clearInterval(interval);
   })
