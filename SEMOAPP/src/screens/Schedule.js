@@ -17,12 +17,17 @@ export default function Schedule() {
 
   const [credentials, setCredentials] = React.useState(null)
   const [classes, setClasses] = React.useState(null)
+  const [classesAdv, setClassesAdv] = React.useState(null);
   const [formattedclasses, setFormattedclasses] =React.useState(null)
   const [colors, setColors] = React.useState(null)
   const [attemptColors, setAttemptGrab] = React.useState(false)
   const [modal, setModal] = React.useState(null)
   const [modalVisible, setModalVisible] = React.useState(false)
   const [modalPicker, setModalPicker] = React.useState(null)
+  const [inPerson, setInPerson] = React.useState(null)
+  const [online, setOnline] = React.useState(null)
+  const [fOnline, setFOnline] = React.useState(null)
+
   useEffect(() => {
     if(credentials!=null)
     {
@@ -35,6 +40,25 @@ export default function Schedule() {
     .then((response) => {
       response.json().then((json) => {
       setClasses(json.coursesDays)
+    }
+    )})
+    }
+  }, [credentials])
+
+  useEffect(() => {
+    if(credentials!=null)
+    {
+      console.log(Moment().format("YYYY"))
+    fetch('http://mportal.semo.edu:8080/banner-mobileserver/api/2.0/courses/overview/' + credentials.so,
+    {
+      headers: {
+        Authorization: 'Basic '+base64.encode(credentials.username + ":" + credentials.password), 
+    }, 
+    })
+    .then((response) => {
+      response.json().then((json) => {
+      console.log("JSON")
+      setClassesAdv(json.terms[0])
     }
     )})
     }
@@ -73,6 +97,26 @@ export default function Schedule() {
   }
 
   useEffect(() => {
+    if(online!=null)
+    {
+      var formattedOnline = <View style={styles.day}>
+          <Text style={styles.doW}>Online</Text>
+          {online.map((cm) => {
+            return(
+            <View key={cm.sectionId} style={styles.course}>
+              <Text style={styles.className}>{cm.courseName} - {cm.courseSectionNumber}</Text>
+              <Text style={styles.classCode}>{cm.sectionTitle}</Text>
+              <View style={styles.columns}>
+              </View>
+            </View>
+            )
+          })}
+        </View>
+      setFOnline(formattedOnline)
+    }
+  }, [online])
+
+  useEffect(() => {
     if(colors==[] || colors==null)
     {
       console.log("No Colors set")
@@ -97,32 +141,49 @@ export default function Schedule() {
     getColors()
   }, [])
 
+  useEffect(() => {
+    if(classesAdv!=null && inPerson!=null)
+    {
+      var online = classesAdv.sections;
+      online = online.filter(x => !inPerson.has(x.sectionId));
+      setOnline(online)
+    }
+      
+
+  }, [classesAdv, inPerson])
+
 
   useEffect(() => {
     if(classes!=null)
     {
       console.log("not null")
       classes.sort((a, b) => a.date > b.date ? 1 : -1)
+      var online = new Set()
     setFormattedclasses(classes.map((item, index) => {
+      if(item.coursesMeetings.length > 0)
+      {
       return(
         <View key={item.date} style={styles.day}>
           <Text style={styles.doW}>{Moment(item.date).format('dddd')}</Text>
           {item.coursesMeetings.map((cm) => {
-            console.log(cm)
+            online.add(cm.sectionId)
             return(
-            <View style={styles.course}>
+            <View key={cm.sectionId} style={styles.course}>
               <Text style={styles.className}>{cm.courseName} - {cm.courseSectionNumber}</Text>
               <Text style={styles.classCode}>{cm.sectionTitle}</Text>
               <View style={styles.columns}>
               <Text>{cm.building} {cm.room}</Text>
-              <Text>{Moment(cm.start).format('h:mm')} - {Moment(cm.end).format('h:mm')}</Text>
+              <Text>{Moment(cm.start).format('h:mm a')} - {Moment(cm.end).format('h:mm a')}</Text>
               </View>
             </View>
             )
           })}
         </View>
-      )
+      )}
     }))
+    console.log("Online: ")
+    console.log(online)
+    setInPerson(online);
 
     
   }
@@ -130,20 +191,21 @@ export default function Schedule() {
   {
     
   }
-  }, [classes, colors])
+  }, [classes, classesAdv, colors])
 
 
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
         <View style={styles.headerSubContainer}>
-          <Text style={[styles.gradeTitle, {color:'black'}]}>Grades</Text>
+          <Text style={[styles.gradeTitle, {color:'white'}]}>Upcoming Schedule</Text>
         </View>
       </View>
       <View style={styles.tileContainer}>
         <ScrollView>
         <View style={styles.rows}>
             {formattedclasses != null ? formattedclasses : <ActivityIndicator size="large" color={theme.colors.red}></ActivityIndicator>}
+            {fOnline}
             </View>
             </ScrollView>
         </View>

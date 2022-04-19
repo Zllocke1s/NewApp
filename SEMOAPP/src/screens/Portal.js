@@ -200,7 +200,7 @@ export default function Portal() {
               style={[styles.closeModal]}
               onPress={() => setModalVisible(!modalVisible)}
             >
-              <Text style={styles.closeText}>Hide Modal</Text>
+              <Text style={styles.closeText}>Hide</Text>
             </Button>
           </View>
       </Modal>
