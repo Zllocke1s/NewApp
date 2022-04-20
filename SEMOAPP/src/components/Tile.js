@@ -3,13 +3,13 @@ import {theme} from '../core/theme';
 
 
 
-export const Tile = (({name, onP, src, fullscreen}) => {
+export const Tile = (({name, onP, src, fullscreen, on}) => {
     if(fullscreen)
     {
         return(
             <TouchableOpacity onPress={() => onP({name})}
             style={styles.fullscreenContainer}>
-            <Image style={styles.fullLogo}
+            <Image style={on ? styles.fullLogo : styles.fullLogoOff}
                    source={src}
            ></Image>
             </TouchableOpacity>
@@ -21,7 +21,7 @@ export const Tile = (({name, onP, src, fullscreen}) => {
             <TouchableOpacity onPress={() => onP({name})}
              style={styles.container}>
                 <View style={styles.textContainer}>
-            <Image style={styles.logo}
+                <Image style={on ? styles.logo : styles.LogoOff}
                    source={src}
            ></Image>
                     <Text style={styles.text}>{name}</Text>
@@ -129,6 +129,14 @@ const styles = StyleSheet.create({
         width: 50,
         height: 50,
         alignSelf:"center",
+        tintColor: "#0C0"
+      },
+      LogoOff:
+      {
+        width: 50,
+        height: 50,
+        alignSelf:"center",
+        tintColor: "#F00"
       },
     max: {
         width: "100%"

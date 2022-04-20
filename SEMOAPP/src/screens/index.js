@@ -1,10 +1,1 @@
 export { default as Landing } from './Landing';
-export { default as Calendar } from './Calendar';
-export { default as Dining } from './Dining';
-export { default as Labs } from './Labs';
-export { default as Maps } from './Maps';
-export { default as Portal } from './Portal';
-export { default as Reserve } from './Reserve';
-export { default as Shuttle } from './Shuttle';
-export { default as StuGov } from './StuGov';
-export { default as Secret } from './Secret';

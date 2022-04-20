@@ -1,4 +1,4 @@
-import { StyleSheet} from 'react-native';
+import { Dimensions, StyleSheet} from 'react-native';
 import {theme} from '../core/theme';
 
 export const styles = StyleSheet.create({
@@ -12,15 +12,24 @@ export const styles = StyleSheet.create({
       justifyContent: 'flex-start'
     },
     headerContainer: {
-        flex: .35,
+        flex: .25,
         backgroundColor: theme.colors.red,
         padding: 10
     },
     headerSubContainer: {
         flexDirection: "row",
-        width: "100%",
+        width: Dimensions.get("screen").width,
+        marginTop: 40,
         justifyContent: "space-evenly",
         paddingTop: 35
+    },
+    title: {
+        fontSize: 40,
+        color: "white"
+    },
+    status: {
+        fontSize: 30,
+        color: "#333",
     },
     tileContainer: {
         padding: 10,
