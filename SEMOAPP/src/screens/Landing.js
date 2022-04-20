@@ -23,7 +23,8 @@ export default function Landing({ navigation }) {
     "default": 5,
   }
   const[tracker, setTracker] = React.useState(false)
-  const [route, setRoute] = React.useState("green");
+  const [route, setRoute] = React.useState(null);
+  const [prevRoute, setPrevRoute] = React.useState("");
   var invalid = ["wings"] 
   function isColor(strColor){
     return !invalid.includes(strColor);
@@ -65,12 +66,26 @@ export default function Landing({ navigation }) {
   var loc = codes.includes(route) ? convert[route] : convert["default"]
 
   useEffect(() => {
-    
-      const interval = setInterval(() => {
-            }, 3800);
-      return () => clearInterval(interval);
-     
-  })
+    if(route!=null && prevRoute!="" && tracker)
+    {
+      console.log("Shutdown: " + prevRoute)
+    }
+    setPrevRoute(route)
+  }, [route])
+
+  
+  useEffect(() => {
+    if(route!=null && !tracker)
+    {
+      console.log("Shutdown: " + route)
+      setPrevRoute("")
+      setRoute(null)  
+    }
+    else if(route==null && tracker)
+    {
+      setTracker(false)
+    }
+  }, [tracker])
 
   return (
     <View style={styles.container}>
