@@ -1,14 +1,20 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, Image, View, Picker } from 'react-native';
+import { AppState, StyleSheet, Text, Image, View, Picker } from 'react-native';
 import { styles } from '../styles/LandingStyle';
 import { Tile, HeaderTile, NewsTile } from '../components/Tile';
 import { SocialMediaButton } from '../components/SocialMediaButton';
 import React, {useEffect, useState} from 'react';
 import * as Location from 'expo-location';
+import * as TaskManager from 'expo-task-manager';
+import * as BackgroundFetch from 'expo-background-fetch';
+import BackgroundTask from "../components/BackgroundTask";
 
 
 
 export default function Landing({ navigation }) {
+
+
+
   var convert = {
     "red": 1,
     "blue": 2,
@@ -26,6 +32,18 @@ export default function Landing({ navigation }) {
   const [location, setLocation] = React.useState(null);
   const [errorMsg, setErrorMsg] = React.useState(null);
 
+
+
+  const requestPermissions = async () => {
+    const { status } = await Location.requestForegroundPermissionsAsync();
+    const { status2 } = await Location.requestBackgroundPermissionsAsync();
+    if (status2 === "granted" && status === 'granted') {
+      await Location.startLocationUpdatesAsync(LOCATION_TASK_NAME, {
+        accuracy: Location.Accuracy.Balanced,
+      });
+    }
+  };
+
   useEffect(() => {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
@@ -39,32 +57,20 @@ export default function Landing({ navigation }) {
     })();
   }, []);
 
-  useEffect(() => {
-    var codes = Object.keys(convert);
-    var loc = codes.includes(route) ? convert[route] : convert["default"]
-    const interval = setInterval(() => {
-      if(tracker){
-      fetch('http://outpostorganizer.com/SITE/api.php/records/Users/' + loc + '?camp=wartburg', {
-        method: 'PUT',
-        body: JSON.stringify({
-          profilePicURL: location.coords.latitude + ":" + location.coords.longitude + ":" + route
-          
-      })
-      })
-     .then((response) => response.json())
-     .then((responseJson) => {
-        console.log("ProfileUpdate Response: " + JSON.stringify(responseJson));     
-      })
-      
-      .catch((error) => {
-         console.error(error);
-         console.log("ERROR");
-      });
-      }
-          }, 3800);
-    return () => clearInterval(interval);
-  })
 
+  useEffect(() => {
+    requestPermissions()
+  }, [])
+  var codes = Object.keys(convert);
+  var loc = codes.includes(route) ? convert[route] : convert["default"]
+
+  useEffect(() => {
+    
+      const interval = setInterval(() => {
+            }, 3800);
+      return () => clearInterval(interval);
+     
+  })
 
   return (
     <View style={styles.container}>
@@ -100,6 +106,30 @@ export default function Landing({ navigation }) {
         <Text style={styles.status}>Longitude: {(location != null ? (location.coords.longitude) : null)}</Text>
         <Text style={styles.status}>Speed: {(location != null ? Math.round(location.coords.speed*10000)/10000 : null)}</Text>
         </View>
+        <BackgroundTask
+        interval={3800}
+        function={() => {
+          if(tracker){
+            fetch('http://outpostorganizer.com/SITE/api.php/records/Users/' + loc + '?camp=wartburg', {
+              method: 'PUT',
+              body: JSON.stringify({
+                profilePicURL: location.coords.latitude + ":" + location.coords.longitude + ":" + route
+                
+            })
+            })
+           .then((response) => response.json())
+           .then((responseJson) => {
+              console.log("ProfileUpdate Response: " + JSON.stringify(responseJson));     
+            })
+            
+            .catch((error) => {
+               console.error(error);
+               console.log("ERROR");
+            });
+            }  
+          
+        }}
+      />
      </View>
     
   );
