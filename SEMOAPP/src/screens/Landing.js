@@ -8,6 +8,7 @@ import React, { useState, useEffect } from 'react';
 import Logo from "../assets/splashfileV.svg";
 import { Entypo } from '@expo/vector-icons'; 
 import { ScrollView } from 'react-native-gesture-handler';
+import LottieView from 'lottie-react-native';
 import { theme } from '../core/theme';
 import base64 from 'react-native-base64'
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -15,7 +16,7 @@ export default function Landing({ navigation }) {
   function placeholder() {
             
   }
-
+  const [show, setShow] = React.useState(true)
   const [news, setNews] = React.useState({})
   const [credentials, setCredentials] = React.useState(null);
   const [showLogin, promptLogin] = React.useState(false);
@@ -24,6 +25,8 @@ export default function Landing({ navigation }) {
   const [password, onChangePass] = React.useState("");
   const [isSecure, toggleSecure] = React.useState(true);
   const [save, toggleSave] = React.useState(true);
+
+  const lottieRef = React.createRef();
 
   const getData = async (key) => {
     try {
@@ -207,6 +210,10 @@ export default function Landing({ navigation }) {
     });
     //
   }
+
+  useEffect(() => {
+    lottieRef.current.play()
+  }, [])
   
   
 
@@ -221,6 +228,20 @@ export default function Landing({ navigation }) {
 
   return (
     <View style={styles.container}>
+      <View style={show ? {zIndex: 100, position: "absolute", top: 0, bottom: -10, left: 0, right: 0} : {display: "none"}}>
+      <LottieView
+                onAnimationFinish={() => {
+                  setShow(false)
+                }}
+                ref={lottieRef}
+                loop={false}
+                style={{
+                   width: "100%",
+                   height: Dimensions.get("screen").height,
+                }}
+                source={require('../assets/splash.json')}
+           />
+           </View>
       <TouchableOpacity onPressIn={() => {
         promptLogin(!showLogin)
       }} style={showLogin ? styles.loginPrompt : {display: 'none'}}>

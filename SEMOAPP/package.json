@@ -21,6 +21,7 @@
     "expo-status-bar": "~1.2.0",
     "expo-updates": "~0.11.6",
     "html-entities": "^2.3.2",
+    "lottie-react-native": "^5.0.1",
     "matter-js": "^0.18.0",
     "moment": "^2.29.1",
     "react": "17.0.1",
