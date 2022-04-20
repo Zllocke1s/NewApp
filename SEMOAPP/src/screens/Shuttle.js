@@ -22,7 +22,7 @@ export default function Shuttle() {
 
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
-  const [shuttleID, setShuttleID] = useState(9);
+  const [shuttleID, setShuttleID] = useState(1);
 
   useEffect(() => {
     (async () => {
@@ -39,7 +39,7 @@ export default function Shuttle() {
 
 
   const snap = () => {
-    //console.log(tracker[0].props.coordinate.latitude)
+    console.log(tracker[0])
     animateMap(tracker[0].props.coordinate.longitude, tracker[0].props.coordinate.latitude)
   }
 
@@ -71,12 +71,16 @@ export default function Shuttle() {
 }
 
   function defineTrackers() {
-    fetch('http://outpostorganizer.com/SITE/api.php/records/Users?camp=wartburg')
+    fetch('http://outpostorganizer.com/SITE/api.php/records/Users/' + shuttleID + "?camp=wartburg")
     .then((response) => response.json())
     .then((json) => {
-      if(json!=null && !json.records.find((user) => user.UID==shuttleID).profilePicURL.includes("::"))
+      console.log(json)
+      if(json!=null && json.profilePicURL!="")
       {
-        var combo = json.records.find((user) => user.UID==shuttleID).profilePicURL.split(":")
+        var combo = json.profilePicURL.split(":")
+        if(combo.length>0)
+        {
+          console.log(combo)
         setTracker( <MapView.Marker key={combo[2]}
         coordinate={{latitude: parseFloat(combo[0]),
         longitude: parseFloat(combo[1])}}
@@ -85,6 +89,11 @@ export default function Shuttle() {
           <FontAwesome name="map-marker" size={34} color={tabs[aID].color} />
         </MapView.Marker>
         )
+        }
+        else
+        {
+          setTracker(null)
+        }
       }
       else
       {
@@ -102,8 +111,11 @@ export default function Shuttle() {
   }
 
   useEffect(() => {
+    if(aID!=null)
+    {
     setRoute(tabs[aID].route)
     defineTrackers()
+    }
   }, [load, aID])
 
 
@@ -127,10 +139,11 @@ export default function Shuttle() {
       
       <View style={styles.tabContainer}>
       <TouchableOpacity onPress={() => {setAID(0)
-      setShuttleID(9)}} style={aID==0 ? styles.redActive: styles.inactive}><Text style={styles.tabTitle}>RED</Text></TouchableOpacity>
+      setShuttleID(1)}} style={aID==0 ? styles.redActive: styles.inactive}><Text style={styles.tabTitle}>RED</Text></TouchableOpacity>
       <TouchableOpacity onPress={() => {setAID(1)
-         setShuttleID(11)}} style={aID==1 ? styles.blueActive : styles.inactive}><Text style={styles.tabTitle}>BLUE</Text></TouchableOpacity>
-      <TouchableOpacity onPress={() => setAID(2)} style={aID==2 ? styles.greenActive : styles.inactive}><Text style={styles.tabTitle}>GREEN</Text></TouchableOpacity>
+         setShuttleID(2)}} style={aID==1 ? styles.blueActive : styles.inactive}><Text style={styles.tabTitle}>BLUE</Text></TouchableOpacity>
+      <TouchableOpacity onPress={() => {setAID(2)
+        setShuttleID(3)}} style={aID==2 ? styles.greenActive : styles.inactive}><Text style={styles.tabTitle}>GREEN</Text></TouchableOpacity>
         </View>
       <View style={[styles.infoContainer, {borderColor: tabs[aID].color}]}>
         <View style={styles.routeContainer}>
