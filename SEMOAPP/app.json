@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "SEMOAPP",
-    "slug": "SEMOAPP",
+    "name": "Shuttle Tracker",
+    "slug": "SHUTTLETRACKER",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./src/assets/icon.png",
@@ -23,7 +23,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.zlaoch.SHUTTLETRACKER"
     },
     "web": {
       "favicon": "./src/assets/favicon.png"
