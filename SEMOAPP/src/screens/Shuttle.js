@@ -22,6 +22,7 @@ export default function Shuttle() {
 
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
+  const [shuttleID, setShuttleID] = useState(9);
 
   useEffect(() => {
     (async () => {
@@ -42,18 +43,7 @@ export default function Shuttle() {
     animateMap(tracker[0].props.coordinate.longitude, tracker[0].props.coordinate.latitude)
   }
 
-  useEffect(() => {
-    if(location!=null)
-    {
-    mapRef.current.animateToRegion({
-      latitude: location.latitude,
-      longitude: location.longitude,
-      latitudeDelta: 0.05,
-      longitudeDelta: 0.05
-    })
-  }
-    //console.log("LOCATION: " + JSON.stringify(location.latitude + location.longitude))
-  }, [location])
+
 
   const [tracker, setTracker] = useState(null)
   const [aID, setAID] = useState(0)
@@ -81,34 +71,27 @@ export default function Shuttle() {
 }
 
   function defineTrackers() {
-    fetch('http://wds.semo.edu/nexus/get_data.php')
+    fetch('http://outpostorganizer.com/SITE/api.php/records/Users?camp=wartburg')
     .then((response) => response.json())
     .then((json) => {
-      console.log((json)) 
-      if(json!=null)
+      if(json!=null && !json.records.find((user) => user.UID==shuttleID).profilePicURL.includes("::"))
       {
-      setTracker(json.map((item) => {
-     //   console.log('lat: ' + parseFloat(item.lng))
-        if(item.route.includes(tabs[aID].name))
-        {
-         if(mapRef.current!=null)
-         {
-          animateMap(item.lat, item.lng)
-         }
-         else{
-           console.log(item.lat, item.lng)
-         }
-        return <MapView.Marker key={item.id}
-        coordinate={{latitude: parseFloat(item.lat),
-        longitude: parseFloat(item.lng)}}
+        var combo = json.records.find((user) => user.UID==shuttleID).profilePicURL.split(":")
+        setTracker( <MapView.Marker key={combo[2]}
+        coordinate={{latitude: parseFloat(combo[0]),
+        longitude: parseFloat(combo[1])}}
         title={tabs[aID].name + " Shuttle"}
         >
           <FontAwesome name="map-marker" size={34} color={tabs[aID].color} />
         </MapView.Marker>
-        }
+        )
+      }
+      else
+      {
+        setTracker(null)
+      }
+    
         
-      }))
-    }
       
       return json;
     })
@@ -143,8 +126,10 @@ export default function Shuttle() {
       </View>
       
       <View style={styles.tabContainer}>
-      <TouchableOpacity onPress={() => setAID(0)} style={aID==0 ? styles.redActive: styles.inactive}><Text style={styles.tabTitle}>RED</Text></TouchableOpacity>
-      <TouchableOpacity onPress={() => setAID(1)} style={aID==1 ? styles.blueActive : styles.inactive}><Text style={styles.tabTitle}>BLUE</Text></TouchableOpacity>
+      <TouchableOpacity onPress={() => {setAID(0)
+      setShuttleID(9)}} style={aID==0 ? styles.redActive: styles.inactive}><Text style={styles.tabTitle}>RED</Text></TouchableOpacity>
+      <TouchableOpacity onPress={() => {setAID(1)
+         setShuttleID(11)}} style={aID==1 ? styles.blueActive : styles.inactive}><Text style={styles.tabTitle}>BLUE</Text></TouchableOpacity>
       <TouchableOpacity onPress={() => setAID(2)} style={aID==2 ? styles.greenActive : styles.inactive}><Text style={styles.tabTitle}>GREEN</Text></TouchableOpacity>
         </View>
       <View style={[styles.infoContainer, {borderColor: tabs[aID].color}]}>
@@ -155,10 +140,10 @@ export default function Shuttle() {
         </ScrollView>
         </View>
         <View style={styles.mapContainer}>
-          <Text style={tracker==null || tracker[0]==undefined ? styles.error : styles.hidden}>
+          <Text style={tracker==null ? styles.error : styles.hidden}>
             Uh Oh!  We can't seem to locate the shuttle.{"\n"}Please try again later.
           </Text>
-          <View style={tracker==null || tracker[0]==undefined ? styles.hidden : styles.snap}>
+          <View style={tracker==null ? styles.hidden : styles.snap}>
           <Button color={theme.colors.red} title="Snap To Shuttle" onPress={snap}></Button>
           </View>
           <MapView style={styles.map}
