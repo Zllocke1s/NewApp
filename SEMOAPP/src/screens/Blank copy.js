@@ -1,17 +1,17 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, Image, View } from 'react-native';
-import { styles } from '../styles/ReserveStyle';
-export default function Reserve() {
+import { styles } from '../styles/LandingStyle';
+export default function Blank() {
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
         <View style={styles.headerSubContainer}>
-          <Text style={styles.title}>Reserve a Space</Text>
+          <Text>Heading</Text>
          </View>
       </View>
       
       <View style={styles.tileContainer}>
-        <Text>Reserve</Text>
+        <Text>hello</Text>
         </View>
         </View>
     
