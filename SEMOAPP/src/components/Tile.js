@@ -161,9 +161,9 @@ export const GradePercentTile = (({percentageType, color, percentage}) => {
 export const AlertTile = (({title, message, date}) => {
     return(<View style={[styles.alertsContainer]}>
                 <View style={styles.alertRows}>
-                <Text style={styles.titleText}>{title}</Text>
-                <Text style={styles.messageText}>{message}</Text>
-                <Text style={styles.dateText}>{date}</Text>
+                    <Text style={styles.titleText}>{title}</Text>
+                    <Text numberOfLines={4} style={styles.messageText}>{message}</Text>
+                    <Text style={styles.dateText}>{date}</Text>
                 </View>
             </View>);
 });
@@ -177,7 +177,8 @@ const styles = StyleSheet.create({
     },
     messageText: {
         paddingTop: 5,
-        paddingLeft: 20
+        paddingLeft: 20,
+        marginRight: 5
     },
     dateText: {
         alignSelf: "flex-end",
