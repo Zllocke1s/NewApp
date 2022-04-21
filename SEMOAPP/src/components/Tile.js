@@ -1,7 +1,9 @@
 import { TouchableOpacity, Linking, Image, StyleSheet, Text, View, Touchable } from 'react-native';
 import {theme} from '../core/theme';
 import {decode} from 'html-entities';
-import { AntDesign } from '@expo/vector-icons'; 
+import { AntDesign } from '@expo/vector-icons';
+import React, { useEffect } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 //Todo: Tiling News through the tile
 
@@ -156,7 +158,59 @@ export const GradePercentTile = (({percentageType, color, percentage}) => {
     </View>);
 });
 
+export const AlertTile = (({title, message, date}) => {
+    return(<View style={[styles.alertsContainer]}>
+                <View style={styles.alertRows}>
+                <Text style={styles.titleText}>{title}</Text>
+                <Text style={styles.messageText}>{message}</Text>
+                <Text style={styles.dateText}>{date}</Text>
+                </View>
+            </View>);
+});
+
 const styles = StyleSheet.create({
+    titleText: {
+        paddingTop: 10,
+        paddingLeft: 10,
+        fontWeight: "bold",
+        fontSize: 15
+    },
+    messageText: {
+        paddingTop: 5,
+        paddingLeft: 20
+    },
+    dateText: {
+        alignSelf: "flex-end",
+        position: 'absolute',
+        left: 0,
+        bottom: 0,
+        paddingLeft: 10,
+        paddingBottom: 10
+    },
+    alertRows:
+    {
+        display: "flex",
+        flex: 1,
+        flexDirection: "column"
+        
+    },
+    alertsContainer: {
+        fontSize: 48,
+        marginTop: 10,
+        display: 'flex',
+        height: 100,
+        flex: .2,
+        fontWeight: 'bold',
+        alignItems: "flex-start",
+        justifyContent: 'center',
+        borderRadius: 2.5,
+        backgroundColor: "white"
+    },
+    alertsTextContainer: {
+        flex: 1,
+        width: "90%",
+        backgroundColor: "red"
+    },
     classText: {
         justifyContent: 'flex-start',
         textAlign: 'left',
