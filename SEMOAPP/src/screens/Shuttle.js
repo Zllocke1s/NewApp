@@ -39,8 +39,10 @@ export default function Shuttle() {
 
 
   const snap = () => {
-    console.log(tracker[0])
-    animateMap(tracker[0].props.coordinate.longitude, tracker[0].props.coordinate.latitude)
+    console.log("tracker")
+    console.log(tracker.length)
+    
+    animateMap(tracker.props.coordinate.longitude, tracker.props.coordinate.latitude)
   }
 
 
@@ -75,7 +77,7 @@ export default function Shuttle() {
     .then((response) => response.json())
     .then((json) => {
       console.log(json)
-      if(json!=null && json.profilePicURL!="")
+      if(json!=null && !json.profilePicURL.includes("::"))
       {
         var combo = json.profilePicURL.split(":")
         if(combo.length>0)
