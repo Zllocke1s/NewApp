@@ -12,6 +12,7 @@ export const styles = StyleSheet.create({
       justifyContent: 'flex-start'
     },
     headerContainer: {
+<<<<<<< Updated upstream
         backgroundColor: theme.colors.black,
         width: "100%",
         alignItems: "center",
@@ -24,6 +25,18 @@ export const styles = StyleSheet.create({
     error: {
         fontSize: 15,
         color: theme.colors.red
+=======
+        height: 150,
+        backgroundColor: theme.colors.red,
+        padding: 10
+    },
+    headerSubContainer: {
+        flexDirection: "row",
+        width: Dimensions.get("screen").width,
+        marginTop: 30,
+        justifyContent: "space-evenly",
+        paddingTop: 35
+>>>>>>> Stashed changes
     },
     hidden: {
         display: "none"

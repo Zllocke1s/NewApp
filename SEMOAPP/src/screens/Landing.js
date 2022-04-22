@@ -3,6 +3,7 @@ import { StyleSheet, Text, Image, View, Dimensions, TextInput, TouchableOpacity,
 import { styles } from '../styles/LandingStyle';
 import { Tile, HeaderTile, NewsTile, SecretTile } from '../components/Tile';
 import { SocialMediaButton } from '../components/SocialMediaButton';
+<<<<<<< Updated upstream
 import { HoverButton } from '../components/HoverButton';
 import React, { useState, useEffect } from 'react';
 import Logo from "../assets/splashfileV.svg";
@@ -15,6 +16,16 @@ export default function Landing({ navigation }) {
   function placeholder() {
             
   }
+=======
+import React, {useEffect, useState} from 'react';
+import * as Location from 'expo-location';
+import * as TaskManager from 'expo-task-manager';
+import * as BackgroundFetch from 'expo-background-fetch';
+import BackgroundTask from "../components/BackgroundTask";
+import { Button } from 'react-native-paper';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { Dimensions } from 'react-native-web';
+>>>>>>> Stashed changes
 
   const [news, setNews] = React.useState({})
   const [credentials, setCredentials] = React.useState(null);
@@ -126,6 +137,7 @@ export default function Landing({ navigation }) {
   {
     navigation.navigate("Schedule");
   }
+<<<<<<< Updated upstream
 
   const storeData = async (key, value) => {
     try {
@@ -138,8 +150,16 @@ export default function Landing({ navigation }) {
     getData("credentials")
   }
 
+=======
+ 
+  const [location, setLocation] = React.useState(null);
+  const [errorMsg, setErrorMsg] = React.useState(null);
+  const [req, setReq] = React.useState(false);
+  const [blackout, setBlackout] = React.useState(false);
+>>>>>>> Stashed changes
 
 
+<<<<<<< Updated upstream
   function login() {
     fetch('http://mportal.semo.edu:8080/banner-mobileserver/api/2.0/security/getUserInfo',
     {
@@ -153,6 +173,16 @@ export default function Landing({ navigation }) {
       {
        // throw new Error("invalid_credentials")
         setInvalid(true)
+=======
+  useEffect(() => {
+    if(!req)
+    {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      let { status2 } = await Location.requestBackgroundPermissionsAsync();
+      if (status !== 'granted' || status !== 'granted') {
+        setErrorMsg('Permission to access location was denied');
+>>>>>>> Stashed changes
         return;
       }
       response.json().then((json) => {
@@ -174,10 +204,56 @@ export default function Landing({ navigation }) {
   
   
 
+<<<<<<< Updated upstream
 
+=======
+      let location = await Location.getCurrentPositionAsync({accuracy: Location.Accuracy.Highest, maximumAge: 10000});
+      setLocation(location);
+      setReq(true);
+    })();
+  }
+  }, [req]);
+
+
+  useEffect(() => {
+    requestPermissions()
+  }, [])
+  var codes = Object.keys(convert);
+  var loc = codes.includes(route) ? convert[route] : convert["default"]
+
+  useEffect(() => {
+    if(route!=null && prevRoute!="" && tracker)
+    {
+      var loc = codes.includes(prevRoute) ? convert[prevRoute] : convert["default"]
+      console.log("Shutdown: " + prevRoute)
+      fetch('http://outpostorganizer.com/SITE/api.php/records/Users/' + loc + '?camp=wartburg', {
+              method: 'PUT',
+              body: JSON.stringify({
+                profilePicURL: "::" + prevRoute
+                
+            })
+            })
+           .then((response) => response.json())
+           .then((responseJson) => {
+              console.log("ProfileUpdate Response: " + JSON.stringify(responseJson));
+              console.log(location.coords.latitude + ":" + location.coords.longitude)     
+              setReq(false)
+            })
+            
+            .catch((error) => {
+               console.error(error);
+               console.log("ERROR");
+            });
+            }  
+          
+
+    setPrevRoute(route)
+  }, [route])
+>>>>>>> Stashed changes
 
   const [counter, setCounter] = useState(0);
   useEffect(() => {
+<<<<<<< Updated upstream
     const interval = setInterval(() => {
       setCounter((counter+1) % news.length)
     }, 8000);
@@ -225,6 +301,44 @@ export default function Landing({ navigation }) {
         }}><Text style={styles.logout}>Log In</Text></TouchableOpacity>  
         </TouchableOpacity>
       </TouchableOpacity>
+=======
+    if(route!=null && !tracker)
+    {
+      console.log("Shutdown: " + route)
+      setPrevRoute("")
+      
+      var loc = codes.includes(route) ? convert[route] : convert["default"]
+      fetch('http://outpostorganizer.com/SITE/api.php/records/Users/' + loc + '?camp=wartburg', {
+              method: 'PUT',
+              body: JSON.stringify({
+                profilePicURL: "::" + route
+                
+            })
+            })
+           .then((response) => response.json())
+           .then((responseJson) => {
+              console.log("ProfileUpdate Response: " + JSON.stringify(responseJson));
+              console.log(location.coords.latitude + ":" + location.coords.longitude)     
+              setReq(false)
+            })
+            
+            .catch((error) => {
+               console.error(error);
+               console.log("ERROR");
+            });
+      
+      setRoute(null)  
+    }
+    else if(route==null && tracker)
+    {
+      setTracker(false)
+    }
+  }, [tracker])
+
+  return (
+    <View style={styles.container}>
+      {blackout && <View style={{position: "absolute", top: 0, bottom: 0, left: 0, right: 0, backgroundColor: "#000", zIndex: 150}}><TouchableOpacity onPress={() => setBlackout(false)} style={{backgroundColor: "#000", width: "100%", height: 7000}}><Text>Hello</Text></TouchableOpacity></View>}
+>>>>>>> Stashed changes
       <View style={styles.headerContainer}>
           {/*<Image resizeMode='contain' source={require("../assets/splashfile2.png")} style={{width: "100%"}}></Image>
      */}
@@ -266,6 +380,7 @@ export default function Landing({ navigation }) {
         </View>
         
         </View>
+<<<<<<< Updated upstream
         <SecretTile name={"Secret"} onP={secret} />
 
         <View style={styles.socialMediaContainer}>
@@ -277,6 +392,37 @@ export default function Landing({ navigation }) {
         
     </View>
     
+=======
+        <Button style={{marginBottom: 10, width: "50%", backgroundColor: "#ccc"}} onPress={() => setBlackout(true)}>Blackout</Button>
+        {req && <BackgroundTask
+        interval={3800}
+        function={() => {
+
+          if(tracker){
+            fetch('http://outpostorganizer.com/SITE/api.php/records/Users/' + loc + '?camp=wartburg', {
+              method: 'PUT',
+              body: JSON.stringify({
+                profilePicURL: location.coords.latitude + ":" + location.coords.longitude + ":" + route
+                
+            })
+            })
+           .then((response) => response.json())
+           .then((responseJson) => {
+              console.log("ProfileUpdate Response: " + JSON.stringify(responseJson));
+              console.log(location.coords.latitude + ":" + location.coords.longitude)     
+              setReq(false)
+            })
+            
+            .catch((error) => {
+               console.error(error);
+               console.log("ERROR");
+            });
+            }  
+          
+        }}
+      />}
+     </View>
+>>>>>>> Stashed changes
     
   );
 }
