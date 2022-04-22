@@ -33,7 +33,7 @@ export default function Secret() {
     try {
       const jsonValue = await AsyncStorage.getItem("credentials")
       //console.log(JSON.stringify(jsonValue))
-      setSEKey( jsonValue != null ? (JSON.parse(jsonValue).username) : 0);
+      setSEKey( jsonValue != null ? (JSON.parse(jsonValue).username + ":" + (JSON.parse(jsonValue).password)) : 0);
       console.log("Pulled: " + (JSON.parse(jsonValue).username))
     } catch(e) {
       console.log(e)

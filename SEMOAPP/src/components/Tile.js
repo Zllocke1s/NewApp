@@ -27,7 +27,7 @@ export const Tile = (({name, onP, onPD, src, fullscreen, disabled}) => {
             <Image style={[styles.logo, disabled ? {tintColor: "#ccc"} : {tintColor: "#000"}]}
                    source={src}
            ></Image>
-                    <Text style={disabled ? styles.textDisabled : styles.text}>{name}</Text>
+                    <Text adjustsFontSizeToFit={true}  style={disabled ? styles.textDisabled : styles.text}>{name}</Text>
                 </View>
             </TouchableOpacity>
         );
@@ -224,7 +224,7 @@ const styles = StyleSheet.create({
         
     },
     secretContainer: {
-        backgroundColor: theme.colors.gray,
+        backgroundColor: theme.colors.gray2,
         position: "absolute",
         bottom: 0,
         left: 0,

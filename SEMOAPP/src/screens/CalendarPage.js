@@ -138,7 +138,7 @@ else {
   return (
     <View style={styles.container}>
     <View style={styles.container2}>
-      <ScrollView alwaysBounceHorizontal={false}>
+      <ScrollView alwaysBounceHorizontal={false }>
       <View style={styles.headerContainer}>
         <View style={styles.headerSubContainer}>
           <Text style={[styles.title, {fontFamily: "Times"}]}>Academic Calendar</Text>
