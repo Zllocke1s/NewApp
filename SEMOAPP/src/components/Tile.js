@@ -229,7 +229,7 @@ const styles = StyleSheet.create({
         bottom: 0,
         left: 0,
         width: 100,
-        height: 30
+        height: 10
     },
     container: {
         flex: .3,

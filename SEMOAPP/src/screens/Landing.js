@@ -232,7 +232,8 @@ export default function Landing({ navigation }) {
       </View>
 
       <HoverButton pass={alert}/>
-      <View style={styles.tileContainer}>  
+      <View style={styles.tileContainer}> 
+      <ScrollView> 
       <View style={styles.tileSubContainer}>
       <Tile name={'Calendar'} onP={calendar} src={require("../assets/tiles/calendar.png")} fullscreen={false} />
       <Tile name={"Maps"} onP={maps} src={require("../assets/tiles/map.png")} fullscreen={false} />
@@ -264,8 +265,9 @@ export default function Landing({ navigation }) {
         <View style={styles.newsTileContainer}>
           <NewsTile name={"Latest News:"} item={news[counter]} />
         </View>
-        
+        </ScrollView>
         </View>
+        
         <SecretTile name={"Secret"} onP={secret} />
 
         <View style={styles.socialMediaContainer}>
