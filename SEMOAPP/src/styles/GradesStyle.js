@@ -47,7 +47,6 @@ export const styles = StyleSheet.create({
     headerContainer: {
         flex: .15,
         backgroundColor: theme.colors.gray,
-        padding: 35,
         alignContent: "flex-start"
     },
     closeModal: {
@@ -58,13 +57,14 @@ export const styles = StyleSheet.create({
     },
     headerSubContainer: {
         flexDirection: "row",
-        width: "100%"
+        width: "100%",
+        
     },
     gradeTitle: {
         fontSize: 35,
         flex: 1,
         marginTop: 25,
-        paddingTop: 25,
+        padding: 25,
         backgroundColor: theme.colors.gray,
     },
     editButton: {

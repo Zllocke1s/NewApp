@@ -22,19 +22,13 @@ export const styles = StyleSheet.create({
         width: "100%",
     },
     headerContainer: {
-        flex: .25,
         backgroundColor: theme.colors.red,
         width: "100%",
-        padding: 35,
-        paddingBottom: 10
-    },
-    headerSubContainer: {
-        flexDirection: "column",
-        flex: 1,
-    },
+        marginTop: 30,
+        paddingTop: 20
+     },
     choiceTitle: {
         fontSize: 35,
-        marginTop: 25,
         paddingLeft: 5,
         flexShrink: 1
     },
