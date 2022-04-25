@@ -21,8 +21,9 @@ export const Tile = (({name, onP, onPD, src, fullscreen, disabled}) => {
     else
     {
         return(
-            <TouchableOpacity onPress={() => disabled ? onPD({name}) : onP({name})}
+            <TouchableOpacity onPress={() => disabled ? () => {console.log("Disabled!")} : onP({name})}
              style={styles.container}>
+            <Image style={disabled ? styles.disabledImg : styles.hidden} source={require("../assets/construction.png")} />
                 <View style={styles.textContainer}>
             <Image style={[styles.logo, disabled ? {tintColor: "#ccc"} : {tintColor: "#000"}]}
                    source={src}
@@ -200,6 +201,21 @@ const styles = StyleSheet.create({
         borderWidth: 3,
         borderRadius: 2.5
 
+    },
+    hidden: {
+        display: 'none'
+    },
+    disabledImg: {
+        position: "absolute",
+        bottom: 0,
+        zIndex: 150,
+        left: 0,
+        right: 0,
+        top: 0,
+        overflow: "hidden",
+        width: "100%",
+        height: 100
+        
     },
     classContainer: {
         fontSize: 48,
