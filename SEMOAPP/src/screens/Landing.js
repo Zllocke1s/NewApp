@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { AppState, StyleSheet, Text, Image, View, Picker } from 'react-native';
+import { AppState, StyleSheet, TouchableOpacity, Text, Image, View, Picker } from 'react-native';
 import { styles } from '../styles/LandingStyle';
 import { Tile, HeaderTile, NewsTile } from '../components/Tile';
 import { SocialMediaButton } from '../components/SocialMediaButton';
@@ -8,6 +8,8 @@ import * as Location from 'expo-location';
 import * as TaskManager from 'expo-task-manager';
 import * as BackgroundFetch from 'expo-background-fetch';
 import BackgroundTask from "../components/BackgroundTask";
+import { Button, TextInput } from 'react-native-paper';
+
 
 
 
@@ -25,6 +27,8 @@ export default function Landing({ navigation }) {
   const[tracker, setTracker] = React.useState(false)
   const [route, setRoute] = React.useState(null);
   const [prevRoute, setPrevRoute] = React.useState("");
+  const [hide, setHide] = React.useState(false)
+  const [debug, setDebug] = React.useState(false)
   var invalid = ["wings"] 
   function isColor(strColor){
     return !invalid.includes(strColor);
@@ -87,6 +91,9 @@ export default function Landing({ navigation }) {
     }
   }, [tracker])
 
+  const label = {fontWeight: "bold"}
+  const normal = {fontWeight: 'normal'}
+
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
@@ -94,6 +101,7 @@ export default function Landing({ navigation }) {
           <Text style={styles.title}>Tracker</Text>
         </View>
       </View>
+      <TouchableOpacity onPressIn={() => setHide(false)} style={hide ? {position: "absolute", top: 0, bottom: 0, left: 0, right: 0, backgroundColor: "#000", zIndex: 150} : {display: "none"}}></TouchableOpacity>
       <View style={styles.tileContainer}>
       <View style={styles.tileSubContainer}>
             <Tile name={"Turn On"} onP={() => setTracker(true)} src={require("../assets/tiles/shuttle.png")} on={true} />
@@ -121,10 +129,21 @@ export default function Landing({ navigation }) {
         <Text style={styles.status}>Longitude: {(location != null ? (location.coords.longitude) : null)}</Text>
         <Text style={styles.status}>Speed: {(location != null ? Math.round(location.coords.speed*10000)/10000 : null)}</Text>
         </View>
+        <Button style={{borderRadius: 1, width: "50%", backgroundColor: "#fff"} 
+      } onLongPress={() => {
+        setDebug(!debug)
+      }} onPress={() => setHide(true)}>Blackout</Button>
+      <View style={debug ? {width: "80%"} : {display: "none"}}>
+      <Text style={label}>Debug</Text>
+      <Text style={label}>Location: <Text style={normal}>{JSON.stringify(location)}</Text></Text>
+      <Text style={label}>Error Message: <Text style={normal}>{JSON.stringify(errorMsg)}</Text></Text>
+      <Text style={label}>Tracker: <Text style={normal}>{JSON.stringify(tracker)}</Text></Text>
+      </View>
         <BackgroundTask
         interval={3800}
         function={() => {
           if(tracker){
+            
             fetch('http://outpostorganizer.com/SITE/api.php/records/Users/' + loc + '?camp=wartburg', {
               method: 'PUT',
               body: JSON.stringify({
