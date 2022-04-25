@@ -75,7 +75,7 @@ export default function Landing({ navigation }) {
   var loc = codes.includes(route) ? convert[route] : convert["default"]
 
   useEffect(() => {
-    if(route!=null && prevRoute!="" && tracker)
+    if(route!=null && prevRoute!="" && tracker && location!=null)
     {
       var loc = codes.includes(prevRoute) ? convert[prevRoute] : convert["default"]
       console.log("Shutdown: " + prevRoute)
@@ -167,8 +167,11 @@ export default function Landing({ navigation }) {
         <BackgroundTask
         interval={3800}
         function={() => {
-          if(tracker){
+          if(tracker)
+          {
             setReq(true)
+          }
+          if(tracker && location!=null && location.coords!=null){
             fetch('http://outpostorganizer.com/SITE/api.php/records/Users/' + loc + '?camp=wartburg', {
               method: 'PUT',
               body: JSON.stringify({
