@@ -63,7 +63,7 @@ export default function Secret() {
         name: seKey
       })
     }).then(response => response.json()).then((responseJSON) => {
-        // console.log("New HS set: ")
+         console.log("New HS set: ")
         ///(responseJSON)
         setGlobalHS(responseJSON)
       }).catch((e) => {
