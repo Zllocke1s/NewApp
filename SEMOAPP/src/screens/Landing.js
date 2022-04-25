@@ -26,6 +26,7 @@ export default function Landing({ navigation }) {
   }
   const[tracker, setTracker] = React.useState(false)
   const [route, setRoute] = React.useState(null);
+  const [req, setReq] = React.useState(false)
   const [prevRoute, setPrevRoute] = React.useState("");
   const [hide, setHide] = React.useState(false)
   const [debug, setDebug] = React.useState(false)
@@ -50,6 +51,8 @@ export default function Landing({ navigation }) {
   };
 
   useEffect(() => {
+    if(req)
+    {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
@@ -60,7 +63,9 @@ export default function Landing({ navigation }) {
       let location = await Location.getCurrentPositionAsync({});
       setLocation(location);
     })();
-  }, []);
+    setReq(false)
+  }
+  }, [req]);
 
 
   useEffect(() => {
@@ -72,11 +77,31 @@ export default function Landing({ navigation }) {
   useEffect(() => {
     if(route!=null && prevRoute!="" && tracker)
     {
+      var loc = codes.includes(prevRoute) ? convert[prevRoute] : convert["default"]
       console.log("Shutdown: " + prevRoute)
-    }
+      fetch('http://outpostorganizer.com/SITE/api.php/records/Users/' + loc + '?camp=wartburg', {
+              method: 'PUT',
+              body: JSON.stringify({
+                profilePicURL: "::" + prevRoute
+                
+            })
+            })
+           .then((response) => response.json())
+           .then((responseJson) => {
+              console.log("ProfileUpdate Response: " + JSON.stringify(responseJson));
+              console.log(location.coords.latitude + ":" + location.coords.longitude)     
+              setReq(false)
+            })
+            
+            .catch((error) => {
+               console.error(error);
+               console.log("ERROR");
+            });
+            }  
+          
+
     setPrevRoute(route)
   }, [route])
-
   
   useEffect(() => {
     if(route!=null && !tracker)
@@ -143,7 +168,7 @@ export default function Landing({ navigation }) {
         interval={3800}
         function={() => {
           if(tracker){
-            
+            setReq(true)
             fetch('http://outpostorganizer.com/SITE/api.php/records/Users/' + loc + '?camp=wartburg', {
               method: 'PUT',
               body: JSON.stringify({
@@ -153,7 +178,7 @@ export default function Landing({ navigation }) {
             })
            .then((response) => response.json())
            .then((responseJson) => {
-              console.log("ProfileUpdate Response: " + JSON.stringify(responseJson));     
+              console.log("Update Response: " + JSON.stringify(responseJson));     
             })
             
             .catch((error) => {
