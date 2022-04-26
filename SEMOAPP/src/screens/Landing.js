@@ -240,7 +240,7 @@ export default function Landing({ navigation }) {
          </View>
         <View style={styles.tileSubContainer}>
         <Tile name={"Dine on Campus"} onP={dining} src={require("../assets/tiles/plate.png")} fullscreen={false} />
-        <Tile name={"Recreation Services"} onP={athletics} disabled={true} src={require("../assets/tiles/athletics.png")} fullscreen={false} />
+        <Tile name={"Recreation Services"} onP={athletics} tbd={true} src={require("../assets/tiles/athletics.png")} fullscreen={false} />
         <Tile name={"Lab Availability"} onP={labs} src={require("../assets/tiles/editcal.png")} fullscreen={false} />
             
           </View>
@@ -248,7 +248,7 @@ export default function Landing({ navigation }) {
           <Tile name={"Directory"} onP={() => {
             Linking.openURL("https://semo.edu/people-directory/")
           }} src={require("../assets/tiles/directory.png")} fullscreen={false} />
-          <Tile name={"Reserve A Space"} disabled={true} onP={labs} src={require("../assets/tiles/editcal.png")} fullscreen={false} />
+          <Tile name={"Reserve A Space"} tbd={true} onP={labs} src={require("../assets/tiles/editcal.png")} fullscreen={false} />
           <Tile name={"Student Government"} onP={stugov} src={require("../assets/tiles/stugov.png")} fullscreen={true} />    
             </View>  
         <View style={styles.tileSubContainer}>

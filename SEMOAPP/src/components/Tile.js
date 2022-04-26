@@ -6,7 +6,7 @@ import { AntDesign } from '@expo/vector-icons';
 //Todo: Tiling News through the tile
 
 
-export const Tile = (({name, onP, onPD, src, fullscreen, disabled}) => {
+export const Tile = (({name, onP, tbd, onPD, src, fullscreen, disabled}) => {
     if(fullscreen)
     {
         return(
@@ -21,9 +21,9 @@ export const Tile = (({name, onP, onPD, src, fullscreen, disabled}) => {
     else
     {
         return(
-            <TouchableOpacity onPress={() => disabled ? () => {console.log("Disabled!")} : onP({name})}
+            <TouchableOpacity onPress={() => disabled ? onPD() : tbd ? console.log("Disabled") : onP({name})}
              style={styles.container}>
-            <Image style={disabled ? styles.disabledImg : styles.hidden} source={require("../assets/construction.png")} />
+            <Image style={tbd ? styles.disabledImg : styles.hidden} source={require("../assets/construction.png")} />
                 <View style={styles.textContainer}>
             <Image style={[styles.logo, disabled ? {tintColor: "#ccc"} : {tintColor: "#000"}]}
                    source={src}
