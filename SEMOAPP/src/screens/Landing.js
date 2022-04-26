@@ -306,10 +306,10 @@ export default function Landing({ navigation }) {
         <SecretTile name={"Secret"} onP={secret} />
 
         <View style={styles.socialMediaContainer}>
-        <SocialMediaButton type="Instagram" link="https://www.instagram.com/semissouristate/?hl=en"></SocialMediaButton>
-        <SocialMediaButton type="Facebook" link="https://www.facebook.com/SEMissouriState/"></SocialMediaButton>
-        <SocialMediaButton type="Twitter" link="https://twitter.com/SEMissouriState"></SocialMediaButton>
-        <SocialMediaButton type="Youtube" link="https://www.youtube.com/user/semissouristate"></SocialMediaButton>
+        <SocialMediaButton onP={secret} type="Instagram" link="https://www.instagram.com/semissouristate/?hl=en"></SocialMediaButton>
+        <SocialMediaButton onP={secret} type="Facebook" link="https://www.facebook.com/SEMissouriState/"></SocialMediaButton>
+        <SocialMediaButton onP={secret} type="Twitter" link="https://twitter.com/SEMissouriState"></SocialMediaButton>
+        <SocialMediaButton onP={secret} type="Youtube" link="https://www.youtube.com/user/semissouristate"></SocialMediaButton>
         </View>
         
     </View>

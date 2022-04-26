@@ -3,7 +3,7 @@ import { theme } from '../core/theme';
 
 
 
-export const SocialMediaButton = (({name, type, link}) => {
+export const SocialMediaButton = (({onP, name, type, link}) => {
 
     var src;
     switch(type) {
@@ -24,7 +24,7 @@ export const SocialMediaButton = (({name, type, link}) => {
 
 
         return(
-            <TouchableOpacity onPress={ () => Linking.openURL(link)} style={styles.container}>
+            <TouchableOpacity onLongPress={onP} onPress={ () => Linking.openURL(link)} style={styles.container}>
             <Image style={styles.logo}
                    source={src}
            ></Image>
