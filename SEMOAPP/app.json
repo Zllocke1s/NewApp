@@ -39,6 +39,11 @@
         "foregroundImage": "./src/assets/adaptive-icon.png",
         "backgroundColor": "#000000"
       },
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyD9KWnu02NsR7ETKhpP1ISu7ZhvCyTq0vg"
+        }
+      },
       "package": "com.zlaoch.SEMOAPP",
       "versionCode": 132,
       "permissions": [
