@@ -119,10 +119,9 @@ if(so!=null)
       <View style={styles.headerContainer}>
         <View style={styles.headerSubContainer}>
           <Text adjustsFontSizeToFit={true} style={[styles.choiceTitle, {color:'white'}]}>Choose a Location...</Text>
-     {board==null ? null :     <Text style={[styles.mealsRemaining, {color:'white'}]}>{board != null ? "Meals Remaining: " + board : ""}</Text>}
-     {flex==null ? null :      <Text style={[styles.mealsRemaining, {color:'white'}]}>{flex != null ? "Flex: " + flex : ""}</Text>}
-          <Text style={[styles.mealsRemaining, {color:'white'}]}>{redbucks != "$0.00" && redbucks!=null ? "RedBucks: " + redbucks : ""}</Text>
-         </View>
+     {(board==null || board.length>4) ? null :     <Text style={[styles.mealsRemaining, {color:'white'}]}>{board != null ? "Meals Remaining: " + board : ""}</Text>}
+     {(flex==null || flex.length > 10) ? null :      <Text style={[styles.mealsRemaining, {color:'white'}]}>{flex != null ? "Flex: " + flex : ""}</Text>}
+     {(redbucks==null || redbucks.length > 10) ? null : <Text style={[styles.mealsRemaining, {color:'white'}]}>{redbucks != "$0.00" && redbucks!=null ? "RedBucks: " + redbucks : ""}</Text>}</View>
       </View>
       
       <View style={styles.tileContainer}>

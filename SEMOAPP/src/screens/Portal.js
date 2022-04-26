@@ -28,6 +28,8 @@ export default function Portal() {
       
     setFormattedTerms(terms.find((obj) => obj.name=="Spring 2022").sections.map((item, index) => {
       //console.log(JSON.stringify(item))
+      if(item!=null && item.sectionId!=null && item.sectionTitle!=null && item.grades!=null)
+      {
       return(
         <View key={item.sectionId} style={styles.columns}>
         <ClassTile color={colors==null ? "#ccc" : colors[index]} classname={item.sectionTitle} professor={item.courseName + " - " + item.courseSectionNumber}></ClassTile>
@@ -55,7 +57,7 @@ export default function Portal() {
         <Feather name="edit" size={24} color={theme.colors.gray3} />
         </TouchableOpacity>
       </View>
-      )
+      )}
     }))
     
   }

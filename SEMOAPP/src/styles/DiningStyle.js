@@ -24,7 +24,6 @@ export const styles = StyleSheet.create({
     headerContainer: {
         backgroundColor: theme.colors.red,
         width: "100%",
-        marginTop: 30,
         paddingTop: 20
      },
     choiceTitle: {
