@@ -103,7 +103,8 @@ export const styles = StyleSheet.create({
         width: "100%",
         height: 10,
         justifyContent: "center",
-        padding: 0
+        padding: 0,
+        marginBottom: 160,
     },
     tileSubContainer: {
         display: "flex",

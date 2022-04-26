@@ -231,7 +231,8 @@ export default function Landing({ navigation }) {
       </View>
 
       <HoverButton pass={alert}/>
-      <View style={styles.tileContainer}>  
+      <View style={styles.tileContainer}> 
+      <ScrollView> 
       <View style={styles.tileSubContainer}>
       <Tile name={'Calendar'} onP={calendar} src={require("../assets/tiles/calendar.png")} fullscreen={false} />
       <Tile name={"Maps"} onP={maps} src={require("../assets/tiles/map.png")} fullscreen={false} />
@@ -239,7 +240,7 @@ export default function Landing({ navigation }) {
          </View>
         <View style={styles.tileSubContainer}>
         <Tile name={"Dine on Campus"} onP={dining} src={require("../assets/tiles/plate.png")} fullscreen={false} />
-        <Tile name={"Recreation Services"} onP={athletics} src={require("../assets/tiles/athletics.png")} fullscreen={false} />
+        <Tile name={"Recreation Services"} onP={athletics} tbd={true} src={require("../assets/tiles/athletics.png")} fullscreen={false} />
         <Tile name={"Lab Availability"} onP={labs} src={require("../assets/tiles/editcal.png")} fullscreen={false} />
             
           </View>
@@ -247,7 +248,7 @@ export default function Landing({ navigation }) {
           <Tile name={"Directory"} onP={() => {
             Linking.openURL("https://semo.edu/people-directory/")
           }} src={require("../assets/tiles/directory.png")} fullscreen={false} />
-          <Tile name={"Reserve A Space"} onP={labs} src={require("../assets/tiles/editcal.png")} fullscreen={false} />
+          <Tile name={"Reserve A Space"} tbd={true} onP={labs} src={require("../assets/tiles/editcal.png")} fullscreen={false} />
           <Tile name={"Student Government"} onP={stugov} src={require("../assets/tiles/stugov.png")} fullscreen={true} />    
             </View>  
         <View style={styles.tileSubContainer}>
@@ -263,8 +264,9 @@ export default function Landing({ navigation }) {
         <View style={styles.newsTileContainer}>
           <NewsTile name={"Latest News:"} item={news[counter]} />
         </View>
-        
+        </ScrollView>
         </View>
+        
         <SecretTile name={"Secret"} onP={secret} />
 
         <View style={styles.socialMediaContainer}>

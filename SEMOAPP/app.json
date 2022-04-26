@@ -2,12 +2,12 @@
   "expo": {
     "name": "SEMOAPP",
     "slug": "SEMOAPP",
-    "version": "1.0.0",
+    "version": "1.13.0",
     "orientation": "portrait",
     "icon": "./src/assets/icon.png",
     "splash": {
       "image": "./src/assets/splash.png",
-      "resizeMode": "contain",
+      "resizeMode": "cover",
       "backgroundColor": "#ffffff"
     },
     "plugins": [
@@ -27,7 +27,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.outpost.SEMOAPP",
-      "buildNumber": "1.0.0",
+      "buildNumber": "1.13.0",
       "infoPlist": {
         "NSLocationWhenInUseUsageDescription": "This app uses the location to show the user their location on the campus and shuttle maps.",
         "NSPhotoLibraryUsageDescription": "This app views the user's photo library after authentication to allow them to upload select images to the Student Government page."
@@ -39,7 +39,13 @@
         "foregroundImage": "./src/assets/adaptive-icon.png",
         "backgroundColor": "#000000"
       },
-      "package": "com.zlaoch.SEMOAPP"
+      "package": "com.zlaoch.SEMOAPP",
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.RECORD_AUDIO"
+      ]
     },
     "web": {
       "favicon": "./src/assets/favicon.png"

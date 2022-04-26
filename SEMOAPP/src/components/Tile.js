@@ -6,7 +6,7 @@ import { AntDesign } from '@expo/vector-icons';
 //Todo: Tiling News through the tile
 
 
-export const Tile = (({name, onP, onPD, src, fullscreen, disabled}) => {
+export const Tile = (({name, onP, tbd, onPD, src, fullscreen, disabled}) => {
     if(fullscreen)
     {
         return(
@@ -21,13 +21,14 @@ export const Tile = (({name, onP, onPD, src, fullscreen, disabled}) => {
     else
     {
         return(
-            <TouchableOpacity onPress={() => disabled ? onPD({name}) : onP({name})}
+            <TouchableOpacity onPress={() => disabled ? onPD() : tbd ? console.log("Disabled") : onP({name})}
              style={styles.container}>
+            <Image style={tbd ? styles.disabledImg : styles.hidden} source={require("../assets/construction.png")} />
                 <View style={styles.textContainer}>
             <Image style={[styles.logo, disabled ? {tintColor: "#ccc"} : {tintColor: "#000"}]}
                    source={src}
            ></Image>
-                    <Text style={disabled ? styles.textDisabled : styles.text}>{name}</Text>
+                    <Text adjustsFontSizeToFit={true}  style={disabled ? styles.textDisabled : styles.text}>{name}</Text>
                 </View>
             </TouchableOpacity>
         );
@@ -201,6 +202,21 @@ const styles = StyleSheet.create({
         borderRadius: 2.5
 
     },
+    hidden: {
+        display: 'none'
+    },
+    disabledImg: {
+        position: "absolute",
+        bottom: 0,
+        zIndex: 150,
+        left: 0,
+        right: 0,
+        top: 0,
+        overflow: "hidden",
+        width: "100%",
+        height: 100
+        
+    },
     classContainer: {
         fontSize: 48,
         marginTop: 10,
@@ -224,12 +240,12 @@ const styles = StyleSheet.create({
         
     },
     secretContainer: {
-        backgroundColor: theme.colors.gray,
+        backgroundColor: theme.colors.gray2,
         position: "absolute",
         bottom: 0,
         left: 0,
         width: 100,
-        height: 30
+        height: 10
     },
     container: {
         flex: .3,

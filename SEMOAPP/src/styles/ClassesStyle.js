@@ -45,11 +45,13 @@ export const styles = StyleSheet.create({
     },
 
     headerContainer: {
-        flex: .15,
         backgroundColor: theme.colors.red,
-        padding: 35,
-        alignContent: "flex-start"
-    },
+        width: "100%",
+        paddingTop: 10,
+        justifyContent: "center",
+        alignContent: "center",
+        alignItems: "center"
+     },
     closeModal: {
 
     },
@@ -59,6 +61,8 @@ export const styles = StyleSheet.create({
     headerSubContainer: {
         flexDirection: "row",
         width: "100%",
+        justifyContent: "center",
+        alignContent:"center"
     },
     gradeTitle: {
         fontSize: 35,
