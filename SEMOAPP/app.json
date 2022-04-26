@@ -25,7 +25,14 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.outpost.SEMOAPP",
+      "buildNumber": "1.0.0",
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "This app uses the location to show the user their location on the campus and shuttle maps.",
+        "NSPhotoLibraryUsageDescription": "This app views the user's photo library after authentication to allow them to upload select images to the Student Government page."
+      }
+
     },
     "android": {
       "adaptiveIcon": {
