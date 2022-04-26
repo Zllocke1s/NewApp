@@ -276,7 +276,7 @@ export default function Landing({ navigation }) {
          </View>
         <View style={styles.tileSubContainer}>
         <Tile name={"Dining"} onP={dining} src={require("../assets/tiles/plate.png")} fullscreen={false} />
-        <Tile name={"Rec Services"} onP={athletics} tbd={true} src={require("../assets/tiles/athletics.png")} fullscreen={false} />
+        <Tile name={"Rec. Services"} onP={athletics} tbd={true} src={require("../assets/tiles/athletics.png")} fullscreen={false} />
         <Tile name={"Lab Availability"} onP={labs} src={require("../assets/tiles/editcal.png")} fullscreen={false} />
             
           </View>
