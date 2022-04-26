@@ -78,11 +78,47 @@ export default function Landing({ navigation }) {
   }, [])*/
     
 
+  function secret2() {
+    if(global.secretCounter==4)
+    {
+      if(isNaN(global.secretCounter2))
+      {
+        global.secretCounter2=1;
+        console.log(global.secretCounter2)
+      }
+      else
+      {
+        global.secretCounter2=global.secretCounter2+1
+      }
+    }
+    else
+    {
+      global.secretCounter2=0
+      console.log(global.secretCounter2)
+    }
+  }
+
+  function secret3() {
+    if(global.secretCounter==4 && global.secretCounter2==4)
+    {
+      navigation.navigate("AboutUs")
+    }
+    else
+    {
+      console.log(global.secretCounter)
+      console.log(global.secretCounter2)
+    }
+    
+    global.secretCounter=0
+    global.secretCounter2=0
+  }
 
   function secret() {
+    
     if(global.secretCounter>=4)
     {
       global.secretCounter=0;
+      global.secretCounter2=0;
       navigation.navigate("Secret");
     }
     else if(isNaN(global.secretCounter))
@@ -224,11 +260,11 @@ export default function Landing({ navigation }) {
         }}><Text style={styles.logout}>Log In</Text></TouchableOpacity>  
         </TouchableOpacity>
       </TouchableOpacity>
-      <View style={styles.headerContainer}>
+      <TouchableOpacity activeOpacity={1}  onLongPress={secret3} onPress={secret2} style={styles.headerContainer}>
           {/*<Image resizeMode='contain' source={require("../assets/splashfile2.png")} style={{width: "100%"}}></Image>
      */}
      <Logo width={Dimensions.get('window').width *0.9}></Logo>
-      </View>
+      </TouchableOpacity>
 
       <HoverButton pass={alert}/>
       <View style={styles.tileContainer}>  

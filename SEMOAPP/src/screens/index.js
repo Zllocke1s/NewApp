@@ -17,3 +17,4 @@ export { default as Facilities } from './Facilities';
 export { default as FitnessClasses } from './FitnessClasses';
 export { default as IMSchedule } from './IMSchedule';
 export { default as Settings } from './Settings';
+export { default as AboutUs } from './AboutUs';
