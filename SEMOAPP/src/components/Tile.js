@@ -23,12 +23,14 @@ export const Tile = (({name, onP, tbd, onPD, src, fullscreen, disabled}) => {
         return(
             <TouchableOpacity onPress={() => disabled ? onPD() : tbd ? console.log("Disabled") : onP({name})}
              style={styles.container}>
+                 
             <Image style={tbd ? styles.disabledImg : styles.hidden} source={require("../assets/construction.png")} />
-                <View style={styles.textContainer}>
+            <View style={styles.imageContainer}>
             <Image style={[styles.logo, disabled ? {tintColor: "#ccc"} : {tintColor: "#000"}]}
                    source={src}
-           ></Image>
-                    <Text adjustsFontSizeToFit={true}  style={disabled ? styles.textDisabled : styles.text}>{name}</Text>
+           ></Image></View>
+                <View style={styles.textContainer}>
+                    <Text numberOfLines={1}  style={disabled ? styles.textDisabled : styles.text}>{name}</Text>
                 </View>
             </TouchableOpacity>
         );
@@ -322,6 +324,7 @@ const styles = StyleSheet.create({
       {
         width: 60,
         height: 60,
+        
         alignSelf:"center",
       },
       logoSports:
@@ -340,8 +343,16 @@ const styles = StyleSheet.create({
     textContainer: {
         padding: 0,
         alignSelf: "center",
-        textAlign: "center"
-        
+        textAlign: "center",
+        flex: 0.5,
+        marginTop: 15,
+    },
+    
+    imageContainer: {
+        padding: 0,
+        marginTop: 5,
+        flex: 1,
+        alignSelf: "center",
     },
     newsTitleContainer: {
         padding: 0,
@@ -385,7 +396,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignSelf: 'center',
         textAlign: 'center',
-        color: "#000"
+        color: "#000",
         //text formatting here
     },
     textDisabled: {
