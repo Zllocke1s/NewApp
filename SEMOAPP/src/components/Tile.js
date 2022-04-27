@@ -12,7 +12,7 @@ export const Tile = (({name, onP, tbd, onPD, src, fullscreen, disabled}) => {
         return(
             <TouchableOpacity onPress={() => onP({name})}
             style={styles.fullscreenContainer}>
-            <Image style={styles.fullLogo}
+            <Image resizeMode='contain' style={styles.fullLogo}
                    source={src}
            ></Image>
             </TouchableOpacity>
@@ -26,7 +26,7 @@ export const Tile = (({name, onP, tbd, onPD, src, fullscreen, disabled}) => {
                  
             <Image style={tbd ? styles.disabledImg : styles.hidden} source={require("../assets/construction.png")} />
             <View style={styles.imageContainer}>
-            <Image style={[styles.logo, disabled ? {tintColor: "#ccc"} : {tintColor: "#000"}]}
+            <Image resizeMode='contain' style={[styles.logo, disabled ? {tintColor: "#ccc"} : {tintColor: "#000"}]}
                    source={src}
            ></Image></View>
                 <View style={styles.textContainer}>

@@ -9,6 +9,12 @@ const Bird = props => {
     const yBody = props.body.position.y - heightBody/2
 
     const color = props.color;
+    var src;
+    switch(props.nick)
+    {
+        default:
+            src = require('../../assets/game/rowdy3.png')
+    }
     return(
         <View style={{
             borderWidth: 0,
@@ -20,7 +26,7 @@ const Bird = props => {
             top: yBody,
             width: widthBody,
             height: heightBody
-        }}><Image source={require('../../assets/game/rowdy3.png')} style={{width: 40, height: 40}}></Image></View>
+        }}><Image source={src} style={{width: 40, height: 40}}></Image></View>
     )
 
 }

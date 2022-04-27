@@ -9,16 +9,17 @@ import { theme } from "../../core/theme"
 const windowHeight = Dimensions.get('window').height
 const windowWidth = Dimensions.get('window').width
 
-export default restart => {
+export default (nickname) => {
     let engine = Matter.Engine.create({enableSleeping: false})
 
     let world = engine.world
 
-    world.gravity.y = 0.5
+    world.gravity.y = 0.6
 
     const pipeSizePosA = getPipeSizePosPair()
     const pipeSizePosB = getPipeSizePosPair(windowWidth * 0.9)
-
+    console.log("Nickname:")
+    console.log(nickname)
 
     return {
         physics: {engine, world},
