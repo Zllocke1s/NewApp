@@ -9,6 +9,7 @@ import React, { useState, useEffect } from 'react';
 import {Game}  from '../components/Game';
 import {Tile} from '../components/Tile';
 import {recFacilities} from '../core/static';
+import { Heading } from '../components/Heading';
 
 export default function RecHours({navigation}) {
 
@@ -27,15 +28,13 @@ export default function RecHours({navigation}) {
   }
   return (
     <View style={styles.container}>
-      <View style={styles.container2}>
-      <ScrollView style={styles.scrollable}>
-      <View style={styles.headerContainer}>
+                  <Heading navigation={navigation} title={null}>
           <Image style={styles.logo}
-                   source={require("../assets/rec.png")}
+            source={require("../assets/rec.png")}
            ></Image>
-      </View>
+                     </Heading>
+        <ScrollView style={{width: "100%"}}>
       <View style={styles.content}>
-      <View style={styles.infoContainer}>
         <Text style={[styles.textTitle, {fontFamily: 'Times'}]}>Recreation Center</Text>
         <Image source={require("../assets/recCenter.jpg")} style={{width: 200, height: 100}} />
         <Text style={[styles.address, {fontFamily: "Times"}]}>750 New Madrid Street, Cape Girardeau, MO 63701</Text>
@@ -68,9 +67,7 @@ export default function RecHours({navigation}) {
           )
         })}</View>
         </View>
-        </View>
         </ScrollView>
-        </View>
         </View>
         
     

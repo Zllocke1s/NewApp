@@ -8,6 +8,7 @@ import { Ionicons } from '@expo/vector-icons';
 import React, { useState, useEffect } from 'react';
 import {Game}  from '../components/Game';
 import {SportsTile} from '../components/Tile';
+import { Heading } from '../components/Heading';
 
 export default function Athletics({navigation}) {
 
@@ -68,12 +69,11 @@ export default function Athletics({navigation}) {
   }
   return (
     <View style={styles.container}>
-      <View style={styles.container2}>
-      <View style={styles.headerContainer}>
+            <Heading navigation={navigation} title={null}>
           <Image style={styles.logo}
-                   source={require("../assets/rec.png")}
+            source={require("../assets/rec.png")}
            ></Image>
-      </View>
+                     </Heading>
       <View style={styles.content}>
         <View style={styles.row1}>
           <Text style={[styles.quote, { fontFamily: 'Times'}]}>"The secret of getting ahead is getting started" -Mark Twain</Text>
@@ -102,7 +102,6 @@ Linking.openURL("https:semo.edu/student-support/health-wellness/rec-services/tea
       }} src={require("../assets/tiles/contact.png")}  />
       
       </View>
-        </View>
         </View>
         
     

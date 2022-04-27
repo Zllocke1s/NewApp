@@ -11,8 +11,9 @@ import { ActivityIndicator, Button } from 'react-native-paper';
 import { TriangleColorPicker } from 'react-native-color-picker'
 import Moment from 'moment';
 import { ScrollView } from 'react-native-gesture-handler';
+import { Heading } from '../components/Heading';
 
-export default function Schedule() {
+export default function Schedule({navigation}) {
 
 
   const [credentials, setCredentials] = React.useState(null)
@@ -196,11 +197,7 @@ export default function Schedule() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.headerContainer}>
-        <View style={styles.headerSubContainer}>
-          <Text style={[styles.gradeTitle, {color:'white'}]}>Upcoming Schedule</Text>
-        </View>
-      </View>
+      <Heading navigation={navigation} title={"Schedule"}></Heading>
       <View style={styles.tileContainer}>
         <ScrollView>
         <View style={styles.rows}>

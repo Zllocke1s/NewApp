@@ -9,9 +9,11 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { FontAwesome } from '@expo/vector-icons'; 
 import { Button, TextInput } from 'react-native-paper';
 import { theme } from '../core/theme';
+import { BackButton } from '../components/BackButton';
+import { Heading } from '../components/Heading';
 
 
-export default function Maps() {
+export default function Maps({navigation}) {
 
   var colors = [
     "#0A9258",
@@ -104,11 +106,7 @@ export default function Maps() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.headerContainer}>
-        <View style={styles.headerSubContainer}>
-        <Text style={styles.title}>Maps</Text>
-         </View>
-      </View>
+      <Heading navigation={navigation} title={"Maps"} />
       
       <View style={styles.mapContainer}>
         <MapView style={styles.map}

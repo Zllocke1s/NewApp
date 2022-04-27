@@ -7,15 +7,17 @@ import { useFonts } from 'expo-font';
 import MapView from 'react-native-maps';
 import React, { useState, useEffect } from 'react';
 import AppLoading from 'expo-app-loading';
+import {BackButton} from '../components/BackButton';
 import { FontAwesome } from '@expo/vector-icons'; 
 import * as Location from 'expo-location';
+import { Heading } from '../components/Heading';
 
 
 
 //To-do: Find a way to make a route on the map
 
 
-export default function Shuttle() {
+export default function Shuttle({navigation}) {
 
 
   const mapRef = React.createRef();
@@ -77,10 +79,10 @@ export default function Shuttle() {
     .then((response) => response.json())
     .then((json) => {
       console.log(json)
-      if(json!=null && !json.profilePicURL.includes("::"))
+      if(json!=null && (!json.profilePicURL.includes("::")))
       {
         var combo = json.profilePicURL.split(":")
-        if(combo.length>0)
+        if(combo.length>1)
         {
           console.log(combo)
         setTracker( <MapView.Marker key={combo[2]}
@@ -125,7 +127,8 @@ export default function Shuttle() {
   var tabs = [
               {id: 0, color: theme.colors.red, name: "Red", route: "\u2022\tTowers\n\u2022\tDPS/Greek Village\n\u2022\tMMTF/Rec\n\u2022\tDempster\n\u2022\tScully\n\u2022\tParker/Cheney\n\u2022\tMemorial\n\u2022\tRear Academic\n\u2022\tGrauel\n\u2022\tUniversity Center\n\u2022\tMyers\n\u2022\tRear Kent\n\u2022\tPacific\n\u2022\tGrauel\n\u2022\tTowers"}, 
               {id: 1, color: theme.colors.blue, name: "River", route: "\u2022\tMyers\n\u2022\tRear of Kent\n\u2022\tPacific/Grauel\n\u2022\tBroadway Catapult\n\u2022\tBroadway Mass Media\n\u2022\tIndependence & Spanish\n\u2022\tRiver Campus\n\u2022\tBand Annex\n\u2022\tVandiver/Merick\n\u2022\tBookstore\n\u2022\tDempster\n\u2022\tPoly-Tech/LaFerla\n\u2022\tMMTF/Rec\n\u2022\tInternational Village\n\u2022\tTowers\n\u2022\tGrauel\n\u2022\tRear of Academic\n\u2022\tMemorial"},
-              {id: 2, color: theme.colors.green, name: "Green", route: "\u2022\tMemorial\n\u2022\tParker/Cheney\n\u2022\tScully\n\u2022\tDempster\n\u2022\tPolyTech/LaFerla\n\u2022\tMMTF/Rec\n\u2022\tDPS/Greek Village\n\u2022\tInternational Village\n\u2022\tTowers\n\u2022\tGrauel\n\u2022\tHouck\n\u2022\tVandiver/Merick\n\u2022\tU.C.Myers\n\u2022\tRear of Kent\n\u2022\tPacific\n\u2022\tGrauel\n\u2022\tRear of Academic"}
+              {id: 2, color: theme.colors.green, name: "Green", route: "\u2022\tMemorial\n\u2022\tParker/Cheney\n\u2022\tScully\n\u2022\tDempster\n\u2022\tPolyTech/LaFerla\n\u2022\tMMTF/Rec\n\u2022\tDPS/Greek Village\n\u2022\tInternational Village\n\u2022\tTowers\n\u2022\tGrauel\n\u2022\tHouck\n\u2022\tVandiver/Merick\n\u2022\tU.C.\n\u2022\tMyers\n\u2022\tRear of Kent\n\u2022\tPacific\n\u2022\tGrauel\n\u2022\tRear of Academic"},
+              {id: 3, color: theme.colors.black, name: "Wings", route: "\u2022\tTowers\n\u2022\tVandiver\n\u2022\tMyers\n\u2022\tPacific\n\u2022\tTown Plaza\n\u2022\tCrossroads\n\u2022\tBest Buy (On Request)\n\u2022\tTarget, Marcus Cape West Cine (On Request)\n\u2022\tWalmart\n\u2022\tWest Park Mall, Hobby Lobby (On Request)\n\u2022\tHouck\n\u2022\tLaFerla\n\u2022\tMMTF"}
             ] 
   if(!loaded)
   {
@@ -134,11 +137,7 @@ export default function Shuttle() {
   }
   return (
     <View style={styles.container}>
-      <View style={styles.container2}>
-      <View style={styles.headerContainer}>
-          <Text style={styles.title}>SHUTTLE TRACKER</Text>
-      </View>
-      
+      <Heading navigation={navigation} title={"Shuttle Tracker"}></Heading>
       <View style={styles.tabContainer}>
       <TouchableOpacity onPress={() => {setAID(0)
       setShuttleID(1)}} style={aID==0 ? styles.redActive: styles.inactive}><Text style={styles.tabTitle}>RED</Text></TouchableOpacity>
@@ -146,6 +145,8 @@ export default function Shuttle() {
          setShuttleID(2)}} style={aID==1 ? styles.blueActive : styles.inactive}><Text style={styles.tabTitle}>BLUE</Text></TouchableOpacity>
       <TouchableOpacity onPress={() => {setAID(2)
         setShuttleID(3)}} style={aID==2 ? styles.greenActive : styles.inactive}><Text style={styles.tabTitle}>GREEN</Text></TouchableOpacity>
+      <TouchableOpacity onPress={() => {setAID(3)
+        setShuttleID(4)}} style={aID==3 ? styles.wingsActive : styles.inactive}><Text style={styles.tabTitle}>WINGS</Text></TouchableOpacity>
         </View>
       <View style={[styles.infoContainer, {borderColor: tabs[aID].color}]}>
         <View style={styles.routeContainer}>
@@ -177,7 +178,6 @@ export default function Shuttle() {
           </MapView>
         </View>
       </View>
-        </View>
       </View>
     
   );

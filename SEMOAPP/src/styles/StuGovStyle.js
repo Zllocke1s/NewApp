@@ -51,7 +51,7 @@ export const styles = StyleSheet.create({
         backgroundColor: theme.colors.gray,
         borderTopWidth: 15,
         borderWidth: 5,
-        flex: 0.4
+        flex: 0.5
     },
     
     headerContainer: {
@@ -73,7 +73,7 @@ export const styles = StyleSheet.create({
     
     galleryContainer:
     {
-        flex: 0.45,
+        flex: 0.5,
         justifyContent: "flex-start",
         alignItems: "flex-start",
         display: "flex",

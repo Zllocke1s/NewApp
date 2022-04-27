@@ -5,6 +5,9 @@ import { DiningChoiceTile } from '../components/Tile';
 import React, { useEffect } from 'react';
 import { theme } from '../core/theme';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {BackButton} from '../components/BackButton'
+import { Heading } from '../components/Heading';
+import { Button } from 'react-native-paper';
 
 export default function Dining({navigation}) {
 
@@ -116,19 +119,20 @@ if(so!=null)
   }, [hours])
   return (
     <View style={styles.container}>
-      <View style={styles.headerContainer}>
-        <View style={styles.headerSubContainer}>
-          <Text adjustsFontSizeToFit={true} style={[styles.choiceTitle, {color:'white'}]}>Choose a Location...</Text>
-     {(board==null || board.length>4) ? null :     <Text style={[styles.mealsRemaining, {color:'white'}]}>{board != null ? "Meals Remaining: " + board : ""}</Text>}
-     {(flex==null || flex.length > 10) ? null :      <Text style={[styles.mealsRemaining, {color:'white'}]}>{flex != null ? "Flex: " + flex : ""}</Text>}
-     {(redbucks==null || redbucks.length > 10) ? null : <Text style={[styles.mealsRemaining, {color:'white'}]}>{redbucks != "$0.00" && redbucks!=null ? "RedBucks: " + redbucks : ""}</Text>}</View>
-      </View>
+      <Heading navigation={navigation} title={"Locations"}>
+      </Heading>
       
       <View style={styles.tileContainer}>
         <ScrollView persistentScrollbar={true} style={styles.diningTileSub}>
           {isLoaded ? formattedTiles : <ActivityIndicator style={styles.loadingBar} size="large" color={theme.colors.red} />}
         </ScrollView>
       </View>
+      <View style={!((board==null || board.length>4) && (flex==null || flex.length > 10) && (redbucks == "$0.00" || redbucks==null || redbucks.length > 10)) ? {borderTopLeftRadius: 10, padding: 10, position: "absolute", bottom: 0, right: 0, backgroundColor: theme.colors.red} : {display: "none"}}>
+        {(board==null || board.length>4) ? null :     <Text style={[styles.mealsRemaining, {color:'white'}]}>{board != null ? "Meals Remaining: " + board : ""}</Text>}
+     {(flex==null || flex.length > 10) ? null :      <Text style={[styles.mealsRemaining, {color:'white'}]}>{flex != null ? "Flex: " + flex : ""}</Text>}
+     {(redbucks == "$0.00" || redbucks==null || redbucks.length > 10) ? null : <Text style={[styles.mealsRemaining, {color:'white'}]}>{redbucks != "$0.00" && redbucks!=null ? "RedBucks: " + redbucks : ""}</Text>}
+        </View>
+ 
     </View>
     
   );

@@ -7,36 +7,28 @@ export const styles = StyleSheet.create({
         fontSize: 48,
         fontWeight: 'bold',
         backgroundColor: theme.colors.gray,
+        width: "100%",
         alignItems: 'center',
         alignContent: "center",
         justifyContent: 'flex-start'
       },
-      container2: {
-        flex: 1,
-        width: "90%",
-        margin: 10, 
-        marginTop: 50,
-        fontSize: 48,
-        fontWeight: 'bold',
-        backgroundColor: theme.colors.gray2,
-        alignItems: 'center',
-        alignContent: "center",
-        justifyContent: 'flex-start'
-      },
-    headerContainer: {
-        marginTop: 10,
-        width: "95%",
-        alignItems: 'center',
-        alignContent: "center",
-        justifyContent: 'center',
-        backgroundColor: theme.colors.gray,
-        padding: 10,
-        borderRadius: 5
+      headerContainer: {
+        flex: .15,
+        backgroundColor: theme.colors.red,
+        padding: 10
     },
-    title:{
-        fontSize: 30,
-        fontWeight: "bold"
+    headerSubContainer: {
+        flexDirection: "row",
+        width: "100%",
+        justifyContent: "space-evenly",
+        paddingTop: 35,
+        marginTop: 20
     },
+    title: {
+        fontSize: 36,
+        color: theme.colors.gray
+    },
+    
     headerSubContainer: {
         flexDirection: "row",
         width: "100%",
@@ -44,10 +36,10 @@ export const styles = StyleSheet.create({
         paddingTop: 35
     },
     tabContainer: {
-        paddingTop: 10,
-        marginTop: 10,
         marginBottom: -3,
         paddingBottom: 0,
+        paddingTop: 10,
+        width: "100%",
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-between",
@@ -74,6 +66,13 @@ export const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center"
     },
+    wingsActive: {
+        padding: 10,
+        backgroundColor: theme.colors.black,
+        width: 100,
+        justifyContent: "center",
+        alignItems: "center"
+    },
     inactive: {
         padding: 10,
         backgroundColor: theme.colors.gray3,
@@ -92,10 +91,12 @@ export const styles = StyleSheet.create({
         backgroundColor: theme.colors.gray,
         borderTopWidth: 15,
         borderWidth: 5,
+        width: "100%",
         flex: 1
     },
     routeContainer: {
         margin: 10,
+        width: "100%",
         marginLeft: 20,
         flex: 0.4,
 

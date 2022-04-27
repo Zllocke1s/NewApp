@@ -9,8 +9,10 @@ import Moment from 'moment';
 import {Calendar, CalendarList, AgendaList} from 'react-native-calendars';
 import {CalendarItem} from '../components/CalendarItem';
 import { Entypo } from '@expo/vector-icons'; 
+import { BackButton } from '../components/BackButton';
+import { Heading } from '../components/Heading';
 
-export default function CalendarPage() {
+export default function CalendarPage({navigation}) {
 
   const [data, setData] = React.useState(null)
   const [date, setDate] = React.useState(null)
@@ -137,13 +139,7 @@ if(!loaded)
 else {
   return (
     <View style={styles.container}>
-    <View style={styles.container2}>
-      <ScrollView alwaysBounceHorizontal={false }>
-      <View style={styles.headerContainer}>
-        <View style={styles.headerSubContainer}>
-          <Text style={[styles.title, {fontFamily: "Times"}]}>Academic Calendar</Text>
-         </View>
-      </View>
+      <Heading navigation={navigation} title={"Calendar"}></Heading>
       <View style={styles.calContainer}>
         <Image source={require("../assets/semo.png")} style={{width: 300, height: 120}}></Image>
      <Calendar
@@ -216,10 +212,8 @@ else {
   {itemList}
 </ScrollView>
         </View>
-        </ScrollView>
         </View>
     
-        </View>
   );
 }
 }

@@ -284,7 +284,7 @@ export default function Landing({ navigation }) {
           <Tile name={"Directory"} onP={() => {
             Linking.openURL("https://semo.edu/people-directory/")
           }} src={require("../assets/tiles/directory.png")} fullscreen={false} />
-          <Tile name={"Reservations"} tbd={true} onP={labs} src={require("../assets/tiles/editcal.png")} fullscreen={false} />
+          <Tile name={"Reservations"} tbd={true} onP={reserve} src={require("../assets/tiles/editcal.png")} fullscreen={false} />
           <Tile name={"Student Government"} onP={stugov} src={require("../assets/tiles/stugov.png")} fullscreen={true} />    
             </View>  
         <View style={styles.tileSubContainer}>

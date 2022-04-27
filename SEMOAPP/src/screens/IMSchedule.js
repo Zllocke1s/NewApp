@@ -11,6 +11,7 @@ import Moment from 'moment';
 import {Calendar, CalendarList, AgendaList} from 'react-native-calendars';
 import {IMItem} from '../components/IMItem';
 import { Entypo } from '@expo/vector-icons'; 
+import { Heading } from '../components/Heading';
 
 export default function IMSchedule({navigation}) {
 
@@ -55,13 +56,12 @@ export default function IMSchedule({navigation}) {
   }
   return (
     <View style={styles.container}>
-      <View style={styles.container2}>
-      <View style={styles.headerContainer}>
+                  <Heading navigation={navigation} title={null}>
           <Image style={styles.logo}
-                   source={require("../assets/rec.png")}
+            source={require("../assets/rec.png")}
            ></Image>
-      </View>
-      <View style={styles.content}>
+                     </Heading>
+                     <View style={styles.content}>
         <View style={styles.row1}>
         </View>
         <Text style={[styles.title, {fontFamily: 'Times'}]}>Upcoming Games:</Text>
@@ -139,7 +139,6 @@ export default function IMSchedule({navigation}) {
       <ScrollView>
         {itemList}
       </ScrollView>
-      </View>
         </View>
         </View>
         

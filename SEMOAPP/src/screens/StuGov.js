@@ -11,9 +11,10 @@ import { Button, TextInput } from 'react-native-paper';
 import * as ImagePicker from 'expo-image-picker';
 import uploadToAnonymousFilesAsync from 'anonymous-files'; 
 import * as FileSystem from 'expo-file-system';
+import { Heading } from '../components/Heading';
  
 
-export default function StuGov() {
+export default function StuGov({navigation}) {
 
   const [imgURL, onChangeURL] = React.useState("")
   const [minutes, setMinutes] = React.useState(null)
@@ -319,12 +320,7 @@ async function uploadImageAsync(uri) {
 
   return (
     <View style={styles.container}>
-      <View style={styles.headerContainer}>
-        <View style={styles.headerSubContainer}>
-          <Text style={styles.title}>Student Government</Text>
-         </View>
-      </View>
-      
+      <Heading navigation={navigation} title={"Student Government"}></Heading>      
       <View style={styles.galleryContainer}>
         {pulledImage!=null ? <Image source={pulledImage} style={styles.galleryImg}></Image> : <Image source={require("../assets/stugov.png")} style={styles.galleryImg}></Image>}
         <Button onPress={() => {

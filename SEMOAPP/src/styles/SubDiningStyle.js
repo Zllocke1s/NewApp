@@ -90,8 +90,6 @@ export const styles = StyleSheet.create({
         marginLeft: 30,
     },
     hours: {
-        marginLeft: 5,
-        marginBottom: 10,
         
     }
   });

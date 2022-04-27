@@ -26,12 +26,11 @@ export default function Facilities({navigation}) {
   }
   return (
     <View style={styles.container}>
-      <View style={styles.container2}>
-      <View style={styles.headerContainer}>
+                  <Heading navigation={navigation} title={null}>
           <Image style={styles.logo}
-                   source={require("../assets/rec.png")}
+            source={require("../assets/rec.png")}
            ></Image>
-      </View>
+                     </Heading>
       <View style={styles.content}>
 
       <View style={styles.upcomingContainer}>
@@ -43,7 +42,6 @@ export default function Facilities({navigation}) {
           )
         })}
         </View>
-      </View>
         </View>
         </View>
         </View>

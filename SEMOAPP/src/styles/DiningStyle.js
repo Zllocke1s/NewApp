@@ -6,6 +6,7 @@ export const styles = StyleSheet.create({
       flex: 1,
       fontSize: 48,
       fontWeight: 'bold',
+      
       backgroundColor: theme.colors.gray,
       alignItems: 'center',
       alignContent: "center",
@@ -21,19 +22,14 @@ export const styles = StyleSheet.create({
         flexDirection: "column",
         width: "100%",
     },
-    headerContainer: {
-        backgroundColor: theme.colors.red,
-        width: "100%",
-        paddingTop: 20
-     },
-    choiceTitle: {
-        fontSize: 35,
-        paddingLeft: 5,
-        flexShrink: 1
-    },
     mealsRemaining: {
         fontSize: 18,
-        paddingLeft: 5,
+        
+        paddingLeft: 10,
         flexShrink: 1
     },
+    topMealRemaining: {
+        paddingTop: 10
+    }
+
   });

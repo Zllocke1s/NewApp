@@ -37,32 +37,16 @@ export const styles = StyleSheet.create({
 
     },
     tileContainer: {
-        paddingHorizontal: 10,
-        marginTop: 20,
         flex: 1,
-        width: "95%",
+        width: "100%",
         backgroundColor: theme.colors.white
     },
 
-    headerContainer: {
-        backgroundColor: theme.colors.red,
-        width: "100%",
-        paddingTop: 10,
-        justifyContent: "center",
-        alignContent: "center",
-        alignItems: "center"
-     },
     closeModal: {
 
     },
     closeText: {
         color: theme.colors.black
-    },
-    headerSubContainer: {
-        flexDirection: "row",
-        width: "100%",
-        justifyContent: "center",
-        alignContent:"center"
     },
     gradeTitle: {
         fontSize: 35,

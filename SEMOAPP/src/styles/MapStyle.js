@@ -16,10 +16,11 @@ export const styles = StyleSheet.create({
         backgroundColor: theme.colors.red,
         padding: 10,
         width: "100%",
-        justifyContent: "center"
+        justifyContent: "center",
+        flexDirection: "column"
     },
     headerSubContainer: {
-        flexDirection: "column",
+        flexDirection: "row",
         width: "100%",
         justifyContent: "center",
         alignItems: "center"

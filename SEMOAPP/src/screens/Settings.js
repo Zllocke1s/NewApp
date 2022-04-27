@@ -8,8 +8,9 @@ import base64 from 'react-native-base64'
 import { Entypo } from '@expo/vector-icons'; 
 import { theme } from '../core/theme';
 import { AntDesign } from '@expo/vector-icons'; 
+import { Heading } from '../components/Heading';
 
-export default function Settings() {
+export default function Settings({navigation}) {
 
   const [message, setMessage]  = React.useState(null)
   const [invalid, setInvalid] = React.useState(false);
@@ -110,12 +111,7 @@ const getHS = async (key) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.headerContainer}>
-        <View style={styles.headerSubContainer}>
-          <Text style={styles.title}>Settings</Text>
-         </View>
-      </View>
-      
+      <Heading navigation={navigation} title={"Settings"}></Heading>
       <View style={styles.tileContainer}>
       <View style={message!=null ? styles.loggedIn : styles.hidden}>
         <Text style={styles.message}>You are currently logged in as: <Text style={styles.username}>{message != null ? message.username : ""}</Text></Text>

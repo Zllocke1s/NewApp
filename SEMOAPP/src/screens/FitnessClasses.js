@@ -13,6 +13,7 @@ import {Calendar, CalendarList, AgendaList} from 'react-native-calendars';
 import {IMItem} from '../components/IMItem';
 import { Entypo } from '@expo/vector-icons'; 
 import { theme } from '../core/theme';
+import { Heading } from '../components/Heading';
 
 export default function FitnessClasses({navigation}) {
 
@@ -66,13 +67,11 @@ export default function FitnessClasses({navigation}) {
   }
   return (
     <View style={styles.container}>
-      <View style={styles.container2}>
-      <View style={styles.headerContainer}>
+                  <Heading navigation={navigation} title={null}>
           <Image style={styles.logo}
-                   source={require("../assets/rec.png")}
+            source={require("../assets/rec.png")}
            ></Image>
-      </View>
-      <View style={styles.content}>
+                     </Heading><View style={styles.content}>
         <View style={styles.row2}>
       <TouchableOpacity onPress={() => {
         toggleSchedule(true)
@@ -175,7 +174,6 @@ export default function FitnessClasses({navigation}) {
         })}
       </ScrollView>
       </View>
-        </View>
         </View>
         
     

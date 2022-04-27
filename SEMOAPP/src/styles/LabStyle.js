@@ -11,25 +11,9 @@ export const styles = StyleSheet.create({
       alignContent: "center",
       justifyContent: 'flex-start'
     },
-    headerContainer: {
-        flex: .15,
-        backgroundColor: theme.colors.red,
-        padding: 10
-    },
-    headerSubContainer: {
-        flexDirection: "row",
-        width: "100%",
-        justifyContent: "space-evenly",
-        paddingTop: 35,
-        marginTop: 20
-    },
-    title: {
-        fontSize: 36,
-        color: theme.colors.gray
-    },
     labContainer:
     {
-        flex: 0.85,
+        flex: 1,
         justifyContent: "flex-start",
         alignItems: "flex-start",
         display: "flex",

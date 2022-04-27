@@ -11,6 +11,7 @@ import {Picker} from 'react-native';
 import Moment from 'moment';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { theme } from '../core/theme';
+import { Heading } from '../components/Heading';
 
 export default function SubDining({navigation}) {
   Moment.locale('en');
@@ -172,13 +173,10 @@ export default function SubDining({navigation}) {
 
   return (
     <View style={styles.container}>
-      <View style={styles.container2}>
-      <View style={styles.headerContainer}>
-        <View style={styles.headerSubContainer}>
-          <Text style={styles.title}>{locName}</Text>
-         </View>
+      <Heading navigation={navigation} title={locName}>     
+      <View style={{padding: 10, backgroundColor: theme.colors.white, borderRadius: 5}}>
          <Text style={[styles.hours, {color: status.color}]}><AntDesign name="clockcircleo" size={18} color={status.color} />  {status.message}</Text>
-      </View>
+         </View></Heading>
       
       <View style={styles.headerTileContainerContainer}>
          <TouchableOpacity onPress={() => {
@@ -219,7 +217,6 @@ export default function SubDining({navigation}) {
            <ActivityIndicator style={styles.loadingBar} size="large" color={theme.colors.red} />
          }
          </ScrollView>
-      </View>
       </View>
     </View>
     

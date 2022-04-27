@@ -1,17 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, Image, View } from 'react-native';
+import { Heading } from '../components/Heading';
 import { styles } from '../styles/LandingStyle';
-export default function Reserve() {
+export default function Reserve({navigation}) {
   return (
     <View style={styles.container}>
-      <View style={styles.headerContainer}>
-        <View style={styles.headerSubContainer}>
-          <Text>Heading</Text>
-         </View>
-      </View>
-      
+      <Heading navigation={navigation} title={"Reservations"}></Heading>    
       <View style={styles.tileContainer}>
-        <Text>Reserve</Text>
+        <Text></Text>
         </View>
         </View>
     

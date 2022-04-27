@@ -242,12 +242,12 @@ const styles = StyleSheet.create({
         
     },
     secretContainer: {
-        backgroundColor: theme.colors.gray2,
+        backgroundColor: theme.colors.gray,
         position: "absolute",
         bottom: 0,
         left: 0,
-        width: 100,
-        height: 10
+        width: "100%",
+        height: 20
     },
     container: {
         flex: .3,
@@ -265,6 +265,7 @@ const styles = StyleSheet.create({
       sportsContainer: {
         flex: .3,
         height: 100,
+        width: 500,
         fontSize: 48,
         paddingBottom: 10,
         fontWeight: 'bold',
@@ -344,8 +345,6 @@ const styles = StyleSheet.create({
         padding: 0,
         alignSelf: "center",
         textAlign: "center",
-        flex: 0.5,
-        marginTop: 15,
     },
     
     imageContainer: {

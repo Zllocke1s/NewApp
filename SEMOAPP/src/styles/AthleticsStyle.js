@@ -11,17 +11,6 @@ export const styles = StyleSheet.create({
         alignContent: "center",
         justifyContent: 'flex-start',
         
-      },container2: {
-        flex: 1,
-        width: "90%",
-        marginTop: 20,
-        marginBottom: 50,
-        fontSize: 48,
-        fontWeight: 'bold',
-        backgroundColor: theme.colors.gray2,
-        alignItems: 'center',
-        alignContent: "center",
-        justifyContent: 'flex-start'
       },
       tileContainer: {
           display: "flex",
@@ -33,7 +22,6 @@ export const styles = StyleSheet.create({
     logo: {
         width: 100,
         height: 100,
-        marginBottom: 20,
     },
     headerContainer: {
         flexDirection: "row",
@@ -61,7 +49,8 @@ export const styles = StyleSheet.create({
         display: "flex",
         flexDirection: "column",
         width: "100%",
-        padding: 10
+        padding: 10,
+        alignItems: "center"
     },
     quote: {
         marginLeft: 20,

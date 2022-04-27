@@ -2,8 +2,10 @@ import { StatusBar } from 'expo-status-bar';
 import { ScrollView, StyleSheet, Text, Image, View } from 'react-native';
 import { styles } from '../styles/LabStyle';
 import { Lab } from '../components/Lab';
+import { BackButton } from '../components/BackButton';
+import { Heading } from '../components/Heading';
 
-export default function Labs() {
+export default function Labs({navigation}) {
 
   var auth = "17eeeb3f-f44b-460f-95e9-1b798138dc87"
   var labs = [
@@ -19,12 +21,7 @@ export default function Labs() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.headerContainer}>
-        <View style={styles.headerSubContainer}>
-          <Text style={styles.title}>Lab Availability</Text>
-         </View>
-      </View>
-      
+      <Heading navigation={navigation} title={"Lab Avalibility"}></Heading>
       <View style={styles.labContainer}>
         <ScrollView style={styles.scrollView}>
       {labs.map((l) => {

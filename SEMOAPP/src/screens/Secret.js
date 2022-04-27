@@ -9,7 +9,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { TextInput } from 'react-native-paper';
 
-export default function Secret() {
+export default function Secret({navigation}) {
 
   const [running, setRunning] = useState(false)
   const [gameEngine, setGameEngine] = useState(null)
@@ -138,6 +138,7 @@ export default function Secret() {
                 if(currentPoints>100)
                 {
                   Linking.openURL("https://www.youtube.com/watch?v=B8zkCR6rh0s")
+                  setCurrentPoints(0)
                 }
                 break;
               case 'new_point':

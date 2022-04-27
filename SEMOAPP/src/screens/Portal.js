@@ -9,9 +9,10 @@ import base64 from 'react-native-base64'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ActivityIndicator, Button } from 'react-native-paper';
 import { TriangleColorPicker } from 'react-native-color-picker'
+import { Heading } from '../components/Heading.js';
  
 
-export default function Portal() {
+export default function Portal({navigation}) {
 
 
   const [credentials, setCredentials] = React.useState(null)
@@ -178,12 +179,7 @@ export default function Portal() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.headerContainer}>
-        <View style={styles.headerSubContainer}>
-          <Text style={[styles.gradeTitle, {color:'black'}]}>Grades</Text>
-        </View>
-      </View>
-      
+      <Heading navigation={navigation} title={"Grades"}></Heading>
       <View style={styles.tileContainer}>
         <View style={styles.rows}>
             {formattedTerms != null ? formattedTerms : <ActivityIndicator size="large" color={theme.colors.red}></ActivityIndicator>}

@@ -70,7 +70,7 @@ const [loaded] = useFonts({
     return(
         <TouchableOpacity onPress={ () => Linking.openURL(item.link)} style={[styles.container, {backgroundColor: item.color}]}>
             <Text style={styles.tag}>{item.tags[0]}</Text>
-            <Text style={styles.title}>{item.title}</Text>
+            <Text style={styles.title}>{decode(item.title)}</Text>
             <Text style={styles.hour}><AntDesign name="clockcircleo" size={15} color={theme.colors.white}/>  {Moment(item.start).local().format("LT")}</Text>
             <Text style={styles.location}>{item.address}</Text>
         </TouchableOpacity>
