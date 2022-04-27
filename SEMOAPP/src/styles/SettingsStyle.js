@@ -115,7 +115,6 @@ export const styles = StyleSheet.create({
     },
     
     clearHS: {
-        width: 100,
         marginTop: 10,
         paddingTop: 10,
         paddingBottom: 10,
@@ -131,6 +130,7 @@ export const styles = StyleSheet.create({
         color: theme.colors.black,
         fontSize: 17,
         fontWeight: "bold"
-    }
+    },
+    
   });
   
