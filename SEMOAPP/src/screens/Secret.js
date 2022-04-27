@@ -123,7 +123,7 @@ export default function Secret({navigation}) {
         <GameEngine
           ref={(ref) => {setGameEngine(ref)}}
           style={{position: 'absolute', bottom: 0, top: 0, left: 0, right: 0}}
-          entities={entities(nickname)}
+          entities={entities()}
           systems={[Physics]}
           running={running}
           onEvent={(e) => {

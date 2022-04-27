@@ -18,8 +18,6 @@ export default (nickname) => {
 
     const pipeSizePosA = getPipeSizePosPair()
     const pipeSizePosB = getPipeSizePosPair(windowWidth * 0.9)
-    console.log("Nickname:")
-    console.log(nickname)
 
     return {
         physics: {engine, world},
