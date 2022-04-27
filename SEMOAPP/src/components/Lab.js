@@ -2,6 +2,7 @@ import { TouchableOpacity, Linking, Image, StyleSheet, Text, View, Touchable } f
 import {theme} from '../core/theme';
 import {decode} from 'html-entities';
 import React from 'react';
+import { sizes } from '../core/sizes';
 
 //Todo: Tiling News through the tile
 
@@ -151,7 +152,7 @@ const styles = StyleSheet.create({
         flexDirection: "row"      
     },
     text: {
-        fontSize: 26,
+        fontSize: sizes.large,
         flex: 0.6,
         fontWeight: "bold"
         //text formatting here

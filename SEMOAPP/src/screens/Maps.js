@@ -5,7 +5,7 @@ import MapView from 'react-native-maps';
 import React from 'react';
 import { useState, useEffect } from 'react';
 import * as Location from 'expo-location';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { FontAwesome } from '@expo/vector-icons'; 
 import { Button, TextInput } from 'react-native-paper';
 import { theme } from '../core/theme';
@@ -127,7 +127,9 @@ export default function Maps({navigation}) {
           })}
         </MapView>
         <View style={styles.legend}>
+          
           <View style={expanded ? styles.legendOption : styles.hidden}>
+            <ScrollView>
          {poi!=null ? poi.map((item, index) => {
            return( <TouchableOpacity key={item.name} onPress={() => {
              //console.log(item.name)
@@ -140,18 +142,20 @@ export default function Maps({navigation}) {
                 toggleMarker([... showMarkers, item.name])
               }
 
-          }} style={styles.legendOption}>
+          }} style={styles.legendOption2}>
             <Text><FontAwesome name="map-marker" size={21} color={showMarkers.includes(item.name) ? colors[index] : "#bbb"} /> {item.name}</Text>
           </TouchableOpacity>
            )
           }) : null
           }
-          </View>
+          </ScrollView></View>
+          
           <Button style={{borderWidth: 1, borderColor: theme.colors.gray3}} onPress={() => {
             expand(!expanded)
           }}>{expanded ? "^" : "v"}</Button>
           
         </View>
+        
         </View>
         <View style={styles.searchContainer}>
           <TextInput

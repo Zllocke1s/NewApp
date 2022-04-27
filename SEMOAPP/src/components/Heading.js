@@ -1,5 +1,6 @@
-import { TouchableOpacity, Linking, Image, StyleSheet, Text, View, Touchable } from 'react-native';
+import { TouchableOpacity, Linking, Image, StyleSheet, Text, View, Touchable, Dimensions } from 'react-native';
 import {theme} from '../core/theme';
+import {sizes} from '../core/sizes';
 import {decode} from 'html-entities';
 import React from 'react';
 import { BackButton } from './BackButton';
@@ -25,7 +26,7 @@ export const Heading = (({navigation, title, children}) => {
         
      },
     title: {
-        fontSize: 36,
+        fontSize: sizes.title,
         lineHeight: 36,
         color: theme.colors.gray,
     },

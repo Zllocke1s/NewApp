@@ -1,4 +1,4 @@
-import { StyleSheet} from 'react-native';
+import { Dimensions, StyleSheet} from 'react-native';
 import {theme} from '../core/theme';
 
 export const styles = StyleSheet.create({
@@ -63,7 +63,18 @@ export const styles = StyleSheet.create({
         paddingRight: 5,
         paddingLeft: 5,
         backgroundColor: 'rgba(255,255,255,0.9)',
-        borderRadius: 10
+        borderRadius: 10,
+        height: Dimensions.get("window").height/2.2,
+    },
+    
+    legendOption2: {
+        marginTop: 5,
+        marginBottom: 5,
+        padding: 10,
+        paddingRight: 5,
+        paddingLeft: 5,
+        backgroundColor: 'rgba(255,255,255,0.9)',
+        borderRadius: 10,
     },
     input: {
         backgroundColor: "rgba(255,255,255,0.9)",
