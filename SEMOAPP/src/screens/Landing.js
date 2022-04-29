@@ -25,7 +25,7 @@ export default function Landing({ navigation }) {
     "default": 5,
   }
   const[tracker, setTracker] = React.useState(false)
-  const [route, setRoute] = React.useState(null);
+  const [route, setRoute] = React.useState("green");
   const [req, setReq] = React.useState(false)
   const [prevRoute, setPrevRoute] = React.useState("");
   const [hide, setHide] = React.useState(false)
@@ -108,7 +108,6 @@ export default function Landing({ navigation }) {
     {
       console.log("Shutdown: " + route)
       setPrevRoute("")
-      setRoute(null)  
     }
     else if(route==null && tracker)
     {
