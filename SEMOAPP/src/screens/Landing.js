@@ -11,7 +11,7 @@ import BackgroundTask from "../components/BackgroundTask";
 import { Button, TextInput } from 'react-native-paper';
 
 
-var wings = false;
+var wings = true;
 
 
 export default function Landing({ navigation }) {
@@ -25,7 +25,7 @@ export default function Landing({ navigation }) {
     "default": 5,
   }
   const[tracker, setTracker] = React.useState(false)
-  const [route, setRoute] = React.useState("green");
+  const [route, setRoute] = React.useState(wings ? "wings" : "green");
   const [req, setReq] = React.useState(false)
   const [prevRoute, setPrevRoute] = React.useState("");
   const [hide, setHide] = React.useState(false)
@@ -136,14 +136,14 @@ export default function Landing({ navigation }) {
         style={{ height: 50, width: 150 }}
         onValueChange={(itemValue, itemIndex) => setRoute(itemValue)}
       >
-        <Picker.Item label="Green" value="green" />
-        <Picker.Item label="Red" value="red" />
-        <Picker.Item label="Blue/River" value="blue" />
+{!wings ? <Picker.Item label="Green" value="green" />: null}
+{!wings ? <Picker.Item label="Red" value="red" /> : null}
+{!wings ? <Picker.Item label="Blue/River" value="blue" /> : null}
 {wings ? <Picker.Item label="Wings" value="wings" /> : null}
-        <Picker.Item label="Gold" value="gold" />
-        <Picker.Item label="Silver" value="silver" />
-        <Picker.Item label="Purple" value="purple" />
-      </Picker>
+{!wings ? <Picker.Item label="Gold" value="gold" />: null}
+{!wings ? <Picker.Item label="Silver" value="silver" />: null}
+{!wings ? <Picker.Item label="Purple" value="purple" />: null}
+       </Picker>
       <Text style={styles.status}>Tracking: {tracker ? <Text style={[styles.status, {color: "#0a0"}]}>on</Text> : <Text style={[styles.status, {color: "#e00"}]}>off</Text>}{"\n"}Route: <Text style={{color: isColor(route) ? route : "#000", fontWeight: "bold"}}>{route} route.</Text></Text>
         </View>
         <View style={tracker ? styles.tileContainer : {display: 'none'}}>
