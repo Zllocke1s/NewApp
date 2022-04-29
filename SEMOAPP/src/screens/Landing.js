@@ -11,6 +11,7 @@ import BackgroundTask from "../components/BackgroundTask";
 import { Button, TextInput } from 'react-native-paper';
 
 
+var wings = false;
 
 
 export default function Landing({ navigation }) {
@@ -21,7 +22,6 @@ export default function Landing({ navigation }) {
     "red": 1,
     "blue": 2,
     "green": 3,
-    "wings": 4,
     "default": 5,
   }
   const[tracker, setTracker] = React.useState(false)
@@ -139,7 +139,7 @@ export default function Landing({ navigation }) {
         <Picker.Item label="Green" value="green" />
         <Picker.Item label="Red" value="red" />
         <Picker.Item label="Blue/River" value="blue" />
-        <Picker.Item label="Wings" value="wings" />
+{wings ? <Picker.Item label="Wings" value="wings" /> : null}
         <Picker.Item label="Gold" value="gold" />
         <Picker.Item label="Silver" value="silver" />
         <Picker.Item label="Purple" value="purple" />
