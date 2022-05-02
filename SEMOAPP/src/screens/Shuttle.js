@@ -25,6 +25,21 @@ export default function Shuttle({navigation}) {
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
   const [shuttleID, setShuttleID] = useState(1);
+  const [genTabs, setGenTabs] = useState([])
+
+
+  useEffect(() => {
+    if(genTabs.length>0)
+    {
+      //genTabs.find((item) => item.id==shuttleID).route.map((item) => {
+      //  return JSON.stringify(item,Name) + "\n"
+     // }) 
+     console.log(genTabs)
+     setTabs(genTabs.find((item) => item.id==shuttleID).route.map((item) => {
+       return <Text>{"\u2022\t" + item.Name + "\t\t\t" + (item.TotalTime!=0 ? new Date(item.TimeSum/item.TotalTime).getMinutes().toString() + " Minutes" : "") + "\n"}</Text>
+     }))
+    }
+  }, [genTabs])
 
   useEffect(() => {
     (async () => {
@@ -51,6 +66,7 @@ export default function Shuttle({navigation}) {
 
   const [tracker, setTracker] = useState(null)
   const [aID, setAID] = useState(0)
+  const [formattedTabs, setTabs] = useState(null)
   const [route, setRoute] = useState("")
   const [loaded] = useFonts({
     Times: require('../assets/fonts/times.ttf'),
@@ -75,30 +91,21 @@ export default function Shuttle({navigation}) {
 }
 
   function defineTrackers() {
-    fetch('http://outpostorganizer.com/SITE/api.php/records/Users/' + shuttleID + "?camp=wartburg")
+    fetch('http://outpostorganizer.com/SITE/api.php/records/Routes/' + shuttleID + "?camp=wartburg")
     .then((response) => response.json())
     .then((json) => {
-      console.log(json)
-      if(json!=null && (!json.profilePicURL.includes("::")))
+      if(json!=null && json.code!="1003")
       {
-        var combo = json.profilePicURL.split(":")
-        if(combo.length>1)
-        {
-          console.log(combo)
-        setTracker( <MapView.Marker key={combo[2]}
-        coordinate={{latitude: parseFloat(combo[0]),
-        longitude: parseFloat(combo[1])}}
-        title={tabs[aID].name + " Shuttle"}
+        setTracker( <MapView.Marker key={json.ID}
+        coordinate={{latitude: parseFloat(json.Lat),
+        longitude: parseFloat(json.Lon)}}
+        title={json.Name + " Shuttle"}
         >
           <FontAwesome name="map-marker" size={34} color={tabs[aID].color} />
         </MapView.Marker>
         )
         }
-        else
-        {
-          setTracker(null)
-        }
-      }
+    
       else
       {
         setTracker(null)
@@ -114,6 +121,35 @@ export default function Shuttle({navigation}) {
 
   }
 
+  function getColor(ID)
+  {
+    switch(ID)
+    {
+      case(1):
+        return theme.colors.red
+      case(2):
+        return theme.colors.blue
+      case(3):
+        return theme.colors.green
+    }
+    return theme.colors.black
+  }
+  function getStyle(ID)
+  {
+    switch(parseInt(ID))
+    {
+      case(1):
+        return styles.redActive
+      case(2):
+        return styles.blueActive
+      case(3):
+        return styles.greenActive
+      default:
+        return styles.wingsActive
+
+    }
+  }
+
   useEffect(() => {
     if(aID!=null)
     {
@@ -121,6 +157,26 @@ export default function Shuttle({navigation}) {
     defineTrackers()
     }
   }, [load, aID])
+
+  useEffect(() => {
+    fetch('http://outpostorganizer.com/SITE/api.php/records/Routes?camp=wartburg').then((response) => response.json())
+    .then((json) => {
+      fetch('http://outpostorganizer.com/SITE/api.php/records/Stops?camp=wartburg').then((response) => response.json())
+    .then((json2) => {
+      setGenTabs(json.records.map((route) => {
+        return ({
+          id: route.ID,
+          heading: route.Heading,
+          color: getColor(route.ID),
+          style: getStyle(route.ID),
+          name: route.Name,
+          route: json2.records.filter((item) => item.RID==route.ID)
+        })
+      }))
+   }).catch((error) =>console.log(error))
+    }).catch((error) =>console.log(error))
+
+  }, [shuttleID])
 
 
   load = true;
@@ -139,20 +195,18 @@ export default function Shuttle({navigation}) {
     <View style={styles.container}>
       <Heading navigation={navigation} title={"Shuttle Tracker"}></Heading>
       <View style={styles.tabContainer}>
-      <TouchableOpacity onPress={() => {setAID(0)
-      setShuttleID(1)}} style={aID==0 ? styles.redActive: styles.inactive}><Text style={styles.tabTitle}>RED</Text></TouchableOpacity>
-      <TouchableOpacity onPress={() => {setAID(1)
-         setShuttleID(2)}} style={aID==1 ? styles.blueActive : styles.inactive}><Text style={styles.tabTitle}>BLUE</Text></TouchableOpacity>
-      <TouchableOpacity onPress={() => {setAID(2)
-        setShuttleID(3)}} style={aID==2 ? styles.greenActive : styles.inactive}><Text style={styles.tabTitle}>GREEN</Text></TouchableOpacity>
-      <TouchableOpacity onPress={() => {setAID(3)
-        setShuttleID(4)}} style={aID==3 ? styles.wingsActive : styles.inactive}><Text style={styles.tabTitle}>WINGS</Text></TouchableOpacity>
+        {genTabs!=null ? genTabs.map((tab, index) => {
+          return (
+            <TouchableOpacity onPress={() => {setAID(index)
+              setShuttleID(tab.id)}} style={aID==index ? tab.style : styles.inactive}><Text style={styles.tabTitle}>{tab.name}</Text></TouchableOpacity>     
+          )
+        }) : null }
         </View>
       <View style={[styles.infoContainer, {borderColor: tabs[aID].color}]}>
         <View style={styles.routeContainer}>
         <Text style={[styles.routeTitle, {fontFamily: "Times"}]}>Route:</Text>
         <ScrollView>
-          <Text style={[styles.routeText, { fontFamily: 'Times'}]}>{route}</Text>
+          <Text style={[styles.routeText, { fontFamily: 'Times'}]}>{formattedTabs}</Text>
         </ScrollView>
         </View>
         <View style={styles.mapContainer}>
