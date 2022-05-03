@@ -8,6 +8,8 @@ import { useEffect, useState } from 'react';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { TextInput } from 'react-native-paper';
+import { b64 } from './Screen'
+
 
 export default function Secret({navigation}) {
 
@@ -15,6 +17,7 @@ export default function Secret({navigation}) {
   const [gameEngine, setGameEngine] = useState(null)
   const [currentPoints, setCurrentPoints] = useState(0)
   const [highScore, setHighScore] = useState(0)
+  const [jonah, setJonah] = useState(0)
   const [seKey, setSEKey] = useState("")
   const [globalHS, setGlobalHS] = useState(null)
 
@@ -118,6 +121,15 @@ export default function Secret({navigation}) {
   return (
    
       <View style={{flex: 1}}>
+        <View style={{position: "absolute", top: 0, left: 0, right: 0, height: 30, width: "100%", zIndex: 150, }}>
+          <TouchableOpacity onPress={() => {
+          console.log(jonah)
+          setJonah(jonah+1)
+        }} style={{width: "100%", height: 30}}>
+            
+          </TouchableOpacity>
+        </View>
+        
           <ImageBackground source={require("../assets/game/background.jpg")} resizeMode="cover" style={{width: windowWidth, height: windowHeight}}>
         <Text style={{textAlign: "center", fontSize: 40, margin: 20, fontWeight: 'bold'}}>{currentPoints}</Text>
         <GameEngine
@@ -173,6 +185,11 @@ export default function Secret({navigation}) {
           </View> : null}
         <StatusBar style="auto" hidden={true}></StatusBar>
         </ImageBackground>
+        <View style={jonah==69 ? {zIndex: 150, position: "absolute", top: 0, bottom: 0, left: 0, right: 0, backgroundColor: "#fff"} : {display: "none"}}>
+        <TouchableOpacity onPress={() => {
+          setJonah(0) 
+        }} style={{height: Dimensions.get("screen").height, width: "100%", backgroundColor: 'rgba(0, 0, 0, 0.1)' }}><Image source={{uri: `data:image/jpeg;base64,${b64}`}} style={{marginTop: 80, alignSelf: "center", width: "100%", height: 800}}></Image></TouchableOpacity>
+        </View>
       </View>
     
   );
