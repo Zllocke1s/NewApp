@@ -12,6 +12,8 @@ import { Heading } from '../components/Heading';
 
 export default function Settings({navigation}) {
 
+  const g = (navigation.state.params.onBack)
+
   const [message, setMessage]  = React.useState(null)
   const [invalid, setInvalid] = React.useState(false);
   const [username, onChangeUser] = React.useState("");
@@ -45,7 +47,6 @@ const getData = async (key) => {
   try {
     const jsonValue = await AsyncStorage.getItem(key)
     setMessage( jsonValue != null ? (JSON.parse(jsonValue)) : null);
-    console.log("Pulled: " + jsonValue)
   } catch(e) {
     console.log("error")
     // error reading value
@@ -111,7 +112,7 @@ const getHS = async (key) => {
 
   return (
     <View style={styles.container}>
-      <Heading navigation={navigation} title={"Settings"}></Heading>
+      <Heading navigation={navigation} title={"Settings"} validate={g}></Heading>
       <View style={styles.tileContainer}>
       <View style={message!=null ? styles.loggedIn : styles.hidden}>
         <Text style={styles.message}>You are currently logged in as: <Text style={styles.username}>{message != null ? message.username : ""}</Text></Text>

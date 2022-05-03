@@ -23,7 +23,8 @@ export const MinuteItem = (({type, auth, minutes}) => {
     //console.log("https://selink.semo.edu/organization/studentgov/documents/view/" + minutes.Id)
         return(
             <TouchableOpacity onPress={() => {
-                Linking.openURL("https://selink.semo.edu" + minutes.Links[0].Href)
+                //console.log("https://selink.semo.edu/organization/studentgov/documents/view/" + minutes.Id)
+                Linking.openURL("https://selink.semo.edu/organization/studentgov/documents/view/" + minutes.Id)
                 toggleDet(!isOpen)
             }}
              style={styles.container}>

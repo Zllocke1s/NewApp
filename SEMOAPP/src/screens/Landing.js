@@ -153,7 +153,7 @@ export default function Landing({ navigation }) {
   }function stugov()
   {navigation.navigate("StuGov");
   }function settings()
-  {navigation.navigate("Settings");
+  {navigation.navigate("Settings", {onBack: getData});
   }function alert()
   {
     navigation.navigate("Alerts");
@@ -163,10 +163,10 @@ export default function Landing({ navigation }) {
     navigation.navigate("Schedule");
   }
 
-  const storeData = async (key, value) => {
+  const storeData = async (value) => {
     try {
       const jsonValue = JSON.stringify(value)
-      await AsyncStorage.setItem(key, jsonValue)
+      await AsyncStorage.setItem("credentials", jsonValue)
     } catch (e) {
       // saving error
     }
@@ -197,7 +197,7 @@ export default function Landing({ navigation }) {
       promptLogin(false)
       if(save)
       {
-        storeData("credentials", {username: username, password: password, so: json.userId})
+        storeData({username: username, password: password, so: json.userId})
       }
       
     }
@@ -214,6 +214,7 @@ export default function Landing({ navigation }) {
   const [counter, setCounter] = useState(0);
   useEffect(() => {
     const interval = setInterval(() => {
+      getData("credentials")
       setCounter((counter+1) % news.length)
     }, 8000);
     return () => clearInterval(interval);

@@ -7,7 +7,7 @@ import { BackButton } from './BackButton';
 
 
 
-export const Heading = (({navigation, title, children}) => {
+export const Heading = (({navigation, title, children, validate}) => {
     const styles = {
         
     headerContainer: {
@@ -37,7 +37,12 @@ export const Heading = (({navigation, title, children}) => {
     return(
         <View style={styles.headerContainer}>
         <View style={styles.headerSubContainer}>
-            <BackButton onP={() => {navigation.goBack()}} />
+            <BackButton onP={() => {
+                if(validate!=null)
+                {
+                    validate("credentials");
+                }
+                navigation.goBack()}} />
             {title==null ? null : <Text style={styles.title}>{title}</Text>}
             {children}
       </View>
