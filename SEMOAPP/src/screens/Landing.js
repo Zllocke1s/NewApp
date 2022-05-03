@@ -13,7 +13,7 @@ import { getDistance } from 'geolib';
 
 
 
-var wings = false;
+var wings = true;
 
 
 export default function Landing({ navigation }) {
@@ -273,6 +273,15 @@ export default function Landing({ navigation }) {
             });
               }
               setHeading((d.Heading+1)%stops.length)
+              fetch('http://outpostorganizer.com/SITE/api.php/records/Routes/' + loc + '?camp=wartburg', {
+              method: 'PUT',
+              body: JSON.stringify({
+                Lat: location.coords.latitude,
+                Lon: location.coords.longitude,
+                Heading: heading,
+                LastStopTime: new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString()
+              })
+            })
               setPrevTime(Date.now())
             }
             else
