@@ -16,16 +16,16 @@ import { Heading } from '../components/Heading';
 export default function Maps({navigation}) {
 
   var colors = [
-    "#0A9258",
+    "#0A92B8",
     "#125589",
     "#F00",
     "#D4470F",
     "#A0A",
     "#D5A30F",
-    "#1BAE0C",
+    "#FB6EFC",
     "#AB0C66",
-    "#444",
-    "#696969"
+    "#FA4554",
+    "#000"
   ]
   const [poi, setPOI] = React.useState(null)
   const [expanded, expand] = React.useState(false)

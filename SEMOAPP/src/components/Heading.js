@@ -13,7 +13,7 @@ export const Heading = (({navigation, title, children}) => {
     headerContainer: {
         backgroundColor: theme.colors.red,
         width: "100%",
-        paddingTop: 40,
+        paddingTop: 50,
     
         alignItems: "flex-end",
      },
