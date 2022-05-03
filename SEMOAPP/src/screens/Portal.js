@@ -24,11 +24,11 @@ export default function Portal({navigation}) {
   const [modalVisible, setModalVisible] = React.useState(false)
   const [modalPicker, setModalPicker] = React.useState(null)
   useEffect(() => {
-    if(terms!=null)
+    if(terms!=null && terms.find((obj) => obj.name=="Spring 2022").sections.length>0)
     {
-      
+    console.log(terms.find((obj) => obj.name=="Spring 2022").sections)
     setFormattedTerms(terms.find((obj) => obj.name=="Spring 2022").sections.map((item, index) => {
-      //console.log(JSON.stringify(item))
+      console.log(JSON.stringify(item))
       if(item!=null && item.sectionId!=null && item.sectionTitle!=null && item.grades!=null)
       {
       return(
@@ -59,8 +59,16 @@ export default function Portal({navigation}) {
         </TouchableOpacity>
       </View>
       )}
+      else
+      {
+        return(<Text style={styles.label}>Grades have not been posted yet.  Check back soon!</Text>)
+      }
     }))
     
+  }
+  else
+  {
+    setFormattedTerms(<Text>Grades have not been posted yet.  Check back soon!</Text>)
   }
   }, [terms, colors])
 

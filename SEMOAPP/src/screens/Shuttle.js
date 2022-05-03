@@ -11,6 +11,7 @@ import {BackButton} from '../components/BackButton';
 import { FontAwesome } from '@expo/vector-icons'; 
 import * as Location from 'expo-location';
 import { Heading } from '../components/Heading';
+import Moment from 'moment';
 
 
 
@@ -34,9 +35,28 @@ export default function Shuttle({navigation}) {
       //genTabs.find((item) => item.id==shuttleID).route.map((item) => {
       //  return JSON.stringify(item,Name) + "\n"
      // }) 
-     console.log(genTabs)
-     setTabs(genTabs.find((item) => item.id==shuttleID).route.map((item) => {
-       return <Text>{"\u2022\t" + item.Name + "\t\t\t" + (item.TotalTime!=0 ? new Date(item.TimeSum/item.TotalTime).getMinutes().toString() + " Minutes" : "") + "\n"}</Text>
+     var current = genTabs.find((item) => item.id==shuttleID)
+     var index = current.route.findIndex((loc) => (loc.SID-current.route[0].SID)==current.heading)
+     var sgenTabs = current.route.slice(index, current.route.length).concat(current.route.slice(0, index-1))
+     var running = 0
+     //console.log(new Date(current.stopTime))
+     setTabs(sgenTabs.map((item) => {
+       if(item.TotalTime>0)
+       {
+        running = running + item.TimeSum/item.TotalTime
+       }
+       var time = Moment(current.stopTime.replace(" ", "T")).add(new Date(running).getMinutes(), 'm').toDate() - Moment(Date.now())
+       if(time<0)
+       {
+        return <View style={{width: "100%", display: "flex", flexDirection: "row", justifyContent: "space-between"}}><Text>{"\u2022\t" + item.Name}</Text><Text>{item.TotalTime!=0 ? (
+          new Date(Math.abs(time)).getMinutes().toString() + " Minutes Late") : ""}</Text></View>
+       }
+       else
+       {
+        return <View style={{width: "100%", display: "flex", flexDirection: "row", justifyContent: "space-between"}}><Text>{"\u2022\t" + item.Name}</Text><Text>{item.TotalTime!=0 ? (
+          new Date(Math.abs(time)).getMinutes().toString() + " Minutes") : ""}</Text></View> 
+       }
+       
      }))
     }
   }, [genTabs])
@@ -166,6 +186,7 @@ export default function Shuttle({navigation}) {
       setGenTabs(json.records.map((route) => {
         return ({
           id: route.ID,
+          stopTime: route.LastStopTime,
           heading: route.Heading,
           color: getColor(route.ID),
           style: getStyle(route.ID),
@@ -206,7 +227,9 @@ export default function Shuttle({navigation}) {
         <View style={styles.routeContainer}>
         <Text style={[styles.routeTitle, {fontFamily: "Times"}]}>Route:</Text>
         <ScrollView>
-          <Text style={[styles.routeText, { fontFamily: 'Times'}]}>{formattedTabs}</Text>
+        <View style={{display: "flex", width: "90%", height: 500, flexDirection: "column"}}>
+          {formattedTabs}
+          </View>
         </ScrollView>
         </View>
         <View style={styles.mapContainer}>

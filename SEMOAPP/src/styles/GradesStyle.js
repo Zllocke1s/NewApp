@@ -66,6 +66,9 @@ export const styles = StyleSheet.create({
         padding: 25,
         backgroundColor: theme.colors.gray,
     },
+    label: {
+        fontSize: 15
+    },
     editButton: {
         justifyContent: "center",
         marginRight: 10

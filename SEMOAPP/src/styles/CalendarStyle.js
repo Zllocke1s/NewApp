@@ -23,6 +23,14 @@ export const styles = StyleSheet.create({
         backgroundColor: theme.colors.gray,
         flex: 1,
         marginBottom: 20
+    },
+    heading: {
+      fontSize: 16,
+      width: "100%",
+      textAlign: "center",
+      backgroundColor: theme.colors.white,
+      paddingVertical: 10
+      
     }
   });
   

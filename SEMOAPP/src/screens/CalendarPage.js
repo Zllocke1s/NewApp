@@ -14,6 +14,7 @@ import { Heading } from '../components/Heading';
 
 export default function CalendarPage({navigation}) {
 
+  const [selectedDay, setSelectedDay] = React.useState(null)
   const [data, setData] = React.useState(null)
   const [date, setDate] = React.useState(null)
   const [itemList, setItemList] = React.useState(null)
@@ -145,7 +146,7 @@ else {
      <Calendar
      //Right now, each item in the datamapped object has a .dots property
      //I need the property to be the only thing, and in the actual object, not the sub object
-  selected={Moment(Date().toString()).format("YYYY-MM-DD")}
+  selected={Moment(Date.now()).format("YYYY-MM-DD")}
   markingType={'multi-dot'}
   markedDates={dotsMapped}
   renderArrow={direction => {
@@ -165,12 +166,10 @@ else {
     
   }}
   // Callback that fires when the calendar is opened or closed
-  onCalendarToggled={calendarOpened => {
-//    console.log(calendarOpened);
-  }}
   // Callback that gets called on day press
   onDayPress={day => {
     console.log('day pressed');
+    setSelectedDay(day)
     if(data[day.dateString]!=null)
     {
     setItemList(
@@ -186,12 +185,7 @@ else {
   }}
   // Initially selected day
   // Specify how each item should be rendered in agenda
-  renderItem={(item, firstItemInDay) => {
-    return <CalendarItem key={item.id} item={item} />;
-  }}
-  onDayChange={day => {
-    console.log("Scrolled")
-  }}
+
   
   enableSwipeMonths={true}
 
@@ -200,15 +194,16 @@ else {
 
   // Agenda theme
   theme={{
-    selectedDayBackgroundColor: theme.colors.red,
+    selectedDayBackgroundColor: '#00adf5',
+    selectedDayTextColor: '#ffffff',
     agendaDayTextColor: theme.colors.gray3,
     todayTextColor: theme.colors.red,
     dotColor: theme.colors.red,
   }}
   // Agenda container style
-  style={{}}
 />
 <ScrollView>
+  <Text style={styles.heading}>{selectedDay!=null ? Moment(new Date(selectedDay.timestamp)).add(1, 'day').format('dddd, MMMM Do YYYY') : null}</Text>
   {itemList}
 </ScrollView>
         </View>
