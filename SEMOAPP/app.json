@@ -49,7 +49,7 @@
         }
       },
       "package": "com.zlaoch.SEMOAPP",
-      "versionCode": 115,
+      "versionCode": 1150,
       "permissions": [
         "android.permission.CAMERA",
         "android.permission.READ_EXTERNAL_STORAGE",
