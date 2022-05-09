@@ -13,7 +13,7 @@ import { getDistance } from 'geolib';
 
 
 
-var wings = true;
+var wings = false;
 
 
 export default function Landing({ navigation }) {
@@ -113,12 +113,14 @@ export default function Landing({ navigation }) {
     {
       var loc = codes.includes(prevRoute) ? convert[prevRoute] : convert["default"]
       console.log("Shutdown: " + prevRoute)
-      fetch('http://outpostorganizer.com/SITE/api.php/records/Routes/' + loc + '?camp=wartburg', {
+      fetch('https://outpostorganizer.com/SEMO/tUp.php', {
               method: 'PUT',
               body: JSON.stringify({
+                Loc: loc,
                 Lat: 0,
                 Lon: 0,
-                LastUpdated: new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString()
+                LastUpdated: new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString(),
+                Hash: 0
                 
             })
             })
@@ -197,13 +199,14 @@ export default function Landing({ navigation }) {
       <View style={debug==1 ? {width: "80%"} : {display: "none"}}>
       <Text style={label}>Debug</Text>
       <Text style={label}>Location: <Text style={normal}>{JSON.stringify(location)}</Text></Text>
+      <Text style={label}>Heading: <Text style={normal}>{JSON.stringify(heading)}</Text></Text>
       <Text style={label}>Error Message: <Text style={normal}>{JSON.stringify(errorMsg)}</Text></Text>
       <Text style={label}>Tracker: <Text style={normal}>{JSON.stringify(tracker)}</Text></Text>
       </View>
       <ScrollView style={debug==2 ? {width: "80%"} : {display: "none"}}>
-        {distances!=[] ? distances.map((item) => {
+        {distances!=[] ? distances.map((item, index) => {
           return(
-            <Text style={label}>{item.name}: <Text style={item.distance<70 ? [{backgroundColor: "#0f0"}, label] : normal}>{item.distance} meters</Text></Text>
+            <Text key={index} style={label}>{item.name}: <Text style={item.distance<80 ? [{backgroundColor: "#0f0"}, label] : normal}>{item.distance} meters</Text></Text>
           )
         }) : null}
       <Text style={label}><Text style={normal}></Text></Text>
@@ -233,67 +236,41 @@ export default function Landing({ navigation }) {
             //console.log(distances.find((d) => d.distance < 70))
             if(distances.find((d) => d.distance < 80)!=undefined)
             {
-              var d = distances.find((d) => d.distance < 80)
+              var d1 = distances.filter((d) => d.distance < 80 && (d.Heading-heading)>0)
               //(d)
-              if(heading==d.Heading)
+              var d = d1.length>1 ? d1[0] : distances.filter((d) => d.distance < 80)
+              if(d.Heading!=null)
               {
-                //Log time
-                fetch('http://outpostorganizer.com/SITE/api.php/records/Stops/' + d.SID + '?camp=wartburg', {
-              method: 'GET',
-            })
-           .then((response) => response.json())
-           .then((responseJson) => {
-            fetch('http://outpostorganizer.com/SITE/api.php/records/Stops/' + d.SID + '?camp=wartburg', {
+                setHeading((d.Heading+1)%stops.length)
+              }           
+              fetch('https://outpostorganizer.com/SEMO/tUp.php', {
               method: 'PUT',
               body: JSON.stringify({
-                TimeSum: parseInt(responseJson["TimeSum"]) + Date.now()-prevTime,
-                TotalTime: parseInt(responseJson["TotalTime"]) + 1                
-            })
-            })
-           .then((response) => response.json())
-           .then((responseJson2) => {
-              console.log("Update Time Response: " + JSON.stringify(responseJson));     
-              console.log("Body" + JSON.stringify({
-                TimeSum: parseInt(responseJson["TimeSum"]) + Date.now()-prevTime,
-                TotalTime: parseInt(responseJson["TotalTime"]) + 1      
-            }))
-            })
-            
-            .catch((error) => {
-               console.error(error);
-               console.log("ERROR");
-            });
-              console.log("Time Response: " + JSON.stringify(responseJson));     
-              
-            })
-            
-            .catch((error) => {
-               console.error(error);
-               console.log("ERROR");
-            });
-              }
-              setHeading((d.Heading+1)%stops.length)
-              fetch('http://outpostorganizer.com/SITE/api.php/records/Routes/' + loc + '?camp=wartburg', {
-              method: 'PUT',
-              body: JSON.stringify({
+                Loc: loc,
                 Lat: location.coords.latitude,
                 Lon: location.coords.longitude,
                 Heading: heading,
-                LastStopTime: new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString()
+                Hash: (heading * (location.coords.latitude + location.coords.longitude))/7,
+                LastStopTime: new Date().toISOString().split("T")[0] + " " + new Date().toLocaleTimeString(),
+                LastUpdated: new Date().toISOString().split("T")[0] + " " + new Date().toLocaleTimeString()
+
+
               })
-            })
+            }).then((json) => json.json()).then((json2) => console.log(json2))
               setPrevTime(Date.now())
             }
             else
             {
+              console.log("Updateing")
               fetch('http://outpostorganizer.com/SITE/api.php/records/Routes/' + loc + '?camp=wartburg', {
               method: 'PUT',
               body: JSON.stringify({
+                Loc: loc,
                 Lat: location.coords.latitude,
                 Lon: location.coords.longitude,
                 Heading: heading,
-                LastUpdated: new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString()
-                
+                LastUpdated: new Date().toISOString().split("T")[0] + " " + new Date().toLocaleTimeString(),
+                Hash: (heading * (location.coords.latitude + location.coords.longitude))/7
             })
             })
            .then((response) => response.json())
