@@ -7,7 +7,6 @@ import { useFonts } from 'expo-font';
 import MapView from 'react-native-maps';
 import React, { useState, useEffect } from 'react';
 import AppLoading from 'expo-app-loading';
-import {BackButton} from '../components/BackButton';
 import { FontAwesome } from '@expo/vector-icons'; 
 import * as Location from 'expo-location';
 import { Heading } from '../components/Heading';
@@ -22,12 +21,13 @@ export default function Shuttle({navigation}) {
 
 
   const mapRef = React.createRef();
-
+  const [stops, setStops] = useState(null)
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
   const [shuttleID, setShuttleID] = useState(1);
   const [genTabs, setGenTabs] = useState([])
-
+  const [viewStops, setViewStops] = useState(false)
+  const [found, setFound] = useState(false)
 
   useEffect(() => {
     if(genTabs.length>0)
@@ -38,24 +38,39 @@ export default function Shuttle({navigation}) {
      var current = genTabs.find((item) => item.id==shuttleID)
      var index = current.route.findIndex((loc) => (loc.SID-current.route[0].SID)==current.heading)
      var sgenTabs = current.route.slice(index, current.route.length).concat(current.route.slice(0, index-1))
-     var running = 0
-     //console.log(new Date(current.stopTime))
-     setTabs(sgenTabs.map((item) => {
-       if(item.TotalTime>0)
+     var running = (Moment(current.stopTime.replace(" ", "T")).add(new Date(sgenTabs[0].Time*1000).getMinutes(), 'm')).toDate()- new Date()
+     
+     if(Math.round(Math.abs(running/60000))>500)
+     {
+       setFound(true)
+     }
+     else
+     {
+       setFound(false)
+     }
+
+     setTabs(sgenTabs.map((item,index) => {
+      if(index>0)
+      {
+      running = running + item.Time*1000
+      }
+      if(Math.round(Math.abs(running/60000))<500)
+      {
+       if(running<0)
        {
-        running = running + item.TimeSum/item.TotalTime
-       }
-       var time = Moment(current.stopTime.replace(" ", "T")).add(new Date(running).getMinutes(), 'm').toDate() - Moment(Date.now())
-       if(time<0)
-       {
-        return <View style={{width: "100%", display: "flex", flexDirection: "row", justifyContent: "space-between"}}><Text>{"\u2022\t" + item.Name}</Text><Text>{item.TotalTime!=0 ? (
-          new Date(Math.abs(time)).getMinutes().toString() + " Minutes Late") : ""}</Text></View>
+        return <View style={{width: "100%", display: "flex", flexDirection: "row", justifyContent: "space-between"}}><Text>{"\u2022\t" + item.Name}</Text><Text>{(
+          Math.round(Math.abs(running/60000)).toString() + " Minutes Late")}</Text></View>
        }
        else
        {
-        return <View style={{width: "100%", display: "flex", flexDirection: "row", justifyContent: "space-between"}}><Text>{"\u2022\t" + item.Name}</Text><Text>{item.TotalTime!=0 ? (
-          new Date(Math.abs(time)).getMinutes().toString() + " Minutes") : ""}</Text></View> 
+        return <View style={{width: "100%", display: "flex", flexDirection: "row", justifyContent: "space-between"}}><Text>{"\u2022\t" + item.Name}</Text><Text>{(
+          Math.round(Math.abs(running/60000)).toString() + " Minutes")}</Text></View> 
        }
+      }
+      else
+      {
+        return <View style={{width: "100%", display: "flex", flexDirection: "row", justifyContent: "space-between"}}><Text>{"\u2022\t" + item.Name}</Text></View> 
+      }
        
      }))
     }
@@ -92,6 +107,8 @@ export default function Shuttle({navigation}) {
     Times: require('../assets/fonts/times.ttf'),
   });
 
+
+
   var load = false;
 
   useEffect(() => {
@@ -111,14 +128,14 @@ export default function Shuttle({navigation}) {
 }
 
   function defineTrackers() {
-    fetch('http://outpostorganizer.com/SITE/api.php/records/Routes/' + shuttleID + "?camp=wartburg")
+    fetch('https://outpostorganizer.com/SEMO/tDown.php?route=' + shuttleID)
     .then((response) => response.json())
     .then((json) => {
       if(json!=null && json.code!="1003")
       {
-        setTracker( <MapView.Marker key={json.ID}
-        coordinate={{latitude: parseFloat(json.Lat),
-        longitude: parseFloat(json.Lon)}}
+        setTracker( <MapView.Marker key={json.records[0].ID}
+        coordinate={{latitude: parseFloat(json.records[0].Lat),
+        longitude: parseFloat(json.records[0].Lon)}}
         title={json.Name + " Shuttle"}
         >
           <FontAwesome name="map-marker" size={34} color={tabs[aID].color} />
@@ -170,6 +187,8 @@ export default function Shuttle({navigation}) {
     }
   }
 
+  
+
   useEffect(() => {
     if(aID!=null)
     {
@@ -179,10 +198,25 @@ export default function Shuttle({navigation}) {
   }, [load, aID])
 
   useEffect(() => {
-    fetch('http://outpostorganizer.com/SITE/api.php/records/Routes?camp=wartburg').then((response) => response.json())
+    fetch('https://outpostorganizer.com/SEMO/tDown.php').then((response) => response.json())
     .then((json) => {
-      fetch('http://outpostorganizer.com/SITE/api.php/records/Stops?camp=wartburg').then((response) => response.json())
+      fetch('https://outpostorganizer.com/SEMO/sDown.php').then((response) => response.json())
     .then((json2) => {
+      setStops(
+        json.records.map((route) => {
+          return json2.records.filter((item) => item.RID==route.ID).map((item2) => {
+          return(
+            <MapView.Marker tracksViewChanges={false} key={item2.SID}
+            coordinate={{latitude: parseFloat(item2.Lat),
+            longitude: parseFloat(item2.Lon)}}
+            title={item2.Name}
+            >
+              <FontAwesome name="map-marker" size={20} color={theme.colors.gray3} />
+            </MapView.Marker>
+          )
+        })
+        })
+      )
       setGenTabs(json.records.map((route) => {
         return ({
           id: route.ID,
@@ -233,12 +267,18 @@ export default function Shuttle({navigation}) {
         </ScrollView>
         </View>
         <View style={styles.mapContainer}>
-          <Text style={tracker==null ? styles.error : styles.hidden}>
+          <Text style={tracker==null || found ? styles.error : styles.hidden}>
             Uh Oh!  We can't seem to locate the shuttle.{"\n"}Please try again later.
           </Text>
-          <View style={tracker==null ? styles.hidden : styles.snap}>
+          <View style={tracker==null || found ? styles.hidden : styles.snap}>
           <Button color={theme.colors.red} title="Snap To Shuttle" onPress={snap}></Button>
+
           </View>
+          <View style={{position: "absolute", borderRadius: 5, bottom: 0, zIndex: 150, right: 0, width: 50, backgroundColor: "rgba(0, 0, 0, 0.5)"}}>
+          <TouchableOpacity onPress={() => setViewStops(!viewStops)} style={{paddingVertical: 5, width: "100%", justifyContent: "center", alignItems: "center"}}> 
+          <FontAwesome name="map-marker" size={34} color={viewStops ? theme.colors.green : theme.colors.gray} />
+          </TouchableOpacity>
+        </View>
           <MapView style={styles.map}
               showsUserLocation={true}
               ref={mapRef}
@@ -250,9 +290,11 @@ export default function Shuttle({navigation}) {
               }}
 
               >
-                
-            {tracker}
+            {viewStops ? stops[aID] : null}    
+            {found ? null : tracker}
+            
           </MapView>
+          
         </View>
       </View>
       </View>
