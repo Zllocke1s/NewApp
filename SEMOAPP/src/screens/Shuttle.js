@@ -128,7 +128,7 @@ export default function Shuttle({navigation}) {
 }
 
   function defineTrackers() {
-    fetch('https://outpostorganizer.com/SEMO/tDown.php?route=' + shuttleID)
+    fetch('http://bustracker.semo.edu/tDown.php?route=' + shuttleID)
     .then((response) => response.json())
     .then((json) => {
       if(json!=null && json.code!="1003")
@@ -198,9 +198,9 @@ export default function Shuttle({navigation}) {
   }, [load, aID])
 
   useEffect(() => {
-    fetch('https://outpostorganizer.com/SEMO/tDown.php').then((response) => response.json())
+    fetch('http://bustracker.semo.edu/tDown.php').then((response) => response.json())
     .then((json) => {
-      fetch('https://outpostorganizer.com/SEMO/sDown.php').then((response) => response.json())
+      fetch('http://bustracker.semo.edu/sDown.php').then((response) => response.json())
     .then((json2) => {
       setStops(
         json.records.map((route) => {
@@ -231,7 +231,7 @@ export default function Shuttle({navigation}) {
    }).catch((error) =>console.log(error))
     }).catch((error) =>console.log(error))
 
-  }, [shuttleID])
+  }, [shuttleID, tracker])
 
 
   load = true;
