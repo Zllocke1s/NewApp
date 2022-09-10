@@ -21,6 +21,7 @@ export default function Shuttle({navigation}) {
 
 
   const mapRef = React.createRef();
+  const [rotate, setRotate] = useState(false)
   const [stops, setStops] = useState(null)
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
@@ -29,12 +30,22 @@ export default function Shuttle({navigation}) {
   const [viewStops, setViewStops] = useState(false)
   const [found, setFound] = useState(false)
 
+
+  useEffect(() => {
+    if(rotate)
+    {
+
+    }
+  }, [rotate])
+
   useEffect(() => {
     if(genTabs.length>0)
     {
       //genTabs.find((item) => item.id==shuttleID).route.map((item) => {
       //  return JSON.stringify(item,Name) + "\n"
      // }) 
+     console.log("Current Route ID: " + shuttleID)
+     console.log("Current AID: " + aID)
      var current = genTabs.find((item) => item.id==shuttleID)
      var index = current.route.findIndex((loc) => (loc.SID-current.route[0].SID)==current.heading)
      var sgenTabs = current.route.slice(index, current.route.length).concat(current.route.slice(0, index-1))
@@ -108,13 +119,29 @@ export default function Shuttle({navigation}) {
   });
 
 
+  useEffect(() => {
+    if(tracker!=null && rotate)
+    {
+      snap()
+    }
+  }, [tracker])
 
   var load = false;
 
   useEffect(() => {
     const interval = setInterval(() => {
-      defineTrackers()
-    }, 8000);
+      if(rotate)
+      {
+        console.log(aID)
+        
+        setAID(((aID)+1)%5)
+        setShuttleID((shuttleID%5)+1)        
+      }
+      else
+      {
+        defineTrackers()
+      }
+      }, 8000);
     return () => clearInterval(interval);
   })
 
@@ -136,7 +163,7 @@ export default function Shuttle({navigation}) {
         setTracker( <MapView.Marker key={json.records[0].ID}
         coordinate={{latitude: parseFloat(json.records[0].Lat),
         longitude: parseFloat(json.records[0].Lon)}}
-        title={json.Name + " Shuttle"}
+        title={json.records[0].Name + " Shuttle"}
         >
           <FontAwesome name="map-marker" size={34} color={tabs[aID].color} />
         </MapView.Marker>
@@ -165,6 +192,7 @@ export default function Shuttle({navigation}) {
       case(1):
         return theme.colors.red
       case(2):
+      case(5):
         return theme.colors.blue
       case(3):
         return theme.colors.green
@@ -178,6 +206,7 @@ export default function Shuttle({navigation}) {
       case(1):
         return styles.redActive
       case(2):
+      case(5):
         return styles.blueActive
       case(3):
         return styles.greenActive
@@ -195,7 +224,7 @@ export default function Shuttle({navigation}) {
     setRoute(tabs[aID].route)
     defineTrackers()
     }
-  }, [load, aID])
+  }, [load, shuttleID])
 
   useEffect(() => {
     fetch('http://bustracker.semo.edu/tDown.php').then((response) => response.json())
@@ -236,10 +265,12 @@ export default function Shuttle({navigation}) {
 
   load = true;
   var tabs = [
-              {id: 0, color: theme.colors.red, name: "Red", route: "\u2022\tTowers\n\u2022\tDPS/Greek Village\n\u2022\tMMTF/Rec\n\u2022\tDempster\n\u2022\tScully\n\u2022\tParker/Cheney\n\u2022\tMemorial\n\u2022\tRear Academic\n\u2022\tGrauel\n\u2022\tUniversity Center\n\u2022\tMyers\n\u2022\tRear Kent\n\u2022\tPacific\n\u2022\tGrauel\n\u2022\tTowers"}, 
-              {id: 1, color: theme.colors.blue, name: "River", route: "\u2022\tMyers\n\u2022\tRear of Kent\n\u2022\tPacific/Grauel\n\u2022\tBroadway Catapult\n\u2022\tBroadway Mass Media\n\u2022\tIndependence & Spanish\n\u2022\tRiver Campus\n\u2022\tBand Annex\n\u2022\tVandiver/Merick\n\u2022\tBookstore\n\u2022\tDempster\n\u2022\tPoly-Tech/LaFerla\n\u2022\tMMTF/Rec\n\u2022\tInternational Village\n\u2022\tTowers\n\u2022\tGrauel\n\u2022\tRear of Academic\n\u2022\tMemorial"},
-              {id: 2, color: theme.colors.green, name: "Green", route: "\u2022\tMemorial\n\u2022\tParker/Cheney\n\u2022\tScully\n\u2022\tDempster\n\u2022\tPolyTech/LaFerla\n\u2022\tMMTF/Rec\n\u2022\tDPS/Greek Village\n\u2022\tInternational Village\n\u2022\tTowers\n\u2022\tGrauel\n\u2022\tHouck\n\u2022\tVandiver/Merick\n\u2022\tU.C.\n\u2022\tMyers\n\u2022\tRear of Kent\n\u2022\tPacific\n\u2022\tGrauel\n\u2022\tRear of Academic"},
-              {id: 3, color: theme.colors.black, name: "Wings", route: "\u2022\tTowers\n\u2022\tVandiver\n\u2022\tMyers\n\u2022\tPacific\n\u2022\tTown Plaza\n\u2022\tCrossroads\n\u2022\tBest Buy (On Request)\n\u2022\tTarget, Marcus Cape West Cine (On Request)\n\u2022\tWalmart\n\u2022\tWest Park Mall, Hobby Lobby (On Request)\n\u2022\tHouck\n\u2022\tLaFerla\n\u2022\tMMTF"}
+              {id: 1, color: theme.colors.red, name: "Red"}, 
+              {id: 2, color: theme.colors.blue, name: "Blue",},
+              {id: 3, color: theme.colors.green, name: "Green"},
+              {id: 4, color: theme.colors.black, name: "Wings"},
+              {id: 5, color: theme.colors.blue, name: "Blue 2"},
+              {id: 6, color: theme.colors.black, name: "Space"}
             ] 
   if(!loaded)
   {
@@ -249,10 +280,18 @@ export default function Shuttle({navigation}) {
   return (
     <View style={styles.container}>
       <Heading navigation={navigation} title={"Shuttle Tracker"}></Heading>
+      <View style={rotate ? {position: "absolute", width: 20, height: 20, top: 5, left: 5, borderRadius: 50, zIndex: 500, backgroundColor: "#0f0"} : {display: "none"}}><Text></Text></View>
       <View style={styles.tabContainer}>
         {genTabs!=null ? genTabs.map((tab, index) => {
           return (
-            <TouchableOpacity onPress={() => {setAID(index)
+            <TouchableOpacity onLongPress={() => {
+              if(aID==index)
+              {
+                setRotate(!rotate);
+              }
+            }} onPress={() => {setAID(index)
+              console.log(tab)
+              console.log("AID: " + index)
               setShuttleID(tab.id)}} style={aID==index ? tab.style : styles.inactive}><Text style={styles.tabTitle}>{tab.name}</Text></TouchableOpacity>     
           )
         }) : null }

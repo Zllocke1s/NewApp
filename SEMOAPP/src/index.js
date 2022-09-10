@@ -48,7 +48,7 @@ const Router = createStackNavigator(
   AboutUs
   },
   {
-    initialRouteName: 'Landing',
+    initialRouteName: 'Shuttle',
     headerMode: 'none',
   }
 );
