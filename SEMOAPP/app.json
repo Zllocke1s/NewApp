@@ -1,8 +1,18 @@
 {
   "expo": {
+<<<<<<< Updated upstream
     "name": "Shuttle Tracker",
     "slug": "SHUTTLETRACKER",
     "version": "1.0.0",
+=======
+    "androidStatusBar": {
+      "backgroundColor": "#000",
+      "translucent": false
+    },
+    "name": "SEMO Shuttle Tracker",
+    "slug": "SEMOAPP",
+    "version": "2.0.1",
+>>>>>>> Stashed changes
     "orientation": "portrait",
     "icon": "./src/assets/icon.png",
     "splash": {

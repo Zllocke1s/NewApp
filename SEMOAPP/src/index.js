@@ -10,7 +10,7 @@ const Router = createStackNavigator(
     Landing,
   },
   {
-    initialRouteName: 'Landing',
+    initialRouteName: 'Shuttle',
     headerMode: 'none',
   }
 );
