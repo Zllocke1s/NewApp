@@ -6,8 +6,28 @@ import React from 'react';
 import { BackButton } from './BackButton';
 
 
-
 export const Heading = (({navigation, title, children, validate}) => {
+
+    const [lp, setLP] = React.useState(0);
+
+
+
+    function longPress() {
+        if(lp>=5)
+        {
+            setLP(0)
+            if(validate!=null)
+            {
+                validate("credentials");
+            }
+            navigation.navigate("Landing")}
+        else
+        {
+            setLP(lp+1)
+        }
+    
+    }
+
     const styles = {
         
     headerContainer: {
@@ -36,16 +56,10 @@ export const Heading = (({navigation, title, children, validate}) => {
 
     return(
         <View style={styles.headerContainer}>
-        <View style={styles.headerSubContainer}>
-            <BackButton onP={() => {
-                if(validate!=null)
-                {
-                    validate("credentials");
-                }
-                navigation.goBack()}} />
+        <TouchableOpacity style={styles.headerSubContainer} activeOpacity={1.0} onLongPress={() => {longPress()}}>
             {title==null ? null : <Text style={styles.title}>{title}</Text>}
             {children}
-      </View>
+      </TouchableOpacity>
       </View>
 
     )

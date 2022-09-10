@@ -43,45 +43,41 @@ export const styles = StyleSheet.create({
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-between",
+        alignItems: "stretch",
         width: "100%",
     },
     redActive: {
         padding: 10,
         backgroundColor: theme.colors.red,
-        width: 100,
         justifyContent: "center",
         alignItems: "center"
     },
     greenActive: {
         padding: 10,
         backgroundColor: theme.colors.green,
-        width: 100,
         justifyContent: "center",
         alignItems: "center"
     },
     blueActive: {
         padding: 10,
         backgroundColor: theme.colors.blue,
-        width: 100,
         justifyContent: "center",
         alignItems: "center"
     },
     wingsActive: {
         padding: 10,
         backgroundColor: theme.colors.black,
-        width: 100,
         justifyContent: "center",
         alignItems: "center"
     },
     inactive: {
         padding: 10,
         backgroundColor: theme.colors.gray3,
-        width: 100,
         justifyContent: "center",
         alignItems: "center"
     },
     tabTitle: {
-        fontSize: 20,
+        fontSize: 15,
         fontWeight: "bold",
         color: theme.colors.gray,
         marginTop: 0
