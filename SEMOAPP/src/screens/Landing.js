@@ -6,7 +6,6 @@ import { SocialMediaButton } from '../components/SocialMediaButton';
 import React, {useEffect, useState} from 'react';
 import * as Location from 'expo-location';
 import * as TaskManager from 'expo-task-manager';
-import * as BackgroundFetch from 'expo-background-fetch';
 import BackgroundTask from "../components/BackgroundTask";
 import { Button, TextInput } from 'react-native-paper';
 import { getDistance } from 'geolib';
@@ -48,7 +47,7 @@ export default function Landing({ navigation }) {
   useEffect(()=>{
     if(route!=null)
     {
-      fetch('http://outpostorganizer.com/SITE/api.php/records/Stops?camp=wartburg', {
+      fetch('http://bustracker.semo.edu/sDown.php', {
               method: 'GET',
                  })
            .then((response) => response.json())
@@ -112,15 +111,15 @@ export default function Landing({ navigation }) {
     if(route!=null && prevRoute!="" && tracker && location!=null)
     {
       var loc = codes.includes(prevRoute) ? convert[prevRoute] : convert["default"]
-      console.log("Shutdown: " + prevRoute)
-      fetch('https://outpostorganizer.com/SEMO/tUp.php', {
+      console.log("Shutdown: " + prevRoute + " ")
+      fetch('http://bustracker.semo.edu/tUp.php', {
               method: 'PUT',
               body: JSON.stringify({
                 Loc: loc,
                 Lat: 0,
                 Lon: 0,
-                LastUpdated: new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString(),
-                Hash: 0
+                LastUpdated: new Date().toISOString().split("T")[0] + " " + new Date().toLocaleTimeString(),
+                hash: (1+heading)*((location.coords.latitude + location.coords.longitude)/7)
                 
             })
             })
@@ -206,7 +205,7 @@ export default function Landing({ navigation }) {
       <ScrollView style={debug==2 ? {width: "80%"} : {display: "none"}}>
         {distances!=[] ? distances.map((item, index) => {
           return(
-            <Text key={index} style={label}>{item.name}: <Text style={item.distance<80 ? [{backgroundColor: "#0f0"}, label] : normal}>{item.distance} meters</Text></Text>
+            <Text key={index} style={label}>{item.name}: <Text style={item.distance<70 ? [{backgroundColor: "#0f0"}, label] : normal}>{item.distance} meters</Text></Text>
           )
         }) : null}
       <Text style={label}><Text style={normal}></Text></Text>
@@ -234,35 +233,37 @@ export default function Landing({ navigation }) {
             })
             setActiveDistances(distances) 
             //console.log(distances.find((d) => d.distance < 70))
-            if(distances.find((d) => d.distance < 80)!=undefined)
+            if(distances.find((d) => d.distance < 70)!=undefined)
             {
-              var d1 = distances.filter((d) => d.distance < 80 && (d.Heading-heading)>0)
+              var d1 = distances.filter((d) => d.distance < 70 && (d.Heading-heading)>0)
               //(d)
-              var d = d1.length>1 ? d1[0] : distances.filter((d) => d.distance < 80)
-              if(d.Heading!=null)
+              console.log("Parked!")
+              var d = d1.length>1 ? d1 : distances.filter((d) => d.distance < 70)
+              console.log(d[0])
+              if(d[0].Heading!=null)
               {
-                setHeading((d.Heading+1)%stops.length)
+                setHeading((d[0].Heading+1)%stops.length)
               }           
-              fetch('https://outpostorganizer.com/SEMO/tUp.php', {
+              console.log(new Date().toISOString().split("T")[0] + " " + new Date().toLocaleTimeString() + ".000")
+              fetch('http://bustracker.semo.edu/tUp.php', {
               method: 'PUT',
               body: JSON.stringify({
                 Loc: loc,
                 Lat: location.coords.latitude,
                 Lon: location.coords.longitude,
                 Heading: heading,
-                Hash: (heading * (location.coords.latitude + location.coords.longitude))/7,
-                LastStopTime: new Date().toISOString().split("T")[0] + " " + new Date().toLocaleTimeString(),
-                LastUpdated: new Date().toISOString().split("T")[0] + " " + new Date().toLocaleTimeString()
+                hash:(1+heading)*((location.coords.latitude + location.coords.longitude)/7),
+                LastStopTime: new Date().toISOString().split("T")[0] + " " + new Date().toLocaleTimeString() + ".000",
 
 
               })
-            }).then((json) => json.json()).then((json2) => console.log(json2))
+            }).then((json) => json.json()).then((json2) => console.log("New Stop Stored:  " + json2))
               setPrevTime(Date.now())
             }
             else
             {
-              console.log("Updateing")
-              fetch('http://outpostorganizer.com/SITE/api.php/records/Routes/' + loc + '?camp=wartburg', {
+
+              fetch('http://bustracker.semo.edu/tUp.php', {
               method: 'PUT',
               body: JSON.stringify({
                 Loc: loc,
@@ -270,7 +271,7 @@ export default function Landing({ navigation }) {
                 Lon: location.coords.longitude,
                 Heading: heading,
                 LastUpdated: new Date().toISOString().split("T")[0] + " " + new Date().toLocaleTimeString(),
-                Hash: (heading * (location.coords.latitude + location.coords.longitude))/7
+                hash: (1+heading)*((location.coords.latitude + location.coords.longitude)/7)
             })
             })
            .then((response) => response.json())
